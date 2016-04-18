@@ -14,9 +14,11 @@ You do not need to install your own instance of Synchronise to use it. I advise 
 
 ## Introduction
 Synchronise is an integration backend as a service created by [Thibaut Rey](https://www.twitter.com/thibautrey). It helps you connect web services to your app, without having to configure everything yourself or even maintain a server. It simplifies the integration process by standardising any APIs, and turning them into objects called "Components".
-Components can be combined together in a "Workflow" to create more complex actions. Steps after steps you can create very powerful Workflows that will save you time and money. Imagine a "Workflow" that "registers a user on your database", "send an email with mailgun" and "create a customer account on stripe", all that without having to write a single line of code.
+Components can be combined together in a "Workflow" to create more complex actions. Steps after steps you can create very powerful Workflows that will save you time and money.
 
-The entire codebase is provided as is under the MIT licence (except the database containing sensitive data of existing customers). This means you are free to copy, modify and distribute Synchronise however you want. Software should be shared and I am convinced that the work the community will achieve, will always surpass my own dedication to this platform.
+Imagine a "Workflow" that "registers a user on your database", "send an email with mailgun" and "create a customer account on stripe", all that without having to write a single line of code.
+
+The entire codebase is provided as is, under the MIT licence except the database containing sensitive data of existing customers. This means you are free to copy, modify and distribute Synchronise however you want. Software should be shared, and I am convinced the work the community will achieve, will always surpass my own dedication to this platform.
 
 Here are the 3 features available so far:
 ![Components on Synchronise](https://images.synchronise.io/githubImage2.png)
@@ -29,14 +31,14 @@ Here are the 3 features available so far:
 git clone https://github.com/synchroniseiorepo/server
 ```
 
-## Install the databases
+### Install the databases
 Synchronise needs 3 separate databases to avoid collissions.
-First of all, create 3 new Redis databases. You can either do this locally by downloading [Redis](http://redis.io/download), or you could create a FREE account at [Redis Labs](https://redislabs.com/).
+First of all, create 3 new Redis databases. You can either do this locally by downloading [Redis](http://redis.io/download), or you could create a FREE account at [Redis Labs](https://redislabs.com/). Disclaimer: I am not affiliated with Redis Labs in anyway.
 
 The 3 databases you need to create are:
 - "data" Contains the actual data of Synchronise (users, components, projects...)
 - "session" The session of the users
-- "events" The events database is dedicated to the PubSub system for refreshing the web interface live. Since this would generate a lot of traffic I wanted to separate it from the "data" for efficiency
+- "events" The events database is dedicated to the PubSub system for refreshing the web interface live.
 
 Once you have done that, go to the file "/helpers/assets.js" and modify the settings accordingly using the credentials of your redis databases.
 
@@ -52,9 +54,13 @@ if(process.env.AWS){
 And that's all you need to do. The system will automatically create and populate the different data stores without any other actions from your side.
 
 ### What about MySQL or Oracle?
-Fact: Synchronise is all about speed, and to achieve the best efficiency I decided to build it entirely around Redis. I did not consider a second the idea of MySQL because it did not make sense at the time. Now, this does not mean you MUST use Redis to run Synchronise. You could use MySQL with just a few modifications of the code. The elements that need to be modified are all contained in the file "helpers/assets.js". The name of the file is not relevant (I know), but changing it now would require quite some work.
+To achieve the best efficiency I decided to build Synchronise entirely around Redis. I did not consider a second, the idea of MySQL because it did not make sense at the time.
 
-If you want to modify the databases system, look for a line starting like this:
+Now, this does not mean you MUST use Redis to run Synchronise. You could use MySQL with just a few modifications of the code. The elements that you need to be modify are all contained in the file "helpers/assets.js".
+
+The name of the file "assets" is not relevant I know that, but changing it now would require quite some work. If someone wants to modify it everywhere, feel free to rename it to something like "config.js" for example.
+
+If you want to modify the databases system, look for a line starting like this in the file "helpers/assets.js":
 ```javascript
 var publishRedisAdapter    = redis(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
 	publishRedisAdapter.on("error", function(error){
@@ -120,32 +126,38 @@ You need to add 2 new files "certificate.pem" and "privatekey.pem" in the root f
 ...
 
 ## Deploy Synchronise on AWS
-Deploying Synchronise on AWS takes a bit more work, but not too much we promise!
+Deploying Synchronise on AWS takes a bit more work, but not too much I promise!
 
-The first thing to do is to get rid of all the modules that AWS does not like. For some reasons, EC2 instances don't want to run if some NPM modules are provided. We think this is for security reasons, but we could not find any clear evidence of that. These packets are not mandatory for Synchronise to execute properly, so it is safe to remove them.
+### Spring clean
+The first thing to do is to get rid of all the modules that AWS does not like.
+
+For some reasons, EC2 instances don't want to run if some NPM modules are provided. I think this is for security reasons, but we could not find any clear evidence of that. These packets are not mandatory for Synchronise to execute properly, so it is safe to remove them.
 
 In the folder of Synchronise, execute the following command to remove all the modules AWS does not like:
 ```shell
-npm remove oniguruma; npm remove fsevents; npm remove bufferutil; npm remove utf-8-validate
+npm remove oniguruma; npm remove fsevents; npm remove bufferutil; npm remove utf-8-validate;
 ```
 
-Now that we have cleaned our folder, we need to consider whether we want to deploy on a single instance, or if we want to deploy on multiple instances for scalability purposes.
+Now that you have cleaned the folder, you need to consider whether you want to deploy on a single instance, or if you want to deploy on multiple instances for scalability purposes.
 
 ### Single Instance
-Let's face it, Synchronise does not play well with ElasticBeanstalk because it uses some custom configurations for the WebSockets.
+Let's face it, Synchronise does not play well with Elastic Beanstalk, because it uses some custom configurations for the WebSockets.
 
-However, we still recommend to create an EBS application because it simplifies the deployment process. We will use EBS for its deployment script, not for its scalability purpose.
+However, I still recommend to create an EBS application because it simplifies the deployment process. You will use EBS for its deployment script, not for its scalability purpose.
 
 Go and create a new app on AWS Elastic Beanstalk.
 
 Now that this is done, go in the main folder of Synchronise and find the folder named ".aws". Inside it you will find a file called "credentials". Put your own AWS credentials there.
-Note that you should also put your AWS credentials in the file /helpers/assets.js when you configure Synchronise, look for a line starting like this:
+
+Note that you should also put your AWS credentials in the file "/helpers/assets.js" when you configure Synchronise.
+
+Look for a line starting like this:
 ```javascript
 exports.AWSCredentials = {
 ```
 
 ### Getting ready for deployment.
-Configure your Elastic environment with
+Configure your Elastic environment with:
 ```shell
 eb init
 ```
@@ -157,11 +169,19 @@ eb deploy your_application_name
 Your application should be running now at the address given by AWS.
 
 ### Configuring deployed app
+Almost there, one last step before it works properly. We need to tell Synchronise it is running in production mode.
 
+In ElasticBeanstalk go to "Configuration" -> "Software Configuration" -> scroll down to "Environment Properties".
+
+Add a new property with the name "AWS" and the value "true".
+
+Apply your changes and wait for relaunch of your instance. Finger crossed, everything should work fine now.
 
 ### Multiple Instances
+Coming soon...
 
-## File structure
+## Contribute
+### File structure
 - backend      : Backend functions. In an MVC architecture this would be the Controller
 - bin          : Setup of the app and scripting
 - helpers      : Functions that are just doing one task, also contains the credentials of the software
@@ -181,8 +201,8 @@ Your application should be running now at the address given by AWS.
 - routes       : Contains all the routes of the website
 - view         : Contains all the views of the website
 
-## Realtime Interface Update
-Hold tight, this one is challenging to understand. It is not complicated, but confusing at first. Our constraints were speed, data footprint and memory footprint on the server.
+### Realtime Interface Update
+Hold tight, this one is challenging. It is not complicated, but confusing at first. Our constraints were speed, data footprint and memory footprint on the server.
 This is not your usual Realtime PubSub because we wanted to ensure it is optimized for our case. We estimate you can run up to 2500 clients with a t2.micro instance on AWS.
 
 If you have difficulty with understanding the realtime system, give us a shout @synchroniseio on Twitter.
