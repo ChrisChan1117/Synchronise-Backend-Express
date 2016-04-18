@@ -99,6 +99,13 @@ The entry file for the server is located in the "bin" folder
 ```shell
 node bin/www
 ```
+
+Your server should now be running at
+
+```
+http://localhost:3001
+````
+
 Because this is the first time you run the server, there are no admin on the system. You MUST, create the first user using a MANUAL signin system. Basically, use email and password, not the social login. This first user you create will have all the permissions, including the superadmin panel.
 
 All users after the first one, will have normal "user" permissions. You can modify the permissions of a user by going to the superadmin panel.
