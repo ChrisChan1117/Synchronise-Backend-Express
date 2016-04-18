@@ -1,0 +1,35 @@
+<% include template/header %>
+	<% include template/dashboard_side_menu %>
+	
+	<div id="wrapper">
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="page-header">
+                            Analytics
+                        </h1>
+                        <% if(typeof(breadcrumb) != "undefined"){ %>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Analytics
+                            </li>
+                        </ol>
+                        <% } %>
+                    </div>
+                </div>
+                <!-- /.row -->
+				
+				<hr/>
+				<% include template/footer_content %>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+<% include template/footer %>

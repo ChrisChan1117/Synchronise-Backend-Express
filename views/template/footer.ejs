@@ -1,0 +1,82 @@
+    <% if(typeof(hideNormalFooter) == "undefined"){ %>
+        <hr id="footer_separator" />
+        <div class="container">
+    		<% include footer_content %>
+    	</div>
+    <% } %>
+
+<% include modal %>
+
+<% var pathToJs; if(url.indexOf("localhost") != -1){ pathToJs = "/js/";}else{ pathToJs = "https://js.synchronise.io/webplatform/"; } %>
+
+<script type="text/javascript">function dependenciesLoader(n,e){var d=window.setInterval(function(){for(var i=[],o=0;o<n.length;o++)i.push(typeof window[n[o]]);-1==i.indexOf("undefined")&&(window.clearInterval(d),e())},0)}</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js"></script>
+<script type="text/javascript"
+        src="<%= pathToJs %>synchronise.js"></script>
+<script type="text/javascript"
+        src="<%= pathToJs %>dependencies/md5.js"></script>
+<script type="text/javascript"
+        src="<%= pathToJs %>dependencies/combined/underscore-persist-jquery-jquery.ui-bootstrap-bootstrap.ui-mousetrap-classie-skype-promise-react-react.dom-google.platform.js"></script>
+<script data-cfasync='true' type="text/javascript" src="<%= pathToJs %>libraries/modal.js"></script>
+<script data-cfasync='true' type="text/javascript" src="<%= pathToJs %>libraries/modalMessage.js"></script>
+<script data-cfasync='true' type="text/javascript" src="<%= pathToJs %>helpers/url.js"></script>
+<script data-cfasync='true' type="text/javascript" src="<%= pathToJs %>menu.js"></script>
+<script data-cfasync='true' type="text/javascript" src="<%= pathToJs %>libraries/shortcuts.js"></script>
+
+<script type="text/javascript">
+    dependenciesLoader(["Synchronise"], function(){
+        var userId = false;
+        if(Synchronise.User.current()){
+            userId = Synchronise.User.current().id;
+        }
+        dataLayer = [{
+            "Synchronise": Synchronise,
+            "Synchronise.User.current": Synchronise.User.current(),
+            "Synchronise.User.current().id": userId
+        }];
+
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MPZVPH');
+    });
+</script>
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MPZVPH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<% var intercomAppID; if(url.indexOf("localhost") != -1){ intercomAppID = "tm94zhh2";}else{ intercomAppID = "npb88fb3";} %>
+<% if(typeof(user) != "undefined"){ %>
+<script type="text/javascript">
+    window.intercomSettings = {
+        user_hash: "<%= user.intercom_user_hash %>",
+        user_id: "<%= user.id %>",
+        type_login: "<%= user.type_login %>",
+        email: "<%= user.email %>",
+        app_id: "<%= intercomAppID %>",
+        name: "<%= user.name %>",
+        created_at: <%= new Date(user.created_at).getTime()/1000 %>,
+        projects: <%= user.amountOfProjects %>,
+        components: <%= user.amountOfComponents %>,
+        bonus_requests: <%= user.bonus_requests %>,
+        requests_executed: <%= user.requests_executed %>,
+        subscription: "<%= user.subscription %>",
+        subscriptionEnds: <%= new Date(user.subscriptionEnds).getTime()/1000 %>
+    };
+</script>
+<% }else{ %>
+<script type="text/javascript">
+    window.intercomSettings = {
+      app_id: "<%= intercomAppID %>"
+    };
+</script>
+<% } %>
+<script type="text/javascript">(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/npb88fb3';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+
+<% js.forEach(function(el, index) { %>
+    <script type="text/javascript" src="<%= pathToJs %><%= el %>.js"></script>
+<% }); %> 
+
+</body>
+</html>

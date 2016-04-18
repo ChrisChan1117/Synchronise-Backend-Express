@@ -1,0 +1,124 @@
+<div class="row-fluid bigBackground" data-idBlock="rules">
+    <h1 align="center">Define rules</h1>
+    <p align="center">The rules are all the conditions you want to apply to your query. The equivalent of a rule in SQL would be the <b>Where</b> statement, and in NoSQL it would be the <b>Find</b> function. However we strongly recommend to avoid comparing the <b>Rules</b> with other languages since it is very specific to Synchronise.IO.</p>
+    <hr/>
+
+    <div class="row-fluid">
+        <div class="col-xs-12">
+            <div class='rulesLoading'>
+                <div class='bullet'></div>
+                <div class='bullet'></div>
+                <div class='bullet'></div>
+                <div class='bullet'></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row-fluid">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 rules">
+                    
+                </div>
+            </div>
+            
+            <div class="col-xs-12">
+                <br/>
+            </div>
+            
+            <!-- PATTERN -->
+            <div id="rulePattern" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ruleRow hidden">
+                <div class="col-lg-11 col-md-12 col-sm-12 col-xs-12 content">
+                    <div class="row-fluid">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 field"></div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 rule">
+                            
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 value">
+                            <div class="valueContainer"></div>
+                            <div class="input row">
+                                <select class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-control">
+                                    <option value="constant">Constant</option>
+                                    <option value="variable">Variable</option>
+                                    <!--<option value="field">Field</option>-->
+                                </select>
+                                
+                                <input type="text" class="form-control col-lg-6 col-md-6 col-sm-6 col-xs-6" placeholder="Type the value">
+                                
+                                <div class="inputInfo visible-lg">Return to confirm</div>
+                            </div>    
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 hidden-lg remove" align="center">
+                        <button class="btn btn-xs btn-default cbutton cbutton--effect-novak">Remove</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-1 visible-lg remove" align="center">
+                    <i class="fa fa-times"></i>
+                </div>
+            </div>
+            
+            <div class='group row hidden' id="groupPattern">
+                <div class='row'>
+                    <div class='rule'>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="dataType_rules">
+                <select class="form-control number dataTypeRule hidden">
+                    <option data-target-available="true" value="equals">Equals</option>
+                    <option data-target-available="true" value="doesNotEqual">Does not equal</option>
+                    <option data-target-available="true" value="lessThan">Less than</option>
+                    <option data-target-available="true" value="greaterThan">Greater than</option>
+                    <option data-target-available="true" value="lessThanOrEqualTo">Less than or equal to</option>
+                    <option data-target-available="true" value="greaterThanOrEqualTo">Greater than or equal to</option>
+                    <option data-target-available="false" value="exists">Exists</option>
+                    <option data-target-available="false" value="doesNotExist">Does not exist</option>
+                </select>
+                
+                <select class="form-control string dataTypeRule hidden">
+                    <option data-target-available="true" value="equals">Equals</option>
+                    <option data-target-available="true" value="doesNotEqual">Does not equal</option>
+                    <option data-target-available="true" value="startsWith">Starts with</option>
+                    <option data-target-available="false" value="exists">Exists</option>
+                    <option data-target-available="false" value="doesNotExist">Does not exist</option>
+                </select>
+                
+                <select class="form-control boolean dataTypeRule hidden">
+                    <option data-target-available="false" value="true">True</option>
+                    <option data-target-available="false" value="false">False</option>
+                </select>
+                
+                <select class="form-control date dataTypeRule hidden">
+                    <option data-target-available="true" value="before">Before</option>
+                    <option data-target-available="true" value="after">After</option>
+                    <option data-target-available="true" value="beforeOrEqual">Before or equal</option>
+                    <option data-target-available="true" value="afterOrEqual">After or equal</option>
+                    <option data-target-available="false" value="exists">Exists</option>
+                    <option data-target-available="false" value="doesNotExist">Does not exist</option>
+                </select>
+            </div>
+            
+            <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden" id="andOrBadge" align="center">
+                <div class="andOrBadge">
+                    <div class="value"></div>
+                </div>
+            </div>
+            
+            <div class="row-fluid hidden ruleAdd" id="addNewRulePattern">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 addNewRuleButton">
+                    <input type="text" class="form-control" placeholder="Add a new rule : type a field name to add a new rule">
+                </div>
+            </div>
+            <!-- END OF PATTERN -->
+
+            <div class="row-fluid">
+                <div class="col-xs-12">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

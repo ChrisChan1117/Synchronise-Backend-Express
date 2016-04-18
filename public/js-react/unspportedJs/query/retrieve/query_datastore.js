@@ -1,0 +1,353 @@
+var QueryDatastore;
+(function() {
+    dependenciesLoader(["$", "React", "ReactDOM", "Loader", "Synchronise", "PanelFlow", "panelFlow" /* Instance of the flow */], function(){
+        QueryDatastore = React.createClass({
+            getInitialState: function(){
+                return {
+                    currentPage        : 0,
+                    db_type            : "",
+                    databases          : [],
+                    selected_datastore : null,
+                    selected_db_id     : null,
+                    loading_db_type    : false
+                };
+            },
+            componentDidMount: function(){
+                var target = this;
+                var queryId = urlH.getParam("query");
+                if (queryId) {
+                    Synchronise.Cloud.run("getQuery", {id_query: queryId, realtime: false}, {
+                        success: function (query) {
+                            target.select_db_type(query.db_type);
+                            target.setState({
+                                loading_db_type : true,
+                                selected_db_id  : query.db_id
+                            });
+                        }
+                    });
+                }
+
+                $("#blocks").on('panelWillAppear', function(e, block){
+                    if(block.blockId() == "dataSources"){
+                        $("#titleBlock h1 small").text("Select your data source");
+                        $("#blocks").opacity = 1;
+                    }
+                });
+            },
+            select_db_type: function (new_db_type) {
+                var target = this;
+                    target.setState({
+                        db_type         : new_db_type,
+                        loading_db_type : true,
+                        databases       : []
+                    });
+
+                Synchronise.Cloud.run("getListOfDatabaseWithType", {type: new_db_type, realtime: true}, {
+                    success: function (result) {
+                        target.setState({
+                            loading_db_type : true,
+                            databases       : []
+                        });
+
+                        var databases = [];
+
+                        var dbLoaded = 0; // Keep track of how many DBs have been loaded
+
+                        for (var i = 0; i < result.databases.length; i++) {
+                            Synchronise.Cloud.run("databaseObject", {realtime: false, id: result.databases[i].id}, {
+                                success: function (db) {
+                                    databases = databases.concat(db);
+                                },
+                                always: function(){
+                                    dbLoaded++;
+                                    // When all DB have been loaded
+                                    if(dbLoaded>= result.databases.length){
+                                        target.setState({
+                                            loading_db_type : false,
+                                            databases       : databases
+                                        });
+                                    }
+                                }
+                            });
+                        }
+
+                        $('#listDataStore').animate({opacity: 1}, 500);
+
+                        // There is no DB to load
+                        if(!result.databases.length){
+                            target.setState({
+                                loading_db_type : false
+                            });
+                        }
+                    }
+                });
+            },
+            select_datastore: function (id) {
+                var target = this;
+
+                if(target.state.selected_db_id != id){
+                    var type = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+                    // INSERT WARNING BEFORE CREATING QUERY
+                    var queryId = urlH.getParam("query");
+                    // if we are updating a query, check if the user really wants to change the datastore
+                    if(queryId){
+                        new ModalConfirm("You are about to change the database used for this query, if you proceed it will result in all of the fields selected previously being deleted. Do you want to continue anyway?", function(confirm){
+                            if(confirm){
+                                target.setState({
+                                    selected_db_id: id
+                                });
+                                modalMessage.show('Updating datastore, please wait ...');
+
+                                Synchronise.Cloud.run("changeQueryDatastore", {
+                                    id_query : queryId,
+                                    id_db    : id,
+                                    db_type  : target.state.db_type
+                                }, {
+                                    success: function(){
+                                        panelFlow.scrollToBlock('name');
+                                    },
+                                    error: function(err){
+                                        new ModalParseError(err);
+                                    },
+                                    always: function(){
+                                        modalMessage.hide();
+                                    }
+                                });
+                            }
+                        });
+                    }else{
+                        this.setState({
+                            selected_db_id : id
+                        });
+                        modalMessage.show('Saving datastore, please wait ...');
+                        Synchronise.Cloud.run("createQuery", {
+                            id_project : window.idProject,
+                            id_db      : id,
+                            type       : type,
+                            db_type    : this.state.db_type
+                        }, {
+                            success: function (query) {
+                                urlH.insertParam("query", query.id);
+                                modalMessage.hide();
+                                panelFlow.scrollToBlock('name');
+                            }
+                        });
+                    }
+                }else{
+                    panelFlow.scrollToBlock('name');
+                }
+            },
+            render: function () {
+                return (
+                    <div>
+                        <div className="row-fluid" id="listOfDatabaseTypes">
+                            <Datastores db_type={this.state.db_type} select_db_type={this.select_db_type}
+                                        currentPage={this.state.currentPage}/>
+                        </div>
+
+                        <div className="container-fluid" id="listDataStore" data-idblock="listDataStore">
+                            <DatastorePatternList db_type={this.state.db_type} select_datastore={this.select_datastore}
+                                                  selected_datastore={this.state.selected_datastore}
+                                                  databases={this.state.databases}
+                                                  loading={this.state.loading_db_type}
+                                                  selected_db_id={this.state.selected_db_id}/>
+                        </div>
+                    </div>
+                );
+            }
+        });
+
+        var Datastores = React.createClass({
+            getInitialState: function () {
+                return {
+                    loading          : false,
+                    databaseTypes    : [],
+                    selected_db_type : null
+                };
+            },
+            componentDidMount: function () {
+                var target = this;
+                    target.setState({loading: true});
+
+                Synchronise.Cloud.run("getTypeOfDatastores", {realtime: false}, {
+                    success: function (data) {
+                        target.setState({databaseTypes: data});
+                    },
+                    error: function (err) {
+                        new ModalParseError(err);
+                    },
+                    always: function () {
+                        target.setState({loading: false, updating: false});
+                    }
+                });
+            },
+            selectDBType: function (db_type_index) {
+                var selected = this.state.databaseTypes[db_type_index];
+
+                this.setState({
+                    selected_db_type: db_type_index
+                });
+
+                this.props.select_db_type(selected.masterType);
+            },
+            render: function(){
+                var target = this;
+
+                var loader = "";
+                if(target.state.loading){
+                    loader = <Loader />;
+                }
+
+                return (
+                    <div>
+                        {loader}
+                        {target.state.databaseTypes.map(function (item, key) {
+                            return (<Datastore key={key} masterType={item.masterType} title={item.title}
+                                               iconName={item.iconName} selectDBType={target.selectDBType.bind(null, key)}
+                                               selected={target.props.db_type == item.masterType}/>);
+                        })}
+                    </div>
+                );
+            }
+        });
+
+        var Datastore = React.createClass({
+            getInitialState: function () {
+                return {
+                    active: false
+                };
+            },
+            render: function () {
+                var classname = "panel panel-default dataStoreType";
+                if (this.props.selected) {
+                    classname += " active";
+                }
+                return (
+                    <div className="datastoreTypeContainer" onClick={this.props.selectDBType}>
+                        <div className={classname} data-type={this.props.masterType}>
+                            <div className="panel-heading">{this.props.title}</div>
+                            <div className="panel-body">
+                                <img src={"/images/"+this.props.iconName+".png"}/>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
+
+        var DatastorePatternList = new React.createClass({
+            displayName: "DatastorePatternList",
+            selected: function (index) {
+                var target = this;
+                    target.setState({
+                        selected_datastore: index
+                    });
+
+                var selected = this.props.databases[index];
+                var type = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+                modalMessage.show('Saving datastore, please wait ...');
+                var queryId = urlH.getParam("query");
+
+                // if we are updating a query, check if the user really wants to change the datastore
+                if(queryId){
+                    new ModalConfirm("You are about to change the database used for this query, if you proceed it will result in all of the fields selected previously being deleted. Do you want to continue anyway?", function(confirm){
+                        if(confirm){
+                            Synchronise.Cloud.run("changeQueryDatastore", {
+                                id_query : queryId,
+                                id_db    : selected.id,
+                                db_type  : target.props.db_type
+                            }, {
+                                success: function (query) {
+                                    modalMessage.hide();
+                                    window.setTimeout(function () {
+                                        panelFlow.scrollToBlock('name');
+                                    }, 300);
+                                }
+                            });
+                        }
+                    });
+                }else{
+                    Synchronise.Cloud.run("createQuery", {
+                        id_project : window.idProject,
+                        id_db      : selected.id,
+                        type       : type,
+                        db_type    : this.props.db_type
+                    }, {
+                        success: function (query) {
+                            urlH.insertParam("query", window.idProject);
+                            modalMessage.hide();
+                            window.setTimeout(function () {
+                                panelFlow.scrollToBlock('name');
+                            }, 300);
+                        }
+                    });
+                }
+            },
+            render: function () {
+                var target = this;
+                var loader = "";
+
+                if(this.props.loading){
+                    loader = <Loader />;
+                }
+
+                var content;
+                // No databases and not loading -> Warning message
+                if(!this.props.loading && !this.props.databases.length){
+                    content = (
+                        <div className="noDataStore" style={{textAlign:"center"}}>No databases found for this type. Please go to the <a href="/database">Database</a> page if you want to add a new one.</div>
+                    );
+                }else if(!this.props.loading && this.props.databases.length){
+                    // Not loading and found available databases
+                    content = (
+                        <ul className="list-inline">
+                            {this.props.databases.map(function (item, key) {
+                                return (<DatastorePattern key={key}
+                                                          type={item.type}
+                                                          title={item.title}
+                                                          id={item.id}
+                                                          clicked={target.props.select_datastore.bind(null, item.id)}
+                                                          selected={item.id == target.props.selected_db_id}/>);
+                            })}
+                        </ul>
+                    );
+                }
+
+                if(!this.props.loading){
+                    return (
+                        <div className="col-lg-12 well" align="center">
+                            {loader}
+                            <div className="content">{content}</div>
+                        </div>
+                    );
+                }else{
+                    return (<div className="col-lg-12 well" align="center">{loader}</div>);
+                }
+            }
+        });
+
+        var DatastorePattern = new React.createClass({
+            displayName: "DatastorePattern",
+            render: function () {
+                var className = "panel fadeInListDataStorePanel";
+                if (this.props.selected) {
+                    className += " active";
+                }
+
+                return (
+                    <li className="dataStore" store-type={this.props.type} data-id={this.props.id}
+                        onClick={this.props.clicked} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
+                        <div className={className} style={{display: "inline-block"}}>
+                            <div className="panel-heading">{this.props.title}</div>
+                            <div className="panel-body">
+                                <img src={"/images/"+this.props.type+".png"} width="auto" height="55px"/>
+                            </div>
+                        </div>
+                    </li>
+                );
+            }
+        });
+
+        ReactDOM.render(<QueryDatastore />, document.getElementById("query_datastore"));
+    });
+})();

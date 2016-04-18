@@ -1,0 +1,94 @@
+<% include template/header %>
+	<% include template/dashboard_side_menu %>
+
+	<div id="wrapper">
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="page-header">
+                            Super Administrator
+                        </h1>
+                        <% if(typeof(breadcrumb) != "undefined"){ %>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Super Administrator
+                            </li>
+                        </ol>
+                        <% } %>
+
+                        <h3>
+                        	Warning
+                        	<small>This page contains very sensitive information and features. Be extremely careful of what you do with it!</small>
+                        </h3>
+
+						<hr/>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+
+				<div class="row-fluid" id="menuTab"></div>
+
+				<div class="row-fluid">
+					<div class="tab-content">
+					    <div role="tabpanel"
+							 class="tab-pane"
+							 id="databaseTab">
+							<div id="topOfPageForCalculation"></div>
+							<div id="database" class="col-xs-12">
+								<div class="flowPanel"
+									 data-idBlock="databaseBlockPanel"
+									 id="databaseBlockPanel">
+									<div id="databaseBlock"></div>
+								</div>
+
+								<div class="flowPanel"
+									 data-idBlock="databaseModelContentPanel"
+									 id="databaseModelContentPanel">
+									<div id="databaseModelContent"></div>
+								</div>
+							</div>
+						</div>
+
+					    <div role="tabpanel"
+						     class="tab-pane"
+							 id="populate">
+							<div id="recordsPopulate"></div>
+						</div>
+
+						<div role="tabpanel"
+							 class="tab-pane"
+							 id="realtime">
+							<div id="realtime"></div>
+						</div>
+
+						<div role="tabpanel"
+							 class="tab-pane"
+							 style="padding-top: 80px"
+							 id="marketplace">
+							<div id="marketplace"></div>
+						</div>
+
+						<div role="tabpanel"
+							 class="tab-pane"
+							 style="padding-top: 80px"
+							 id="MarketplaceValidation">
+							<div id="MarketplaceValidation"></div>
+						</div>
+					</div>
+				</div>
+
+				<hr/>
+
+				<% include template/footer_content %>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+<% include template/footer %>

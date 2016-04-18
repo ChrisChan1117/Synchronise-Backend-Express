@@ -1,0 +1,49 @@
+<% include template/header %>
+	<% include template/dashboard_side_menu %>
+	
+	<div id="wrapper">
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="page-header">
+                            API
+                        </h1>
+                        <% if(typeof(breadcrumb) != "undefined"){ %>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> API
+                            </li>
+                        </ol>
+                        <% } %>
+                    </div>
+                    
+                    <div class="row-fluid">
+                    	<div class="col-xs-12">
+                    		<p>In order to protect your queries from the rest of the service we have implemented a mechanism of <b>Public Key</b>. You need to use this key every time you want to run a query or fetch its data. This key is encrypted using your password in order to make sure <b>we</b> cannot see it on the servers. Therefore you will need to type your password to display the <b>Public key</b>. This key does not allow you or anyone else to decrypt the database credentials, that is why you can copy-paste it in your application safely. The only purpose of this key is to run the queries on your behalf without giving your password away.</p>
+                    		
+                    		<p>Be aware that changing or reseting your password will also change this <b>Public Key</b> and re-encrypt all your database credentials. There will be no need to update the database credentials since our system will re-encrypt them automatically. However, any application using this <b>Public Key</b> will not be able to run anymore, you will need to update the <b>Public Key</b> in your code before executing any new query.</p>
+                    	</div>
+                    	
+                    	<div class="col-xs-12">
+                    		<hr/>
+                    	</div>
+                    </div>
+                    
+                    <div id="api_key"></div>
+                </div>
+                <!-- /.row -->
+				
+				<hr/>
+				<% include template/footer_content %>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+<% include template/footer %>

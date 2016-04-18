@@ -1,0 +1,338 @@
+body {
+    overflow: hidden
+}
+
+#flowPanels {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap
+}
+
+.flowPanel::-webkit-scrollbar{
+    width: 2px;
+    height: 2px;
+}
+
+.flowPanel::-webkit-scrollbar-track{
+    background: transparent;
+    border-radius: 2px;
+}
+
+.flowPanel::-webkit-scrollbar-thumb{
+    background: darkgray;
+    border-radius: 2px;
+}
+
+.flowPanel {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    margin-bottom: 0;
+
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+.flowPanel .table-responsive {
+    overflow-x: auto;
+    width: 100%
+}
+
+.flowPanel small, p {
+    white-space: normal
+}
+
+.panel, .panel-heading{
+    transition: background-color 0.3s ease;
+}
+
+.panel:hover > .panel-heading {
+    background-color: rgba(82, 152, 252, 1);
+    color: white;
+}
+
+.panel:hover{
+    /*background-color: rgba(82, 152, 252, 0.22);*/
+    cursor: pointer;
+}
+
+.masterLoading {
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    margin: auto;
+}
+.masterLoading .bullet {
+    position: absolute;
+    padding: 5px;
+    border-radius: 50%;
+    background: #5298fc;
+    -webkit-animation: masterLoading 1s ease-in-out 0s infinite;
+    animation: masterLoading 1s ease-in-out 0s infinite;
+}
+.masterLoading .bullet:nth-child(1) {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+}
+.masterLoading .bullet:nth-child(2) {
+    -webkit-animation-delay: 0.15s;
+    animation-delay: 0.15s;
+}
+.masterLoading .bullet:nth-child(3) {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+.masterLoading .bullet:nth-child(4) {
+    -webkit-animation-delay: 0.45s;
+    animation-delay: 0.45s;
+}
+@-webkit-keyframes masterLoading {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+@keyframes masterLoading {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+#databaseList .dbBlock .content{
+    border: 2px dashed darkgray;
+    min-height: 150px;
+    max-height: 150px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+#databaseList .dbBlock:hover>.content{
+    border-color: #2196f3;
+    cursor: pointer;
+    color: black;
+}
+
+#databaseList .dbBlock:hover > i{
+    color: black;
+}
+
+#databaseList .dbBlockFull, #databaseList .dbBlock{
+    padding-bottom: 30px;
+}
+
+#databaseList .dbBlockFull:hover>.content{
+    cursor: default;
+    /*box-shadow: 0px 1px 150px 1px rgba(0,0,0,0.16), 0 0 0 1px rgba(0, 0, 0, 0.1);*/
+}
+
+#databaseList .dbBlockFull .content{
+    border-style: solid;
+    padding-top: 35px;
+
+    transition: box-shadow 0.3s, border 0.3s;
+
+    -ms-transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+}
+
+#databaseList .dbBlockFull .display{
+    -webkit-animation-name: displayDBBlockFull;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: displayDBBlockFull;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: displayDBBlockFull;
+    -o-animation-duration: 0.3s;
+    -o-animation-fill-mode: forwards;
+
+    -ms-animation-name: displayDBBlockFull;
+    -ms-animation-duration: 0.3s;
+    -ms-animation-fill-mode: forwards;
+
+    animation-name: displayDBBlockFull;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes displayDBBlockFull {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
+}
+
+@-webkit-keyframes displayDBBlockFull {
+    from {-webkit-transform: scale(0);}
+    to {-webkit-transform: scale(1);}
+}
+
+@-ms-keyframes displayDBBlockFull {
+    from {-ms-transform: scale(0);}
+    to {-ms-transform: scale(1);}
+}
+
+@-moz-keyframes displayDBBlockFull {
+    from {-moz-transform: scale(0);}
+    to {-moz-transform: scale(1);}
+}
+
+@-o-keyframes displayDBBlockFull {
+    from {-o-transform: scale(0);}
+    to {-o-transform: scale(1);}
+}
+
+#databaseList .dbBlockFull .content img{
+    height: 60px;
+    max-width: 60px;
+    border-radius: 5px;
+    position: absolute;
+    top: -20px;
+    margin-left: -25px;
+}
+
+#databaseList .dbBlockFull .content .open{
+    width: 50px;
+    position: absolute;
+    margin: auto;
+    bottom: 30px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    left: 0px;
+    right: 0px;
+    cursor: pointer;
+}
+
+#databaseList .dbBlockFull .content .open:hover{
+    color: #2196f3;
+    border-color: #2196f3;
+}
+
+#databaseList .dbBlockFull:hover>.content{
+    cursor: pointer;
+    border-color: #2196f3;
+}
+
+#databaseList .dbBlockFull h4{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#databaseList .dbBlock .updateDatabase{
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    right: 25px;
+    top: 10px;
+}
+
+#databaseList .dbBlock .refreshSchema{
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    left: 25px;
+    top: 10px;
+}
+
+#databaseList .dbBlock .removeDatabase{
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    right: 25px;
+    bottom: 10px;
+}
+
+#databaseList .dbBlock i:hover{
+    cursor: pointer;
+    color: #2196f3;
+}
+
+#databaseType{
+    text-align: center;
+}
+#databaseType .databaseTypesBlocksList{
+    text-align: center;
+}
+
+#noDatabase{
+    text-align: center;
+}
+
+#databaseForm .databaseSubtype{
+    min-height: 132px;
+    max-height: 132px;
+    height: 132px;
+    vertical-align: middle;
+    text-align: center;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+#databaseForm .databaseSubtype .panel-body{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+}
+
+#databaseForm .databaseSubtype img{
+    top: 50%;
+    bottom: 50%;
+    position: absolute;
+    margin: auto;
+    left: 0%;
+    right: 0%;
+}
+
+#databaseForm .active{
+    border-color: #5298fc;
+    background-color: rgba(82, 152, 252, 0.28);
+}
+
+#databadeForm .autoPopulateFormModal{
+    width: 250px;
+    min-height: 250px;
+    position: fixed;
+    border: 1px solid darkgray;
+    background-color: white;
+    border-radius: 5px;
+    z-index: 999;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    line-height: 20px;
+    display: inline-block;
+    white-space: normal;
+    box-shadow: 1px 3px 10px darkgray;
+}

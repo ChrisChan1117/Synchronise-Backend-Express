@@ -1,0 +1,35 @@
+<nav id="affix-nav" class="sidebar">
+    <%
+        function recursiveGenerate(sec, index){
+            var string = "";
+                if(index == 0){
+                    string+= '<ul class="nav sidenav" data-spy="affix" data-offset-bottom="0">';
+                }else{
+                    string+= '<ul class="nav">';
+                }
+
+                for(var i = 0; i < sec.length; i++){
+                    var row = sec[i];
+
+                    if(index == 0 && i == 0){
+                        string+= '<li class="active">';
+                    }else{
+                        string+= '<li>';
+                    }
+
+                    string+= '<a href="#' + row.id + '">' + row.name + '</a>'
+                    if(typeof(row.sections) != "undefined"){
+                        if(row.sections.length){
+                            string+= recursiveGenerate(row.sections, index+1);
+                        }
+                    }
+                    string+= '</li>';
+                }
+
+                string+= '</ul>';
+            return string;
+        }
+    %>
+
+    <%- recursiveGenerate(sections, 0); %>
+</nav>

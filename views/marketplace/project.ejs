@@ -1,0 +1,134 @@
+<% include ../template/header %>
+	<% include ../template/dashboard_side_menu %>
+
+	<style>
+		<% if(project.bg_color != "white" && project.bg_color != "#ffffff"){ %>
+			.navbar{
+				background: <%= project.bg_color %>;
+			}
+
+			.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+				background: <%= project.txt_color %>;
+				color: <%= project.bg_color %>;
+			}
+
+			.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand{
+				color: <%= project.txt_color %>;
+			}
+		<% } %>
+	</style>
+
+	<div id="wrapper">
+		<div id="page-wrapper">
+			<div class="card" style="background: <%= project.bg_color %>; color: <%= project.txt_color %>; text-align: center; padding-top: 50px; -webkit-box-shadow: 0 3px 4px rgba(0,0,0,.3);-moz-box-shadow: 0 3px 4px rgba(0,0,0,.3);">
+				<a class="btn btn-default hidden-xs" style="position: absolute; top: 40px; left: 30px" href="/marketplace">Back to marketplace</a>
+				<img src="<%= project.icon %>" style="border-radius: 5px; width: 80px; margin-right: 10px"/>
+				<h1 style="color: <%= project.txt_color %>"><%= project.name %></h1>
+				<a class="btn btn-default visible-xs" href="/marketplace">Back to marketplace</a>
+			</div>
+			<% if(project.community) { %>
+				<div class="container-fluid">
+					<div class="row-fluid">
+						<div class="col-lg-12 alert alert-success" align="center">
+							<%= project.name %> is shared with the community. You can help other developers by creating and publishing components for this project.
+							<b><a href="/project/contribute/<%= project.id %>" alt="Contribute to <%= project.name %>">Contribute to the project</a></b>
+						</div>
+					</div>
+				</div>
+			<% } %>
+            <div class="container-fluid">
+				<div class="row-fluid">
+					<div class="col-lg-9">
+						<div>
+							<legend>Components</legend>
+						</div>
+
+						<div class="card">
+							<% for(var j = 0; j < components.length; j++){ var comps = components[j].comps; %>
+								<% if(components[j].sectionTitle != "a"){ %><legend><%= components[j].sectionTitle; %></legend><% } %>
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered">
+										<tbody>
+											<tr>
+												<th>Name</th>
+												<th style="text-align: center">Last update</th>
+												<!--
+												<th style="text-align: center">Current version</th>
+												<th style="text-align: center">Forked</th>
+												-->
+											</tr>
+											<% for(var i = 0; i < comps.length; i++){ var row = comps[i]; %>
+												<tr>
+													<td><%= row.name %></td>
+													<td style="text-align: center"><%= row.last_update %></td>
+													<!--
+													<td style="text-align: center"><%= row.current_version %></td>
+													<td style="text-align: center"><%= row.executed_times %> times</td>-->
+													<td style="text-align: center"><a href="/component/clone/<%= row.id %>" class="btn btn-primary">Start using</a></td>
+												</tr>
+											<% } %>
+										</tbody>
+									</table>
+								</div>
+							<% } %>
+						</div>
+
+						<div class="row" style="margin-bottom: 30px; text-align: center">
+							<h4>This project is compatible with:</h4>
+							<div style="color: white; col-xs-12">
+								<div class="col-md-2 col-md-offset-3 col-xs-3 col-xs-offset-1" style="margin-right: 5px; background: #F2DF29; color: rgb(50, 52, 48); height: 100%; padding: 10px; text-align: center; display: inline-block; border-radius: 5px;">
+									<img src="https://images.synchronise.io/javascript.jpg"/><br/>
+									Javascript
+								</div>
+								<div class="col-md-2 col-xs-3" style="margin-right: 5px; background: #323333; color: white; height: 100%; padding: 10px; text-align: center; display: inline-block; border-radius: 5px;">
+									<img src="https://images.synchronise.io/nodejs.jpg"/><br/>
+									Node.JS
+								</div>
+								<div class="col-md-2 col-xs-3" style="margin-right: 5px; background: #8AC832; color: white; height: 100%; padding: 10px; text-align: center; display: inline-block; border-radius: 5px; padding-bottom: 17px;">
+									<img src="https://images.synchronise.io/rest.jpg"/><br/>
+									REST
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="card">
+							<div>
+								<legend>Stats</legend>
+								<div class="row">
+									<div class="col-xs-12" style="text-align:center">
+										<b>Forked</b>
+										<p><%= amountForks["total"] %> times</p>
+									</div>
+									<% if(project.community){ %>
+									<div class="col-xs-12" style="text-align:center">
+										<b>Contributors</b>
+										<p><%= amountContributors %></p>
+									</div>
+									<% } %>
+								</div>
+							</div>
+
+							<% if(project.url || project.description){ %>
+								<div>
+									<legend>Infos</legend>
+								</div>
+
+								<div>
+									<p><%= project.description %></p>
+								</div>
+								<% if(project.url){ %>
+								<div>
+									<b>Website</b><br/>
+									<a href="<%= project.url %>" rel="nofollow" target="_blank"><%= project.url %></a>
+								</div>
+								<% } %>
+							<% } %>
+						</div>
+					</div>
+                </div>
+            </div>
+	   </div>
+	</div>
+<% include ../template/footer %>

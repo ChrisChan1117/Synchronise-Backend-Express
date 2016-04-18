@@ -1,0 +1,877 @@
+.query:hover{
+	background-color: rgba(0,0,0,0.3) !important;
+	color: white !important;
+	cursor: pointer;
+}
+
+table .sort{
+	cursor: pointer;
+}
+
+.query .remove{
+	cursor: pointer;
+}
+
+.query .remove:hover{
+	-webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+
+	-ms-transform: rotate(360deg); /* IE 9 */
+	-webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+	transform: rotate(360deg);
+}
+
+/* Create new query button */
+#createQuery{
+    position: absolute;
+    right: 15px;
+}
+
+#createQuery .item{
+    right: 58px;
+    top: 8px;
+    line-height: 15px;
+    padding-top: 10px;
+
+    position: absolute;
+    width: 20px;
+    height: 20px;
+	z-index: 999;
+    background-image: radial-gradient(circle, #2196f3 80%, #0d87e9 81%);
+    border-radius: 27px;
+    opacity: 0;
+    color: white;
+
+    border: 1px solid #2196f3;
+}
+
+#createQuery .inactive{
+    cursor: default;
+    background-image: none;
+    background-color: white;
+    color: darkgray;
+    border: 1px solid darkgray;
+}
+
+#createQuery .item:hover{
+    cursor: pointer;
+    background-image: none;
+    background-color: white;
+    color: #2196f3;
+}
+
+#createQuery .inactive:hover{
+    cursor: default;
+    background-image: none;
+    background-color: white;
+    color: darkgray;
+    border: 1px solid darkgray;
+}
+
+#createQuery .moveitem1{
+    -webkit-animation-name: moveitem1;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitem1;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitem1;
+    -o-animation-duration: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitem1;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitem1 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 50px;
+        /right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitem1 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 50px;
+        right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitem1 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 50px;
+        right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitem1 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 50px;
+        right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createQuery .moveitem2{
+    -webkit-animation-name: moveitem2;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitem2;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-delay: 0.1s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitem2;
+    -o-animation-duration: 0.3s;
+    -o-animation-delay: 0.1s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitem2;
+    animation-duration: 0.3s;
+    animation-delay: 0.1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitem2 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 40px;
+        right: 140px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitem2 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 40px;
+        right: 140px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitem2 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 40px;
+        right: 140px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitem2 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: 40px;
+        right: 140px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createQuery .moveitem3{
+    -webkit-animation-name: moveitem3;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-delay: 0.2s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitem3;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-delay: 0.2s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitem3;
+    -o-animation-duration: 0.3s;
+    -o-animation-delay: 0.2s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitem3;
+    animation-duration: 0.3s;
+    animation-delay: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitem3 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        right: 140px;
+        top: -60px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitem3 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        right: 140px;
+        top: -60px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitem3 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        right: 140px;
+        top: -60px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitem3 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        right: 140px;
+        top: -60px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createQuery .moveitem4{
+    -webkit-animation-name: moveitem4;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-delay: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitem4;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-delay: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitem4;
+    -o-animation-duration: 0.3s;
+    -o-animation-delay: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitem4;
+    animation-duration: 0.3s;
+    animation-delay: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitem4 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: -70px;
+        right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitem4 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: -70px;
+        right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitem4 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: -70px;
+        right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitem4 {
+    from {
+        right: 58px;
+        top: 8px;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+    }
+    to {
+        top: -70px;
+        right: 40px;
+        width: 55px;
+        height: 55px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createQuery .moveitemHide{
+    -webkit-animation-name: moveitemHide;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitemHide;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitemHide;
+    -o-animation-duration: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitemHide;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitemHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-moz-keyframes moveitemHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-o-keyframes moveitemHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes moveitemHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Create new first query button */
+#createFirstQuery{
+	position: absolute;
+  left: 50%;
+  right: 50%;
+}
+
+#createFirstQuery .item{
+	line-height: 15px;
+    padding: 10px;
+    left: 50%;
+    right: 50%;
+    position: absolute;
+    z-index: -1;
+    background-image: radial-gradient(circle, #2196f3 80%, #0d87e9 81%);
+    border-radius: 100%;
+    opacity: 0;
+    color: white;
+    border: 1px solid #2196f3;
+}
+
+#createFirstQuery .inactive{
+    cursor: default;
+    background-image: none;
+    background-color: white;
+    color: darkgray;
+    border: 1px solid darkgray;
+}
+
+#createFirstQuery .item:hover{
+    cursor: pointer;
+    background-image: none;
+    background-color: white;
+    color: #2196f3;
+}
+
+#createFirstQuery .inactive:hover{
+    cursor: default;
+    background-image: none;
+    background-color: white;
+    color: darkgray;
+    border: 1px solid darkgray;
+}
+
+#createFirstQuery .moveitem1{
+    -webkit-animation-name: moveitemFirst1;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitemFirst1;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitemFirst1;
+    -o-animation-duration: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitemFirst1;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitemFirst1 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: 10px;
+		margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitemFirst1 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: 10px;
+		margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitemFirst1 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: 10px;
+		margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitemFirst1 {
+    from {
+        opacity: 0;
+    }
+    to {
+        margin-top: 10px;
+        margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createFirstQuery .moveitem2{
+    -webkit-animation-name: moveitemFirst2;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitemFirst2;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-delay: 0.1s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitemFirst2;
+    -o-animation-duration: 0.3s;
+    -o-animation-delay: 0.1s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitemFirst2;
+    animation-duration: 0.3s;
+    animation-delay: 0.1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitemFirst2 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitemFirst2 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitemFirst2 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitemFirst2 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: -120px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createFirstQuery .moveitem3{
+    -webkit-animation-name: moveitemFirst3;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-delay: 0.2s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitemFirst3;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-delay: 0.2s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitemFirst3;
+    -o-animation-duration: 0.3s;
+    -o-animation-delay: 0.2s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitemFirst3;
+    animation-duration: 0.3s;
+    animation-delay: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitemFirst3 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitemFirst3 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitemFirst3 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitemFirst3 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: -100px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createFirstQuery .moveitem4{
+    -webkit-animation-name: moveitemFirst4;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-delay: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitemFirst4;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-delay: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitemFirst4;
+    -o-animation-duration: 0.3s;
+    -o-animation-delay: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitemFirst4;
+    animation-duration: 0.3s;
+    animation-delay: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitemFirst4 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: 10px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-moz-keyframes moveitemFirst4 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: 10px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@-o-keyframes moveitemFirst4 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: 10px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+@keyframes moveitemFirst4 {
+    from {
+        opacity: 0;
+    }
+    to {
+		margin-top: 10px;
+		margin-left: 70px;
+        opacity: 1;
+        z-index: 999;
+    }
+}
+
+#createFirstQuery .moveitemHide{
+    -webkit-animation-name: moveitemFirstHide;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: moveitemFirstHide;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: moveitemFirstHide;
+    -o-animation-duration: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: moveitemFirstHide;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes moveitemFirstHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-moz-keyframes moveitemFirstHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-o-keyframes moveitemFirstHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes moveitemFirstHide {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

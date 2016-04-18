@@ -1,0 +1,74 @@
+<%
+function unescapeHTML(p_string)
+{
+if ((typeof p_string === "string") && (new RegExp(/&amp;|&lt;|&gt;|&quot;|&#39;/).test(p_string)))
+{
+    return p_string.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#39;/g, "'");
+}
+
+return p_string;
+}
+
+    function recursiveGenerate(sec, index){
+        var string = "";
+
+        for(var i = 0; i < sec.length; i++){
+            var row = sec[i];
+            string += '<div id="' + row.id + '"';
+            if(row.backgroundColor != "" && row.color != "" && row.activeColor != ""){
+                string += 'class="row-fluid navsection navsectionChild' + index + '"';
+                string += ' data-background-color="' + row.backgroundColor + '"';
+                string += ' data-color="' + row.color + '"';
+                string += ' data-active-color="' + row.activeColor + '"';
+                string += '>';
+            }else{
+                string += 'class="row-fluid">';
+            }
+
+            switch(index){
+                case 0:
+                    string += '<legend>' + row.name + '</legend>';
+                    break;
+
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    string += '<h' + index + '>' + row.name + '</h' + index + '>';
+                    break;
+            }
+
+
+            if(typeof(row.content) != "undefined"){
+                var unescaped = row.content.replace(/&#([0-9]{1,3});/gi, function(match, numStr) {
+                    var num = parseInt(numStr, 10); // read num as normal number
+                    return String.fromCharCode(num);
+                });
+
+                string += '<p>' + unescapeHTML(unescaped) + '</p>';
+            }
+
+            if(typeof(row.sections) != "undefined"){
+                string+= recursiveGenerate(row.sections, index+1);
+            }
+            string += '</div>';
+
+            if(row.backgroundColor != "" && row.color != "" && row.activeColor != ""){
+                string += '<div class="row-fluid endsection navsection"';
+                string += ' data-background-color="' + row.backgroundColor + '"';
+                string += ' data-color="' + row.color + '"';
+                string += ' data-active-color="' + row.activeColor + '"';
+                string += '></div>';
+            }
+        }
+
+        return string;
+    }
+
+    var data = recursiveGenerate(sections, 0);
+%>
+
+<%- data %>

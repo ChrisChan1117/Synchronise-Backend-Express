@@ -1,0 +1,8 @@
+#wrapper{
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+#wrapper.collapsed{
+    margin-left: 0;
+}

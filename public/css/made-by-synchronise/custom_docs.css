@@ -1,0 +1,127 @@
+body {
+	margin: 0;
+	font-family: "Open Sans", sans-serif, "Raleway", Calibri, Arial, sans-serif;
+}
+
+u {
+	content: "";
+	width: 100%;
+	left: 0;
+	bottom: 1px;
+	border-width: 0 0 1px;
+	text-decoration: none;
+	border-style: solid;
+}
+
+body::-webkit-scrollbar {
+	width: 2px;
+	height: 2px;
+}
+
+body::-webkit-scrollbar-track {
+	background: transparent;
+	border-radius: 2px;
+}
+
+body::-webkit-scrollbar-thumb {
+	background: darkgray;
+	border-radius: 2px;
+}
+
+#wrapper {
+	color: #5a6b77;
+}
+
+/* NAVBAR */
+.navbar {
+	background-color: rgba(40,44,52,0.95);
+	position: fixed;
+	display: inline-block;
+	width: 100%;
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-brand {
+	color: white;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form,
+.navbar-default {
+	border-color: transparent;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	color: white;
+	text-shadow: 1px 1px grey;
+	background-color: transparent;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	color: white;
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* MODAL */
+.modal-content {
+	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.95);
+	box-shadow: none;
+	top: 30px;
+}
+
+.modal-backdrop {
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* CAROUSEL */
+.carousel-control {
+	margin-top: 65px;
+}
+
+/* LOGIN SIGNUP */
+.loginSignup {
+	cursor: pointer;
+}
+
+/* Button login/signup on modal */
+.btn-social > :first-child {
+	border-right: 1px solid transparent !important;
+}
+
+/* CONNECTION LOST MESSAGE */
+#ConnectionLostBanner {
+	position: absolute;
+	z-index: 1001;
+	width: 100%;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+
+#ConnectionLostBanner .content {
+	height: 25px;
+	max-height: 25px;
+	overflow-x: scroll;
+	background-color: #ffc500;
+	background-size: 100%;
+	min-width: 50%;
+	z-index: 1001;
+	margin: auto;
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+	text-shadow: -1px 0 rgba(0, 0, 0, 0.4), 0 1px rgba(0, 0, 0, 0.4), 1px 0 rgba(0, 0, 0, 0.4), 0 -1px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+}
+
+#ConnectionLostBanner .content img {
+	height: 20px;
+	margin-top: -106px;
+}

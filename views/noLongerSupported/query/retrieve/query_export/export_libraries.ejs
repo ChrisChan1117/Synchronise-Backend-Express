@@ -1,0 +1,27 @@
+<div class="row-fluid menuContent" id="exportLibraries">
+   <div role="tabpanel" class="col-xs-12">
+        <!-- TYPE OF LIBRARIES -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#web" aria-controls="web" role="tab" data-toggle="tab">Web</a></li>
+            <li role="presentation"><a href="#mobile" aria-controls="mobile" role="tab" data-toggle="tab">Mobile</a></li>
+            <li role="presentation"><a href="#desktop" aria-controls="desktop" role="tab" data-toggle="tab">Desktop</a></li>
+            <li role="presentation"><a href="#rest" aria-controls="rest" role="tab" data-toggle="tab">REST API</a></li>
+        </ul>
+
+        <!-- TYPE OF LIBRARIES CONTENT -->
+        <div class="tab-content">
+            <!-- WEB LIBRARIES CONTENT -->
+            <% include export_web %>
+            <% include export_mobile %>
+            <% include export_desktop %>
+            <% include export_rest %>
+        </div>
+        
+        <div class="col-xs-12" align="center">
+            <p>Important notice : The queries you create on Synchronise.IO are <b>always</b> pre-compiled and optimized in order to be faster when executed. The compilation of your request is done by a worker on the background automatically. Be aware that the changes you are making on this administrator interface might take up to 5 mintues to be available on the execution of the query.</p>
+        </div>
+        <div class="col-xs-12">
+            <br/>
+        </div>
+    </div>
+</div>

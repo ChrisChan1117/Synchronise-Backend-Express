@@ -1,0 +1,60 @@
+<% include ../template/header %>
+	<% include ../template/dashboard_side_menu %>
+
+	<%
+		var userIsAdmin = false;
+		for(var i = 0; i < roles.length; i++){
+			var currentRole = roles[i];
+			if(currentRole.name == "Administrator"){
+				userIsAdmin = true;
+			}
+		}
+	%>
+
+	<script type="text/javascript">
+		var projectId = "<%= project.id %>";
+	</script>
+
+	<div id="wrapper">
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 class="page-header">
+                            Queries - <%= project.name %>
+                        </h1>
+                        <% if(typeof(breadcrumb) != "undefined"){ %>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-random"></i> <a href="/query">Queries</a>
+                            </li>
+
+                            <li class="active">
+                                <%= project.name %>
+                            </li>
+                        </ol>
+                        <% } %>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+				<div class="row-fluid" id="queryList"></div>
+
+				<div class="row">
+					<div class="col-xs-12" align="center">
+						<hr/>
+					</div>
+				</div>
+
+				<% include ../template/footer_content %>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+<% include ../template/footer %>

@@ -1,0 +1,977 @@
+#wrapper{
+    margin-top: 70px;
+}
+
+@media screen and (max-width: 768px) {
+    #wrapper{
+        margin-top: 40px;
+    }
+}
+
+.componentCatalog{
+    position: inherit;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    padding-bottom: 30px;
+}
+
+.componentCatalog:hover{
+    margin-left: 0px;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.leftSide #inputsValues{
+    width: 100%;
+    height: auto;
+    overflow: auto;
+}
+
+@media screen and (min-width: 1200px) {
+    .leftSide{
+        margin-left: -200px;
+        z-index: 0;
+        opacity: 0.6;
+        transition: margin-left 0.3s;
+    }
+
+    .leftSide:hover{
+        margin-left: 0px;
+        opacity: 1;
+    }
+
+    .leftSide #inputsValues{
+        width: 100%;
+        overflow: hidden;
+        transition: height 0.3s;
+    }
+
+    .leftSide:hover > #inputsValues{
+        height: auto;
+        overflow: auto;
+    }
+
+    .rightSide{
+        transition: width 0.3s, left 0.3s, margin-left 0.3s;
+        margin-left: 16%;
+        width: 75%;
+        position: absolute;
+    }
+
+    .leftSide:hover + .rightSide{
+        width: 75%;
+        margin-left: 30%;
+    }
+
+    .leftSide:hover + .rightSide .inputContainer, .leftSide:hover + .rightSide #outputs{
+        height: 30px;
+        overflow: hidden;
+    }
+
+    .componentCatalog{
+        position: fixed;
+        width: 30%;
+        overflow-y: auto;
+    }
+
+    #workflow .inputContainer{
+        width: 100%;
+        position: fixed;
+        z-index: 501;
+    }
+
+    #workflow .flow{
+        margin-top: 55px;
+    }
+
+    #workflow .maskForOverflow{
+        position: fixed;
+        display: block;
+        background: #EDECEC;
+        width: 100%;
+        height: 8px;
+        top: 64px;
+        z-index: 501;
+        opacity: 0;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .rightSide{
+        margin-left: 18%;
+        width: 76%;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .rightSide{
+        margin-left: 19%;
+        width: 76%;
+    }
+}
+
+@media screen and (min-width: 1700px) {
+    .rightSide{
+        margin-left: 20%;
+        width: 76%;
+    }
+}
+
+/* BLOCK OF INPUTS OF THE WORKFLOW */
+#workflow #inputContainer{
+    word-wrap: break-word;
+}
+
+#workflow .tips{
+    overflow: hidden;
+}
+
+#workflow #inputContainer .title{
+    margin-top: -5px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    font-family: "Open Sans", sans-serif, "Raleway", Calibri, Arial;
+}
+
+#workflow #inputContainer .input,
+#workflow #outputs .output{
+    display: inline-block;
+}
+
+#workflow #outputs .output .typeaheadForOutputWorkflow{
+    z-index: 0
+}
+
+#workflow #outputs .outputItem{
+    display: inline-block;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+#workflow #outputs .outputItem .associatedBadgeIndex{
+    line-height: 10px;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+}
+
+#workflow #inputContainer .input .type{
+    display: inline-block;
+    padding: 0px;
+    line-height: 15px;
+    box-shadow: none;
+    font-size: 75%;
+    background-color: darkgray;
+    height: 17px;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: white;
+    width: auto;
+    font-weight: bold;
+    border-left: 1px solid white;
+}
+
+#workflow #inputContainer .input .type:nth-child(1){
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left: 0px;
+}
+
+#workflow #inputContainer .input .name{
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 77%;
+    font-weight: bold;
+    line-height: 1;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    margin-right: 0px;
+}
+
+#workflow #inputContainer .input .remove,
+#workflow #outputs .outputItem .remove,
+.component .inputItem .remove{
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 77%;
+    font-weight: bold;
+    line-height: 1;
+    background-color: rgba(39,0,255,0.52);
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-left-color: white;
+    border-left-width: 1px;
+    margin-right: 5px;
+}
+
+.component .inputItem .remove{
+    position: relative;
+    display: inline-block;
+    padding: .2em .6em .3em;
+    font-size: 77%;
+    font-weight: bold;
+    line-height: 1;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#workflow #inputContainer #addInputButton,
+#workflow #output #addOutputButton{
+    width: 150px;
+    height: 30px;
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid #1194F6;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#workflow #inputContainer #addInputButton:hover,
+#workflow #inputContainer #addInputButton.active,
+#workflow #output #addOutputButton:hover,
+#workflow #output #addOutputButton.active{
+    background-color: #1194F6;
+}
+
+#workflow #inputContainer #addInputButton .fa,
+#workflow #output #addOutputButton .fa{
+    margin-top: 9px;
+    color: #1194F6;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+}
+
+#workflow #inputContainer #addInputButton .fa{
+    margin-left: 3px;
+}
+
+#workflow #outputs #addOutputButton .fa{
+    margin-left: 0px;
+}
+
+#workflow #inputContainer #addInputButton:hover>.fa,
+#workflow #inputContainer #addInputButton.active .fa,
+#workflow #output #addOutputButton:hover>.fa,
+#workflow #output #addOutputButton.active .fa{
+    color: white;
+}
+
+#workflow #inputContainer #addInput,
+#workflow #output #addOutput{
+    width: 0px;
+    height: 24px;
+    margin-left: 10px;
+    -webkit-transition: width 0.3s;
+    transition: width 0.3s;
+    display: inline-block;
+}
+
+#workflow #inputContainer #addInput.active,
+#workflow #output #addOutput{
+    width: 100px;
+}
+
+/* LIST OF COMPONENTS IN THE WORKFLOW */
+#workflow .flow #listOfComponentsInFlow{
+    list-style: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 0px;
+    margin-bottom: 0px;
+
+    counter-reset: li;
+    list-style-type: decimal;
+}
+
+#workflow .flow #listOfComponentsInFlow::-webkit-scrollbar{
+    width: 0px;
+    height: 0px;
+}
+
+#workflow .flow #listOfComponentsInFlow::-webkit-scrollbar-track{
+    background: transparent;
+    border-radius: 2px;
+}
+
+#workflow .flow #listOfComponentsInFlow::-webkit-scrollbar-thumb{
+    background: darkgray;
+    border-radius: 2px;
+}
+
+#workflow .flow #listOfComponentsInFlow .liForComponent{
+    display: block;
+    transition: top 0.5s, bottom 0.5s;
+}
+
+#workflow .flow #listOfComponentsInFlow .orderLabel {
+    background: rgba(255,255,255,0.2);
+    border-radius: 100%;
+    border: 2px solid #1194F6;
+    color: #1194F6;
+    width: 20px;
+    height: 20px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 13px;
+    display: inline-block;
+    float: right;
+    margin-right: 21px;
+    margin-top: 4px;
+}
+
+.ui-state-highlight{
+    display: block;
+    width: 100%;
+    height: 10px;
+    background-color: #1194F6;
+    border: 0px;
+    z-index: 999;
+}
+
+#workflow #input{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    font-family: "Open Sans", sans-serif, "Raleway", Calibri, Arial;
+}
+
+#workflow #output{
+    z-index: 0;
+    margin-top: -5px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    font-family: "Open Sans", sans-serif, "Raleway", Calibri, Arial;
+}
+
+#inputs .title,
+#outputs .title{
+    margin-top: -5px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    font-family: "Open Sans", sans-serif, "Raleway", Calibri, Arial;
+}
+
+#inputs .input .type,
+#outputs .input .type{
+    display: inline-block;
+    padding: 0px;
+    line-height: 15px;
+    box-shadow: none;
+    font-size: 75%;
+    background-color: darkgray;
+    height: 17px;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: white;
+    width: auto;
+    font-weight: bold;
+    border-left: 1px solid white;
+}
+
+#inputs .input .type:nth-child(1),
+#outputs .input .type:nth-child(1){
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left: 0px;
+}
+
+#inputs .input .name,
+#outputs .input .name{
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    margin-right: 0px;
+}
+
+#inputs .input .remove,
+#outputs .input .remove{
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    background-color: rgba(39,0,255,0.52);
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-left-color: white;
+    border-left-width: 1px;
+    margin-right: 5px;
+}
+
+#inputs #addInputButton,
+#outputs #addOutputButton{
+    width: 156px;
+    height: 30px;
+    background-color: white;
+    border-radius: 15px;
+    border: 1px solid #1194F6;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#inputs #addInputButton:hover,
+#inputs #addInputButton.active,
+#outputs #addOutputButton:hover,
+#outputs #addOutputButton.active{
+    background-color: #1194F6;
+}
+
+#inputs #addInputButton .fa,
+#outputs #addOutputButton .fa{
+    margin-left: 9px;
+    margin-top: 9px;
+    color: #1194F6;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+}
+
+#inputs #addInputButton:hover>.fa,
+#inputs #addInputButton.active .fa,
+#outputs #addOutputButton:hover>.fa,
+#outputs #addOutputButton.active .fa{
+    color: white;
+}
+
+#inputs #addInput,
+#outputs #addOutput{
+    width: 0px;
+    height: 24px;
+    margin-left: 10px;
+    -webkit-transition: width 0.3s;
+    transition: width 0.3s;
+    display: inline-block;
+}
+
+#inputs #addInput.active,
+#outputs #addOutput.active{
+    width: 100px;
+}
+
+.flow #timeline{
+    position: absolute;
+    border-left: 1px dotted #1194F6;
+    width: 1px;
+    height: 0px;
+    z-index: 0;
+    bottom: 0px;
+    left: 50%;
+    top: 0px;
+}
+
+.flow .component{
+    position:relative;
+    display: block;
+    min-height: 50px;
+    z-index: 2;
+    padding: 0px;
+    opacity: 0;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background: transparent;
+
+    -ms-transform: scale(0,0); /* IE 9 */
+    -webkit-transform: scale(0,0); /* Safari */
+    transform: scale(0,0);
+
+    -ms-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.flow .displayed{
+    -ms-transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    transform: scale(1,1);
+
+    opacity: 1;
+    z-index: 999;
+}
+
+.component .inputs, .component .outputs{
+    left: 0px;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.component .inputs .typeaheadForInputInComponent{
+    background-color: transparent!important;
+}
+
+.component .inputs{
+    margin-top: -5px;
+    border-bottom: 1px dotted;
+}
+
+.component .outputs{
+    border-top: 1px dotted;
+}
+
+.component .inputs .inputItem, .component .outputs .inputItem{
+    display: block;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.component .inputs .inputItem .associatedBadgeIndex{
+    line-height: 10px;
+    height: 15px;
+    display: inline-block;
+}
+
+.component .inputs .type,
+.component .outputs .type,
+#outputs .outputItem .type{
+    display: inline-block;
+    padding: .2em .6em .3em;
+    line-height: 15px;
+    box-shadow: none;
+    font-size: 75%;
+    background-color: darkgray;
+    height: 17px;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: white;
+    width: auto;
+    font-weight: bold;
+    border-left: 1px solid white;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.component .inputs .type:nth-child(1),
+.component .outputs .type:nth-child(1),
+#workflow #outputs .outputItem .type:nth-child(1){
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left: none;
+}
+
+.component .inputs .name,
+.component .outputs .name{
+    display: inline-block;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 15px;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-right: 0px;
+    box-shadow: none;
+    height: 17px;
+    width: auto;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.component .inputs .colLeft .name{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+#outputs .outputItem .name{
+    display: inline-block;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 15px;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    margin-right: 0px;
+    box-shadow: none;
+    height: 17px;
+    width: auto;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.component .header{
+    top: 0px;
+    left: 0px;
+    height: 50px;
+    background-color: #C31E1F;
+    padding: 10px;
+    width: 100%;
+}
+
+.component .header .title{
+    color: white;
+    border-bottom: 0px;
+    padding-left: 50px;
+    width: 100%;
+}
+
+.component .remove{
+    position: absolute;
+    right: 10px;
+    margin-top: -54px;
+    font-size: 20px;
+}
+
+
+.component .header .serviceLogo{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    margin-top: -67px;
+    left: 5px;
+}
+
+.component .content{
+    margin-top: 100px;
+    color: white;
+}
+
+.componentCatalog::-webkit-scrollbar{
+    width: 2px;
+    height: 2px;
+}
+
+.componentCatalog::-webkit-scrollbar-track{
+    background: transparent;
+    border-radius: 2px;
+}
+
+.componentCatalog::-webkit-scrollbar-thumb{
+    background: darkgray;
+    border-radius: 2px;
+}
+
+.componentCatalog .searchContainer{
+    z-index: 10;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 10px;
+    margin-top: -10px;
+    margin-left: -10px;
+    padding: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+    .componentCatalog .searchContainer{
+        position: inherit;
+    }
+}
+
+.componentCatalog .listOfProjects{
+    margin-top: 56px;
+    margin-bottom: 70px;
+}
+
+@media screen and (max-width: 1200px) {
+    .componentCatalog .listOfProjects{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.componentCatalog .project{
+    -ms-transform: scale(0,0); /* IE 9 */
+    -webkit-transform: scale(0,0); /* Safari */
+    transform: scale(0,0);
+
+    -ms-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.componentCatalog .displayed{
+    -ms-transform: scale(1,1); /* IE 9 */
+    -webkit-transform: scale(1,1); /* Safari */
+    transform: scale(1,1);
+}
+
+.componentCatalog .project .title{
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+.componentCatalog .project .content{
+    text-align: center;
+    font-weight: bold;
+    height: 100%;
+    padding-top: 12.5px;
+    padding-left: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.componentCatalog .project .logo{
+    width: 50px;
+    height: 50px;
+    left: 10px;
+    top: 10px;
+    position: absolute;
+    opacity: 0;
+}
+
+.componentCatalog .project .listOfComponents{
+    margin-top: -10px;
+    margin-bottom: -10px;
+
+    -ms-transition: all .3s ease-in-out, margin-top: 0s ease-in-out;
+    -webkit-transition: all .3s ease-in-out, margin-top: 0s ease-in-out;
+    transition: all .3s ease-in-out, margin-top: 0s ease-in-out;
+
+    height: 0;
+    opacity: 0;
+}
+
+.componentCatalog .project .displayed{
+    height: auto;
+    opacity: 1;
+    margin-bottom: 10px;
+}
+
+.componentCatalog .project .listOfComponents .component{
+    border-bottom: 1px dotted #DDDDDD;
+    height: auto;
+    min-height: 50px;
+    padding: 5px;
+
+    -webkit-transition: opacity 300ms;
+    -moz-transition: opacity 300ms;
+    -o-transition: opacity 300ms;
+    transition: opacity 300ms;
+}
+
+.componentCatalog .project .listOfComponents .component .toHideOnHover{
+    background-color: white;
+    -webkit-transition: opacity 300ms;
+    -moz-transition: opacity 300ms;
+    -o-transition: opacity 300ms;
+    transition: opacity 300ms;
+}
+
+.componentCatalog .project .listOfComponents .component:hover>.toDisplayOnHover{
+    opacity: 1;
+}
+
+.componentCatalog .project .listOfComponents .component:hover>.toHideOnHover{
+    opacity: 0.1;
+}
+
+.componentCatalog .project .listOfComponents .component:last-child{
+    border-bottom: 0px solid #DDDDDD;
+}
+
+.componentCatalog .project .listOfComponents .component .addToWorkflowContainer{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    left: 0;
+    text-align: center;
+    opacity: 0;
+    z-index: 10;
+
+    -webkit-transition: opacity 300ms;
+    -moz-transition: opacity 300ms;
+    -o-transition: opacity 300ms;
+    transition: opacity 300ms;
+}
+
+.componentCatalog .project .listOfComponents .component .addToWorkflowContainer .button{
+    background-color: transparent;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+
+    -webkit-transition: color 300ms, border-color 300ms;
+    -moz-transition: color 300ms, border-color 300ms;
+    -o-transition: color 300ms, border-color 300ms;
+    transition: color 300ms, border-color 300ms;
+}
+
+.componentCatalog .project .listOfComponents .component .addToWorkflowContainer .button:hover{
+    color: #2196f3;
+    border-color: #2196f3;
+}
+
+/* Export */
+#export .code{
+    padding: 11px;
+    margin: 0 0 11.5px;
+    line-height: 1.846;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #e9f2ff!important;
+    border: 1px solid #5298fc;
+    border-radius: 3px;
+
+    font-size: 15px;
+    color: black;
+    font-family: "InputMono","Monaco","Courier New",Courier;
+
+    white-space: pre;
+}
+
+code{
+    -webkit-border-radius: 0 0 0 0!important;
+    background: none!important;
+    border: 0!important;
+    bottom: auto!important;
+    float: none!important;
+    height: auto!important;
+    left: auto!important;
+    line-height: 19px;
+    margin: 0!important;
+    outline: 0!important;
+    overflow: visible!important;
+    padding: 0!important;
+    position: static!important;
+    right: auto!important;
+    text-align: left!important;
+    top: auto!important;
+    vertical-align: baseline!important;
+    width: auto!important;
+    box-sizing: content-box!important;
+    font-family: "Monaco","Courier New",Courier,monospace!important;
+    font-weight: normal!important;
+    font-style: normal!important;
+    font-size: 13px;
+    min-height: inherit!important;
+}
+
+#export .code .comment{
+    color: #408080!important
+}
+
+code.plain, code.plain a{
+    color: black;
+    background-color: transparent;
+}
+
+code.keyword, code.color1{
+    color: #069;
+    background-color: transparent;
+}
+
+code.string{
+    color: #ba2121;
+    background-color: transparent;
+}
+
+#export ol{
+    counter-reset: li;
+    list-style-type: decimal;
+    list-style: none;
+}
+
+#export p{
+    font-weight: bold;
+}
+
+#export ol>li:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: 6px;
+    text-align: center;
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 24px;
+    border: 2px solid #1194F6;
+    color: #1194F6;
+}
+
+#export ol>li>legend{
+    white-space: normal;
+    color: #777;
+}
+
+#export .panel.active{
+    background-color: rgba(82, 152, 252, 0.22);
+}
+
+#export .panel.active .panel-heading{
+    background-color: rgba(82, 152, 252, 1);
+}

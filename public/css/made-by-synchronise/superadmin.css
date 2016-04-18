@@ -1,0 +1,75 @@
+#database {
+    overflow-y: hidden;
+    overflow-x: auto;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.flowPanel {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    margin-bottom: 0;
+
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+.flowPanel .table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.flowPanel small, p {
+    white-space: normal
+}
+
+.panel, .panel-heading{
+    transition: background-color 0.5s ease;
+}
+
+.panel:hover > .panel-heading {
+    background-color: rgba(82, 152, 252, 1);
+    color: white;
+}
+
+.panel:hover{
+    background-color: rgba(82, 152, 252, 0.22);
+    cursor: pointer;
+}
+
+#databaseBlock .loadingModelListLabel{
+    text-align: center;
+}
+
+#databaseBlock table tr{
+    line-height: 35px;
+}
+
+#databaseBlock .model .name{
+    padding-left: 10px;
+}
+
+#databaseBlock .model > .records, .actions{
+    text-align: center;
+}
+
+.modelContentRow .remove{
+	cursor: pointer;
+}
+
+.modelContentRow .remove:hover{
+	-webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+
+	-ms-transform: rotate(360deg); /* IE 9 */
+	-webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+	transform: rotate(360deg);
+}

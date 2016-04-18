@@ -1,0 +1,122 @@
+<% include ../template/header %>
+	<% include ../template/dashboard_side_menu %>
+
+	<div id="wrapper">
+		<div id="page-wrapper">
+			<div class="container-fluid">
+    			<div class="row">
+    				<div class="col-xs-12">
+    					<div id="Header"></div>
+                    </div>
+    			</div>
+
+                <!--
+                <div class="row" align="center">
+                    <div class="col-xs-12">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-xs active">Projects</button>
+                            <button class="btn btn-default btn-xs">Components</button>
+                            <button class="btn btn-default btn-xs">Workflows</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" align="center">
+                    <br/>
+                </div>
+                -->
+
+                <div class="row" id="Marketplace"></div>
+		    </div>
+
+            <div class="container-fluid">
+                <div class="col-xs-12"><br/></div>
+            </div>
+
+            <div id="shadow"></div>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <legend>Getting started</legend>
+                        <div class="columnBlock">
+							<% for(var i = 0; i < gettingStarted.length; i++){ var row = gettingStarted[i]; %>
+								<div class="project">
+									<a href="/marketplace/project/<%= row.id %>">
+		                                <div class="card" style="background: <%= row.bg_color %>">
+		                                    <div class="logoProject">
+		                                        <img src="<%= row.icon %>">
+		                                    </div>
+		                                    <div class="nameProject">
+		                                        <h3 style="color:<%= row.txt_color %>;"><%= row.name %></h3>
+		                                    </div>
+		                                </div>
+									</a>
+	                            </div>
+							<% } %>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <legend>New</legend>
+                        <div class="columnBlock">
+							<% for(var i = 0; i < lastProjects.length; i++){ var row = lastProjects[i]; %>
+								<div class="project">
+									<a href="/marketplace/project/<%= row.id %>">
+		                                <div class="card" style="background: <%= row.bg_color %>">
+		                                    <div class="logoProject">
+		                                        <img src="<%= row.icon %>">
+		                                    </div>
+		                                    <div class="nameProject">
+		                                        <h3 style="color:<%= row.txt_color %>;"><%= row.name %></h3>
+		                                    </div>
+		                                </div>
+									</a>
+	                            </div>
+							<% } %>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<!--
+						<div class="card">
+							<input type="text" placeholder="Search..." class="form-control"/>
+							<br/>
+							<b>Categories</b>
+							<div>
+								<span class="label label-default">Communication</span>
+								<span class="label label-default">Image</span>
+								<span class="label label-default">Video</span>
+								<span class="label label-default">Database</span>
+								<span class="label label-default">Storage</span>
+								<span class="label label-default">Files</span>
+								<span class="label label-default">Maths</span>
+							</div>
+						</div>
+						-->
+
+                        <legend>Most Popular</legend>
+                        <div class="columnBlock">
+							<% for(var i = 0; i < mostPopularProjects.length; i++){ var row = mostPopularProjects[i]; %>
+								<div class="project">
+									<a href="/marketplace/project/<%= row.id %>">
+		                                <div class="card" style="background: <%= row.bg_color %>">
+		                                    <div class="logoProject">
+		                                        <img src="<%= row.icon %>">
+		                                    </div>
+		                                    <div class="nameProject">
+		                                        <h3 style="color:<%= row.txt_color %>;"><%= row.name %></h3>
+		                                    </div>
+		                                </div>
+									</a>
+	                            </div>
+							<% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+    			<% include ../template/footer_content %>
+            </div>
+	   </div>
+	</div>
+<% include ../template/footer %>

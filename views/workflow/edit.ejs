@@ -1,0 +1,28 @@
+<% include ../template/header %>
+	<% include ../template/dashboard_side_menu %>
+	<div id="wrapper">
+        <div id="page-wrapper">
+            <div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12">
+						<% if(typeof(breadcrumb) != "undefined"){ %>
+						<ol class="breadcrumb">
+							<li class="active">
+								<i class="fa fa-random"></i> <a href="/workflow">Workflow</a>
+							</li>
+							<% if(projectName.length){ %>
+							<li>
+								<a href="/workflow?d=d&projectOpened=<%= id_project %>"><%= projectName %></a>
+							</li>
+							<% } %>
+							<li><%= workflowName %></li>
+						</ol>
+						<% } %>
+					</div>
+				</div>
+
+				<div id="workflow"></div>
+            </div>
+        </div>
+    </div>
+<% include ../template/footer %>

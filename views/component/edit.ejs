@@ -1,0 +1,72 @@
+<% include ../template/header %>
+	<% include ../template/dashboard_side_menu %>
+
+	<div id="wrapper">
+        <div id="page-wrapper">
+			<style>
+				<% if(projectBgColor != "white" && projectBgColor != "#ffffff"){ %>
+					.navbar{
+						background: <%= projectBgColor %>;
+					}
+
+					.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+						background: <%= projectTxtColor %>;
+						color: <%= projectBgColor %>;
+					}
+
+					.navbar-default .navbar-nav > li > a{
+						color: <%= projectTxtColor %>;
+					}
+				<% } %>
+			</style>
+
+			<% if(typeof(breadcrumb) == "undefined"){ %>
+				<div style="padding-top: 50px; width: 100%; left: 0px; top: 0px; background-color: <%= projectBgColor %>; text-align: center; margin-top: -20px; margin-bottom: 20px; padding-bottom: 20px">
+					<a class="btn btn-default hidden-xs" style="position: absolute; top: 118px; left: 280px" href="/marketplace/project/<%= id_project %>">Back to marketplace</a>
+					<img src="<%= projectIcon %>" style="border-radius: 5px; width: 80px"/>
+					<h1 style="color:<%= projectTxtColor %>"><%= projectName %><br/><small style="color:<%= projectTxtColor %>"><%= componentName %></small></h1>
+					<a class="btn btn-default visible-xs" href="/marketplace/project/<%= id_project %>">Back to marketplace</a>
+				</div>
+			<% } %>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+							<div class="col-xs-12">
+								<% if(typeof(breadcrumb) != "undefined"){ %>
+		                        <ol class="breadcrumb">
+		                            <li class="active">
+		                                <i class="fa fa-puzzle-piece"></i> <a href="/component">Component</a>
+		                            </li>
+									<% if(projectName.length){ %>
+									<li>
+										<a href="/component?d=d&projectOpened=<%= id_project %>"><%= projectName %></a>
+									</li>
+									<% } %>
+									<li><%= componentName %></li>
+		                        </ol>
+		                        <% } %>
+							</div>
+						</div>
+                    </div>
+
+                    <div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-12" id="Component"></div>
+						</div>
+					</div>
+                </div>
+                <!-- /.row -->
+
+				<hr id="hrFooter" />
+
+				<% include ../template/footer_content %>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+<% include ../template/footer %>

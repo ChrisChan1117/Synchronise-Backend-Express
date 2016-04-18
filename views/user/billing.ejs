@@ -1,0 +1,100 @@
+<% include ../template/header %>
+<% include ../template/dashboard_side_menu %>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row" id="CardStoreAlert"></div>
+
+            <!--
+			<div class="row-fluid">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 card">
+					<legend>How billing works</legend>
+
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<p class="lead"><i class="fa fa-paw" style="font-size: 28px"></i> For your own projects</p>
+						<p>
+						   One of your cards is always set as default. It is the first card that will be charged for every bills. <br/>
+						   If your default card failed processing and you have other cards, we will try your different cards one after the other. <br/>
+						   If none of yours cards can be processed your account will be suspended until you pay all of your bills.
+					    </p>
+					</div>
+
+				    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<p class="lead"><i class="fa fa-users"></i> For your clients</p>
+						<p>
+							You might be creating applications or website for other people. You can associate a client to a project, making them the owner of the project.<br/>
+							The billing process will be handle on their hand from that point.<br/>
+							You will not see their card details and you will not be receiving their bills.<br/>
+							<a href="/project" alt="Manage project settings">Manage project settings</a>
+						</p>
+					</div>
+				</div>
+			</div>
+            -->
+
+            <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 20px; text-align: center" id="tabs">
+                <li role="presentation" class="active" style="display: inline-block; float: none"><a href="#bills" aria-controls="bills" role="tab" data-toggle="tab">Your invoices</a></li>
+                <li role="presentation" style="display: inline-block; float: none"><a href="#planTab" aria-controls="planTab" role="tab" data-toggle="tab">Select plan</a></li>
+                <li role="presentation" style="display: inline-block; float: none"><a href="#paymentMethods" aria-controls="paymentMethods" role="tab" data-toggle="tab">Payment methods</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="bills">
+                    <div class="row-fluid">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 card">
+                            <legend>Your personal Invoices</legend>
+
+                            <p>All of your bills are available for as long as your account with SYNCHRONISE IO LTD is live. You can download your bills on this page at anytime. All of the payments and the invoices are handled by <a href="https://www.stripe.com">Stripe</a>.</p>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive" id="Invoices"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="planTab">
+                    <div class="row-fluid" id="SubscriptionSelection"></div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="paymentMethods">
+        			<div class="row-fluid">
+                        <div class="col-xs-12 card">
+            				<div class="col-xs-12">
+            					<legend>
+                                    Your payment methods
+                                    <a class="btn btn-primary pull-right btn-xs" role="button" data-toggle="collapse" href="#collapseCardForm" aria-expanded="false" aria-controls="collapseCardForm">
+                                        Add a card
+                                    </a>
+                                </legend>
+            				</div>
+
+                            <div class="col-xs-12" style="text-align: center">
+                                <small>Your cards are securely stored on <a href="https://www.stripe.com" rel="nofollow">Stripe</a>. Once a card has been saved you will need to have at least one card as your default payment method. You can remove a card by first adding a new card and then removing the card you want.</small>
+                            </div>
+
+                            <div class="collapse" id="collapseCardForm">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs"></div>
+                				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="CardForm"></div>
+                				<div class="col-lg-3 col-md-3 hidden-sm hidden-xs"></div>
+                            </div>
+
+                            <div class="col-xs-12 table-responsive" id="CardList"></div>
+                        </div>
+
+                        <div class="col-xs-12 card">
+            				<div class="col-xs-12">
+            					<legend>Coupon</legend>
+            				</div>
+
+                			<div class="col-xs-12" id="CouponCodeForm"></div>
+                        </div>
+        			</div>
+                </div>
+		</div>
+
+		<hr/>
+		<% include ../template/footer_content %>
+	</div>
+	<!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<% include ../template/footer %>

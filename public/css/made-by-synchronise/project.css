@@ -1,0 +1,576 @@
+/* PROJECT */
+.projectsList{
+	padding-top: 30px;
+}
+
+.project{
+	margin-bottom: 30px;
+	max-height: 165px;
+	min-height: 165px;
+}
+
+.project .content{
+	border-radius: 5px;
+	color: #5a6b77;
+	padding: 10px;
+	width: 100%;
+	height: 100%;
+	min-height: 150px;
+	max-height: 150px;
+    text-align: center;
+
+    -ms-transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+}
+
+.project .content .isSharedRibbon:before{
+	content: "";
+    display: block;
+    position: absolute;
+    width:0;
+    height: 0;
+    bottom: 8px;
+    left: -27px;
+
+    width: 100px;
+    height: 20px;
+
+    text-align: center;
+    -webkit-transform: rotateZ(225deg) rotateX(0deg);
+    -moz-transform: rotateZ(0deg) rotateX(0deg);
+	-ms-transform: rotateZ(0deg) rotateX(0deg);
+	-o-transform: rotateZ(0deg) rotateX(0deg);
+	transform: rotateZ(225deg) rotateX(0deg);
+
+    /* Rhombus */
+    border-width: 0 30px 30px 30px;
+    border-style: solid;
+    border-color: transparent transparent #3AE transparent;
+}
+
+.project .content .isSharedRibbon:after{
+    display: block;
+    position: absolute;
+    content: "Shared";
+
+    left: -17px;
+    width: 90px;
+    height: 45px;
+    bottom: 5px;
+    padding-top: 16px;
+    background: transparent;
+
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+	-o-transform: rotateZ(45deg);
+	-ms-transform: rotateZ(45deg);
+	transform: rotateZ(45deg);
+
+    color: white;
+    font-weight: bold;
+    font-family: "Open Sans", sans-serif, "Raleway", Calibri, Arial;
+    text-align: center;
+    text-shadow: 0 1px rgba(255,255,25,0.1);
+}
+
+.project .display{
+    -webkit-animation-name: displayDBBlockFull;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: displayDBBlockFull;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: displayDBBlockFull;
+    -o-animation-duration: 0.3s;
+    -o-animation-fill-mode: forwards;
+
+    -ms-animation-name: displayDBBlockFull;
+    -ms-animation-duration: 0.3s;
+    -ms-animation-fill-mode: forwards;
+
+    animation-name: displayDBBlockFull;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes displayDBBlockFull {
+    from {
+		transform: scale(0);
+	}
+    to {
+		transform: scale(1);
+	}
+}
+
+@-webkit-keyframes displayDBBlockFull {
+    from {
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+    to {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+
+@-moz-keyframes displayDBBlockFull {
+    from {
+		-moz-transform: scale(0);
+		transform: scale(0);
+	}
+    to {
+		-moz-transform: scale(1);
+		transform: scale(1);
+	}
+}
+
+@-o-keyframes displayDBBlockFull {
+    from {
+		-o-transform: scale(0);
+		transform: scale(0);
+	}
+    to {
+		-o-transform: scale(1);
+		transform: scale(1);
+	}
+}
+
+.project .content small{
+    max-height: 20px;
+	height: 20px;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	-webkit-transition: opacity 0.3s; /* Safari 3.1 to 6.0 */
+	-moz-transition: opacity 0.3s; /* Mozilla 4.0 to 16.0 */
+	-o-transition: opacity 0.3s; /* Opera 10.5 to 12.1 */
+    transition: opacity 0.3s;
+}
+
+.project .content h3{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.project i:hover{
+	color: #2196f3;
+}
+
+.project .settings{
+	position: absolute;
+	right: 10px;
+	margin-top: -10px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.project .delete{
+    position: absolute;
+	right: 10px;
+    bottom: 0;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.project .team{
+	position: absolute;
+	margin-top: -10px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.project .icon{
+	width: 60px;
+	height: 60px;
+	border-radius: 5px;
+	margin-top: -40px;
+	margin-left: -25px;
+	position: absolute;
+}
+
+/* PROJECT MODAL */
+.projectModal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+	background-color: #000000;
+    background-color: rgba(0,0,0,0.3);
+    display: none;
+    z-index: 998;
+}
+
+.projectModal .tabsModal{
+	position: absolute;
+	width: 247px;
+	margin: auto;
+	display: block;
+	left: 0;
+	right: 0;
+}
+.projectModal .content{
+    width: 80%;
+    height: 80%;
+    min-width: 80%;
+    min-height: 80%;
+    max-width: 80%;
+    max-height: 80%;
+	background-color: #ffffff;
+    background-color: rgba(255,255,255,1);
+    bottom: 0;
+    position: absolute;
+    left: 10%;
+    top: 100%;
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 22px 70px 4px rgba(0,0,0,0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
+    z-index: 998;
+    padding-top: 10px;
+    overflow-x: hidden;
+	overflow-y: auto;
+	padding-bottom: 50px;
+
+	-ms-transform: scale(0.8,0.8); /* IE 9 */
+    -webkit-transform: scale(0.8,0.8); /* Chrome, Safari, Opera */
+    -moz-transform: scale(0.8,0.8); /* Mozilla */
+    -o-transform: scale(0.8,0.8); /* Mozilla */
+    transform: scale(0.8,0.8);
+}
+
+@media screen and (max-width: 798px) {
+	.projectModal .content{
+		width: 100%;
+	    height: 90%;
+	    min-width: 100%;
+	    min-height: 90%;
+	    max-width: 100%;
+	    max-height: 90%;
+	    left: 0;
+		padding-bottom: 100px;
+    }
+}
+
+.projectModal .content .close{
+	font-size: 20px;
+	right: 10px;
+	top: 0;
+	cursor: pointer;
+}
+
+.projectModal .content form{
+	border-radius: 5px;
+	color: #5a6b77;
+	border: 1px solid #dddee0;
+	padding: 10px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.projectModal .content .iconGroup{
+	text-align: center;
+}
+
+.projectModal .content form input[type=file]{
+	visibility:hidden;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.projectModal .content form .editProjectIcon{
+	border: 1px solid #5298fc;
+	overflow: hidden;
+	position: relative;
+    margin: auto;
+	top: 30px;
+	margin-bottom: 30px;
+	border-radius: 5px;
+	width: 160px;
+	cursor: pointer;
+
+	-webkit-transition: all .25s ease; /* Safari 3.1 to 6.0 */
+	-moz-transition: all .25s ease; /* Mozilla 4.0 to 16.0 */
+	-o-transition: all .25s ease; /* Opera 10.5 to 12.1 */
+    transition: all .25s ease;
+}
+
+.projectModal .content form .editProjectIcon:hover{
+	-o-animation-name: editProjectIcon;
+    -o-animation-duration: 0.5s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: both;
+
+    -webkit-animation-name: editProjectIcon;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: both;
+
+    -moz-animation-name: editProjectIcon;
+    -moz-animation-duration: 0.5s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: both;
+
+    animation-name: editProjectIcon;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes editProjectIcon {
+    from { color: #5a6b77; border: 1px solid #5298fc; }
+    to { color: #5298fc; border: 1px solid #5a6b77; }
+}
+
+@-moz-keyframes editProjectIcon {
+    from { color: #5a6b77; border: 1px solid #5298fc; }
+    to { color: #5298fc; border: 1px solid #5a6b77; }
+}
+
+@-o-keyframes editProjectIcon {
+    from { color: #5a6b77; border: 1px solid #5298fc; }
+    to { color: #5298fc; border: 1px solid #5a6b77; }
+}
+
+@keyframes editProjectIcon {
+	from { color: #5a6b77; border: 1px solid #5298fc; }
+    to { color: #5298fc; border: 1px solid #5a6b77; }
+}
+
+.projectModal .content .icon{
+	width: 60px;
+	height: 60px;
+    border-radius: 9px;
+}
+
+@media screen and (min-width: 1200px) {
+	.projectModal .content .icon{
+		margin-top: -40px;
+		margin-left: -25px;
+		position: absolute;
+        text-align: center;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.projectModal .content .icon{
+		left: 0;
+		right: 0;
+		margin: auto;
+		top: 60px;
+		margin-top: 0;
+		margin-left: 0;
+	}
+}
+
+.projectModal .content .footerButtons{
+    text-align: center;
+}
+
+.projectModal .team .member .delete{
+	text-align: center;
+	vertical-align: middle;
+}
+
+.projectModal .team .member .delete i{
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.projectModal .team .member .delete i:hover{
+	color: #2196f3;
+}
+
+.projectModal .store .preview .workflow{
+	width: 100%;
+	height: 80px;
+}
+
+.projectModal .store .preview .workflow img{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	height: 50px;
+	width: 50px;
+}
+
+.projectModal .store .preview .workflow .title{
+	font-weight: bold;
+	text-align: center;
+	height: 100%;
+	padding-left: 60px;
+	line-height: 50px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.slideInProject {
+    -o-animation-name: slideInProject;
+    -o-animation-duration: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    -webkit-animation-name: slideInProject;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: slideInProject;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    animation-name: slideInProject;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes slideInProject {
+    0%   {
+    	top:100%;
+	    -webkit-transform: scale(0.8,0.8);
+		transform: scale(0.8,0.8);
+    }
+
+    100% {
+    	top:20%;
+	    -webkit-transform: scale(1,1);
+		transform: scale(1,1);
+    }
+}
+
+@-moz-keyframes slideInProject {
+    0%   {
+    	top:100%;
+	    -moz-transform: scale(0.8,0.8);
+		transform: scale(0.8,0.8);
+    }
+
+    100% {
+    	top:20%;
+	    -moz-transform: scale(1,1);
+		transform: scale(1,1);
+    }
+}
+
+@-o-keyframes slideInProject {
+    0%   {
+    	top:100%;
+	    -o-transform: scale(0.8,0.8); /* Chrome, Safari, Opera */
+		transform: scale(0.8,0.8);
+    }
+
+    100% {
+    	top:20%;
+	    -o-transform: scale(1,1); /* Chrome, Safari, Opera */
+		transform: scale(1, 1);
+    }
+}
+
+@keyframes slideInProject {
+	0%   {
+		top:100%;
+	    transform: scale(0.8,0.8);
+	}
+
+	37%  {
+		top:40%;
+	}
+
+    55%  {
+    	top:30%;
+    }
+
+    100% {
+    	top:20%;
+	    transform: scale(1,1);
+    }
+}
+
+.slideOutProject {
+    -o-animation-name: slideOutProject;
+    -o-animation-duration: 0.3s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    -webkit-animation-name: slideOutProject;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: slideOutProject;
+    -moz-animation-duration: 0.3s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    animation-name: slideOutProject;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes slideOutProject {
+    from {
+    	top: 20%;
+	    -webkit-transform: scale(1,1);
+		transform: scale(1,1);
+    }
+
+    to {
+    	top: 100%;
+	    -webkit-transform: scale(0.8,0.8);
+		transform: scale(0.8,0.8);
+    }
+}
+
+@-moz-keyframes slideOutProject {
+    from {
+    	top: 20%;
+	    -moz-transform: scale(1,1);
+		transform: scale(1,1);
+    }
+
+    to {
+    	top: 100%;
+	    -moz-transform: scale(0.8,0.8);
+		transform: scale(0.8,0.8);
+    }
+}
+
+@-o-keyframes slideOutProject {
+    from {
+    	top: 20%;
+	    -o-transform: scale(1,1);
+		transform: scale(1,1);
+    }
+
+    to {
+    	top: 100%;
+	    -o-transform: scale(0.8,0.8);
+	    transform: scale(0.8,0.8);
+    }
+}
+
+@keyframes slideOutProject {
+    from {
+    	top: 20%;
+	    transform: scale(1,1);
+    }
+
+    to {
+    	top: 100%;
+	    transform: scale(0.8,0.8);
+    }
+}

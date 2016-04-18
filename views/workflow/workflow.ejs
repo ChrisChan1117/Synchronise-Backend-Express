@@ -1,0 +1,28 @@
+<% include ../template/header %>
+	<% include ../template/dashboard_side_menu %>
+	<div id="wrapper">
+		<div id="ProjectPicker"></div>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="Header"></div>
+                        <% if(typeof(breadcrumb) != "undefined"){ %>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Workflow
+                            </li>
+                        </ol>
+                        <% } %>
+                    </div>
+                    <div class="row-fluid" id="workflows"></div>
+                </div>
+
+				<hr/>
+
+				<% include ../template/footer_content %>
+            </div>
+
+        </div>
+    </div>
+<% include ../template/footer %>

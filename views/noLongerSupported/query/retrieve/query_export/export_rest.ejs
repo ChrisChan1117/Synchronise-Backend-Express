@@ -1,0 +1,16 @@
+<div role="tabpanel" class="tab-pane tab-pane-content fade in" id="rest">
+    <p style="color: white;font-size: 20px;font-weight: bold;"><span style="font-style: italic;">Query unique identifier :</span>&nbsp;&nbsp;<span class="code"><code class="plain queryUniqueIdentifier"></code></span>&nbsp;&nbsp;<button class="btn btn-sm btn-primary changeIdentifier">Change identifier</button></p>
+
+
+    <ol>
+        <li>
+            <legend>Call the REST API</legend>
+            <p>The API works in either HTTP or HTTPS. However we strongly recommend to use it in HTTPS to get a better security level. All the requests must be in POST and you can the results in either JSON with application/json or XML with application/xml.</p>
+            <div class="code"><button class="btn btn-sm btn-primary pull-right decryptKey">Display key</button><code class="keyword">curl</code> <code class="plain">-X</code> <code class="keyword">POST</code> <code class="plain">\</code><br/><code class="plain">-H</code> <code class="string">"X-API-KEY: <span class="public_key_value">###ENCRYPTED_PUBLIC_KEY###</span>"</code> <code class="plain">\</code><br/><code class="plain">-H</code> <code class="string">"Accept: application/json"</code> <code class="plain">\</code><br/><code class="plain">-d</code> <code class="string">'{"params": "<span class="parameters"></span></span>"}'</code> <code class="plain">\</code><br/></span><code class="plain">https://api.synchronise.io/query/run/</code><code class="keyword queryUniqueIdentifier"></code></div>
+        </li>
+        
+        <li>
+            <legend>Try it now! Copy/Paste the code above in your terminal and press enter</legend>
+        </li>
+    </ol>    
+</div>

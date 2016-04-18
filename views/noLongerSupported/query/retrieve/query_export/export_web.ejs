@@ -1,0 +1,25 @@
+<div class="tab-pane active fade in" id="web">
+    <ul class="nav nav-tabs inside-nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#javascript" aria-controls="javascript" role="tab" data-toggle="tab">Javascript</a></li>
+        <li role="presentation"><a href="#reactjs" aria-controls="reactjs" role="tab" data-toggle="tab">React.JS</a></li>
+        <li role="presentation"><a href="#angularjs" aria-controls="angularjs" role="tab" data-toggle="tab">Angular.JS</a></li>
+        <li role="presentation"><a href="#php" aria-controls="php" role="tab" data-toggle="tab">PHP</a></li>
+        <li role="presentation"><a href="#go" aria-controls="go" role="tab" data-toggle="tab">Go</a></li>
+        <li role="presentation"><a href="#asp" aria-controls="asp" role="tab" data-toggle="tab">ASP</a></li>
+    </ul>
+    
+    <div class="col-xs-12">
+        <br/>
+    </div>
+    
+    <div class="col-xs-12">
+        <div class="tab-content">
+            <% include export_js %>
+            <% include export_react %>
+            <% include export_angular %>
+            <% include export_php %>
+            <% include export_go %>
+            <% include export_asp %>
+        </div>
+    </div>
+</div>

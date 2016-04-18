@@ -1,0 +1,106 @@
+body {
+    overflow-x: hidden
+}
+
+#wrapper{
+	padding-top: 40px;
+}
+
+@media screen and (max-width: 768px) {
+	#wrapper{
+		padding-top: 80px;
+	}
+}
+
+#payment-form{
+	border: 1px solid rgba(169, 169, 169, 0.55);
+	margin-bottom: 30px;
+}
+
+#payment-form input{
+	padding: 0;
+    border: none;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+	padding-left: 10px;
+	background-color: white;
+}
+
+#payment-form .secureIcon{
+	position: absolute;
+	right: 30px;
+	top: 20px;
+	color: #13A713;
+}
+
+#payment-form.identified{
+	border: 1px solid #2ecc71 !important;
+}
+
+.paymentInput.identified{
+	border: 1px solid #2ecc71 !important;
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+}
+
+.paymentInput.identified:focus{
+	border: 1px solid #2ecc71 !important;
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+}
+
+.cc-num__wrap{
+	position:relative;
+}
+
+.cardimage{
+	position:absolute;
+	display:block;
+	right:.375em;
+	top:50%;
+	margin-top:-10px;
+	width:28px;
+	height:19px;
+	background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEwMHB4IiBoZWlnaHQ9IjEwMHB4IiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwIDEwMCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPGc+CgkJPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjExMSw3Ni4yOTZjMCwyLjg0NCwyLjMwNSw1LjE0OCw1LjE0Nyw1LjE0OGg4MS44OTEgICAgYzIuODQxLDAsNS4xNDctMi4zMDUsNS4xNDctNS4xNDh2LTMyLjg5SDMuMTExVjc2LjI5NnogTTY5LjY3OSw1NS42OTdoMTUuOTE0djE1LjkxNEg2OS42NzlWNTUuNjk3eiBNOTAuMTQ5LDE3LjUwM0g4LjI1OCAgICBjLTIuODQyLDAtNS4xNDcsMi4zMDUtNS4xNDcsNS4xNDd2Ny42OTNoOTIuMTg2VjIyLjY1Qzk1LjI5NywxOS44MDgsOTIuOTksMTcuNTAzLDkwLjE0OSwxNy41MDN6Ii8+Cgk8L2c+CjwvZz4KPC9zdmc+) no-repeat center center;
+	background-size: 100%;
+}
+
+.cardInfo__cc-exp,
+.cardInfo__cc-cvc{
+	float:left;
+}
+
+.cardInfo__cc-exp{
+}
+
+.cc-num.visa + .cardimage{
+	background:url('https://images.synchronise.io/cards/visa.png') no-repeat center center;
+}
+
+.cc-num.amex + .cardimage{
+	background:url('https://images.synchronise.io/cards/amex.png') no-repeat center center;
+}
+
+.cc-num.mastercard + .cardimage{
+	background:url('https://images.synchronise.io/cards/mastercard.png') no-repeat center center;
+}
+
+.cc-num.diners + .cardimage{
+	background:url('https://images.synchronise.io/cards/diners.png') no-repeat center center;
+}
+
+.cc-num.discover + .cardimage{
+	background:url('https://images.synchronise.io/cards/discover.png') no-repeat center center;
+}
+
+.cardInfo__submission{
+	margin-top: 10px;
+}
+
+#plans{
+    margin-top: 80px;
+}

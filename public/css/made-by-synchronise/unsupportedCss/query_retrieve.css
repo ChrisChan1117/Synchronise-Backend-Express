@@ -1,0 +1,1599 @@
+body {
+    overflow: hidden
+}
+
+#compilationHUD{
+    font-size: 30px;
+    line-height: 40px;
+    float:right !important;
+}
+
+#compilationHUD.success{
+    color: rgb(100, 189, 99);
+}
+
+#compilationHUD.queue{
+    color: #2196f3;
+}
+
+#compilationHUD.compiling{
+    color: #C3A407;
+}
+
+.panel {
+    cursor: pointer;
+    border: 1px solid #d1d8de;
+    border-radius: 2px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#blocks {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.bigBackground {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    margin-bottom: 0;
+
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+.bigBackground::-webkit-scrollbar{
+    width: 2px;
+    height: 2px;
+}
+
+.bigBackground::-webkit-scrollbar-track{
+    background: transparent;
+    border-radius: 2px;
+}
+
+.bigBackground::-webkit-scrollbar-thumb{
+    background: darkgray;
+    border-radius: 2px;
+}
+
+#dotNavigation {
+    z-index: 999;
+    position: absolute;
+    right: 0px;
+    top: 40px !important;
+    text-align: center;
+    width: 33.33333%;
+}
+
+@media screen and (max-width: 1200px) {
+    #dotNavigation {
+        top: 0px !important;
+        margin-right: 0px !important;
+        right: 10px !important;
+        text-align: right;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #dotNavigation {
+        display: none;
+    }
+}
+
+#dotNavigation i {
+    margin-right: 4px;
+}
+
+#dotNavigation .dotSubtitle{
+    color: black;
+}
+
+#dotNavigation .dotNavigation i {
+    cursor: pointer;
+    color: rgba(82, 152, 252, 1);
+}
+
+#arrowsNavigation {
+    z-index: 999
+}
+
+#arrowsNavigation .arrow {
+    text-align: center
+}
+
+#arrowsNavigation .arrow .inactive {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+
+#arrowsNavigation .arrow:hover {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+#arrowsNavigation .arrow .inactive:hover {
+    cursor: default;
+}
+
+/* DATA SOURCES */
+#dataSources #listOfDatabaseTypes::-webkit-scrollbar{
+	width: 2px;
+	height: 2px;
+}
+
+#dataSources #listOfDatabaseTypes::-webkit-scrollbar-track{
+	background: transparent;
+	border-radius: 2px;
+}
+
+#dataSources #listOfDatabaseTypes::-webkit-scrollbar-thumb{
+	background: darkgray;
+	border-radius: 2px;
+}
+
+#dataSources #listOfDatabaseTypes{
+    height: auto;
+    min-height: 153px;
+    max-height: 153px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+#dataSources #listOfDatabaseTypes .datastoreTypeContainer{
+    width: 33.3333333333%;
+    min-width: 238px;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#dataSources #listOfDatabaseTypes .panel{
+    display: inline-block;
+    width: 100%;
+}
+
+#dataSources .panel, #export .panel {
+    text-align: center;
+}
+
+#dataSources .panel:hover, #export .panel:hover {
+    cursor: pointer;
+}
+
+#dataSources .panel.active{
+    background-color: rgba(82, 152, 252, 0.22);
+}
+
+#dataSources .panel.active .panel-heading{
+    background-color: rgba(82, 152, 252, 1);
+    color: white;
+}
+
+#dataSources .dataStoreType img{
+	width: auto;
+	height: 55px;
+}
+
+#listDataStore {
+    opacity: 0;
+}
+
+#listDataStore .content {
+    height: auto;
+    padding-top: 3px;
+    max-height: 135px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+#dataStoreTooltip{
+	opacity: 0;
+	position: absolute;
+	display: none;
+	background-color: rgba(255, 255, 255, 0.9);
+	width: 450px;
+	height: 3000px;
+	border-radius: 5px;
+	border: 1px solid gray;
+	z-index: 999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#dataStoreTooltip .content{
+    display: none;
+}
+
+#dataStoreTooltip .content ul{
+    list-style: none;
+    text-align: left;
+}
+
+#dataStoreTooltip .content ul li{
+    color: black;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid black;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+#dataStoreTooltip .content ul li:hover{
+
+}
+
+#dataStoreTooltip .content ul .active{
+    color: white;
+    background-color: rgba(0,0,0,0.6);
+}
+
+#dataStoreTooltip .content .tables, #dataStoreTooltip .content .fields{
+	overflow-y: scroll;
+    overflow-x: hidden;
+    width: 50%;
+}
+
+#dataStoreTooltip .content .tables ul li{
+	cursor: pointer;
+}
+
+#dataStoreTooltip .content .tables ul .active{
+	cursor: default;
+}
+
+.fadeOutBackground {
+    -webkit-animation-name: fadeOutBackground;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-delay: 0.5;
+
+    -moz-animation-name: fadeOutBackground;
+    -moz-animation-duration: 0.5s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+    -moz-animation-delay: 0.5;
+
+    -o-animation-name: fadeOutBackground;
+    -o-animation-duration: 0.5s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+    -o-animation-delay: 0.5;
+
+    animation-name: fadeOutBackground;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5;
+}
+
+@-webkit-keyframes fadeOutBackground {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-moz-keyframes fadeOutBackground {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-o-keyframes fadeOutBackground {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeOutBackground {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.fadeInListDataStorePanel {
+    -webkit-animation-name: fadeInListDataStorePanel;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+
+    -moz-animation-name: fadeInListDataStorePanel;
+    -moz-animation-duration: 0.5s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: forwards;
+
+    -o-animation-name: fadeInListDataStorePanel;
+    -o-animation-duration: 0.5s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: forwards;
+
+    animation-name: fadeInListDataStorePanel;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+
+    display: block !important;
+}
+
+@-webkit-keyframes fadeInListDataStorePanel {
+    0% { opacity: 0; -webkit-transform: scale(1.2); }
+    25% { opacity: 1; -webkit-transform: scale(0.8); }
+
+    35% { opacity: 1; -webkit-transform: scale(1); }
+    45% { opacity: 1; -webkit-transform: scale(1.1); }
+    55% { opacity: 1; -webkit-transform: scale(1); }
+    65% { opacity: 1; -webkit-transform: scale(1.05); }
+    75% { opacity: 1; -webkit-transform: scale(1); }
+    85% { opacity: 1; -webkit-transform: scale(1.025); }
+    95% { opacity: 1; -webkit-transform: scale(1); }
+
+    100% { opacity: 1; -webkit-transform: scale(1); }
+}
+
+@-moz-keyframes fadeInListDataStorePanel {
+    0% { opacity: 0; -moz-transform: scale(1.2); }
+    25% { opacity: 1; -moz-transform: scale(0.8); }
+
+    35% { opacity: 1; -moz-transform: scale(1); }
+    45% { opacity: 1; -moz-transform: scale(1.1); }
+    55% { opacity: 1; -moz-transform: scale(1); }
+    65% { opacity: 1; -moz-transform: scale(1.05); }
+    75% { opacity: 1; -moz-transform: scale(1); }
+    85% { opacity: 1; -moz-transform: scale(1.025); }
+    95% { opacity: 1; -moz-transform: scale(1); }
+
+    100% { opacity: 1; -moz-transform: scale(1); }
+}
+
+@-o-keyframes fadeInListDataStorePanel {
+    0% { opacity: 0; -o-transform: scale(1.2); }
+    25% { opacity: 1; -o-transform: scale(0.8); }
+
+    35% { opacity: 1; -o-transform: scale(1); }
+    45% { opacity: 1; -o-transform: scale(1.1); }
+    55% { opacity: 1; -o-transform: scale(1); }
+    65% { opacity: 1; -o-transform: scale(1.05); }
+    75% { opacity: 1; -o-transform: scale(1); }
+    85% { opacity: 1; -o-transform: scale(1.025); }
+    95% { opacity: 1; -o-transform: scale(1); }
+
+    100% { opacity: 1; -o-transform: scale(1); }
+}
+
+@keyframes fadeInListDataStorePanel {
+    0% { opacity: 0; transform: scale(1.2); }
+    25% { opacity: 1; transform: scale(0.8); }
+
+    35% { opacity: 1; transform: scale(1); }
+    45% { opacity: 1; transform: scale(1.1); }
+    55% { opacity: 1; transform: scale(1); }
+    65% { opacity: 1; transform: scale(1.05); }
+    75% { opacity: 1; transform: scale(1); }
+    85% { opacity: 1; transform: scale(1.025); }
+    95% { opacity: 1; transform: scale(1); }
+
+    100% { opacity: 1; transform: scale(1); }
+}
+
+#listDataStore .content .dataStore .panel {
+	width: 100%;
+	opacity: 0;
+
+	transform: scale(0.8);
+	-o-transform: scale(0.8);
+	-moz-transform: scale(0.8);
+	-webkit-transform: scale(0.8);
+}
+
+#listDataStore .content .dataStore .active {
+	box-shadow: inset 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.twitter-typeahead{
+	width: 100%;
+}
+
+.tt-dropdown-menu{
+	background-color: white;
+	border: 1px solid #eeeeee;
+	border-top: 0px;
+	width: 100%;
+	min-width: 100%;
+	max-width: 100%;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+    text-align: left;
+}
+
+.tt-dropdown-menu .tt-suggestions{
+	margin-top: 10px;
+    text-align: left;
+}
+
+.tt-dropdown-menu .tt-suggestion{
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	font-size: 20px;
+}
+
+.tt-dropdown-menu .tt-cursor{
+	background-color: #5298fc;
+	color: white;
+	cursor: pointer;
+}
+
+.tt-section-header{
+	font-size: 20px;
+	border-bottom: 1px solid #eeeeee;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #5298fc;
+	width: 100%;
+	min-width: 100%;
+}
+
+.tt-section-header:not(:first-of-type) {
+    border-top: 1px solid #eeeeee;
+}
+
+.fieldsList .table{
+	width: 100%;
+}
+
+.fieldsList .table .title{
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(93, 158, 199);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(53, 118, 160, 1);
+    margin-right: 10px;
+}
+
+.fieldsList .table .field{
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(99, 189, 158);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(86, 128, 113, 1);
+    margin-right: 10px;
+}
+
+.fieldsList .table .remove{
+	cursor: pointer;
+}
+
+.fieldsList .table .remove:hover{
+	-webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+
+	-ms-transform: rotate(360deg); /* IE 9 */
+	-webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+	transform: rotate(360deg);
+}
+
+.queryFieldsLoading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+}
+.queryFieldsLoading .bullet {
+    position: absolute;
+    padding: 5px;
+    border-radius: 50%;
+    background: #5298fc;
+    -webkit-animation: queryFieldsLoading 1s ease-in-out 0s infinite;
+    animation: queryFieldsLoading 1s ease-in-out 0s infinite;
+}
+.queryFieldsLoading .bullet:nth-child(1) {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+}
+.queryFieldsLoading .bullet:nth-child(2) {
+    -webkit-animation-delay: 0.15s;
+    animation-delay: 0.15s;
+}
+.queryFieldsLoading .bullet:nth-child(3) {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+.queryFieldsLoading .bullet:nth-child(4) {
+    -webkit-animation-delay: 0.45s;
+    animation-delay: 0.45s;
+}
+@-webkit-keyframes queryFieldsLoading {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+@keyframes queryFieldsLoading {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+div[data-idBlock=fields] *{
+    white-space: initial;
+}
+
+/* SWITCHERY */
+div[data-idBlock=fields] .switchery{
+    width: 25px;
+    height: 15px;
+}
+
+div[data-idBlock=fields] .switchery>small{
+    width: 15px;
+    height: 15px;
+}
+
+div[data-idBlock=fields] .schema .tables, div[data-idBlock=fields] .schema .fields{
+    /*max-height: 151px;*/
+    overflow-y: auto;
+}
+
+/* SCHEMA SCROLLBAR */
+div[data-idBlock=fields] .schema ::-webkit-scrollbar{
+    width: 2px;
+    height: 2px;
+}
+
+div[data-idBlock=fields] .schema ::-webkit-scrollbar-track{
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+div[data-idBlock=fields] .schema ::-webkit-scrollbar-thumb{
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+}
+
+div[data-idBlock=fields] .schema .table{
+	padding: 5px;
+	font-size: 18px;
+	border: 1px solid #eeeeee;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+div[data-idBlock=fields] .schema .table.active, div[data-idBlock=fields] .schema .table:hover{
+	color: white;
+	background-color: #5298fc;
+	border-color: transparent;
+}
+
+div[data-idBlock=fields] .schema .table.active{
+	cursor: default;
+}
+
+div[data-idBlock=fields] .schema .field{
+	padding: 5px;
+	font-size: 18px;
+	border: 1px solid #eeeeee;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-bottom: 5px;
+}
+
+div[data-idBlock=fields] .displayOnlyCheck{
+	margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+#QueryResultPreview .code pre{
+    display: block;
+    padding: 11px;
+    margin: 0 0 11.5px;
+    line-height: 1.846;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #e9f2ff!important;
+    border: 1px solid #5298fc;
+    border-radius: 3px;
+
+    font-size: 15px;
+    color: black;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+
+    white-space: pre;
+}
+
+#QueryResultPreview .code pre .string, #QueryResultPreview .code pre .number, #QueryResultPreview .code pre .boolean, #QueryResultPreview .code pre .null{
+    color: #d67a70!important;
+}
+
+div[data-idBlock=rules] .ruleRow .remove i, div[data-idBlock=ordering] .orderingRow .remove i{
+    cursor: pointer;
+}
+
+div[data-idBlock=ordering] .orderingRow{
+    margin-bottom: 10px;
+}
+
+div[data-idBlock=ordering] .orderingAvailableField{
+    padding: 5px;
+    border: 1px solid #CFCFCF;
+    border-radius: 4px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+div[data-idBlock=ordering] .orderingAvailableField:hover{
+    border: 1px solid transparent;
+    background-color: #4E95FF;
+    cursor: pointer;
+}
+
+div[data-idBlock=ordering] .orderingAvailableField:hover>.content{
+    background-color: transparent;
+}
+
+div[data-idBlock=ordering] .orderingAvailableField:hover>.table, div[data-idBlock=ordering] .orderingAvailableField:hover>.field{
+    box-shadow: 0px 0px 0px rgba(53, 118, 160, 1);
+}
+
+div[data-idBlock=ordering] .orderingAvailableField .content{
+    padding: 5px;
+    border-radius: 5px;
+    white-space: normal;
+    word-break: break-all;
+    line-height: 37px;
+    background-color: #F4F4F4;
+}
+
+div[data-idBlock=ordering] .orderingAvailableField .type{
+    margin-right: 5px;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+div[data-idBlock=ordering] .orderingAvailableField .table{
+    margin-right: 5px;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(93, 158, 199);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(53, 118, 160, 1);
+}
+
+div[data-idBlock=ordering] .orderingAvailableField .field{
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(99, 189, 158);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(86, 128, 113, 1);
+}
+
+@media(min-width:1200px){
+    div[data-idBlock=rules] .ruleRow .remove i, div[data-idBlock=ordering] .orderingRow i{
+        line-height: 47px; /* 37 line height + 10 padding */
+    }
+}
+
+div[data-idBlock=rules] .ruleRow .remove i:hover, div[data-idBlock=ordering] .orderingRow .removeOrderingIcon:hover{
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+
+    -ms-transform: rotate(360deg); /* IE 9 */
+    -webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+    transform: rotate(360deg);
+
+    cursor: pointer;
+}
+
+@media(min-width:1200px){
+    div[data-idBlock=rules] .ruleRow .content, div[data-idBlock=ordering] .orderingRow .content{
+        line-height: 37px;
+    }
+}
+
+div[data-idBlock=rules] .ruleRow .content, div[data-idBlock=ordering] .orderingRow .content{
+    padding: 5px;
+    border: 1px solid #CFCFCF;
+    border-radius: 5px;
+    white-space: normal;
+    word-break: break-all;
+    line-height: 37px;
+}
+
+div[data-idBlock=rules] .ruleRow .content .rule, div[data-idBlock=ordering] .orderingRow .content .rule{
+    padding: 5px;
+    background-color: rgba(128, 128, 128, 0.09);
+    border-radius: 5px;
+    height: 37px;
+}
+
+div[data-idBlock=rules] .ruleRow .content .rule .form-control, div[data-idBlock=ordering] .orderingRow .content .rule .form-control{
+    line-height: 27px;
+    padding-top: 0px;
+    font-size: 16px;
+    height: 27px;
+}
+
+div[data-idBlock=rules] .ruleRow .content .field, div[data-idBlock=ordering] .orderingRow .content .field{
+    font-size: 16px;
+    line-height: 37px;
+    background-color: rgba(128, 128, 128, 0.09);
+    border-radius: 5px;
+}
+
+div[data-idBlock=ordering] .orderingRow .removeOrderingIcon, div[data-idBlock=ordering] .orderingRow .moveOrderingIcon{
+    position: absolute;
+}
+
+div[data-idBlock=ordering] .orderingRow .moveOrderingIcon{
+    margin-left: -10px;
+    margin-top: 18px;
+}
+
+div[data-idBlock=ordering] .orderingRow .removeOrderingIcon{
+    margin-right: -10px;
+    margin-top: 18px;
+}
+
+@media(max-width:1200px){
+    div[data-idBlock=rules] .ruleRow .content form div, div[data-idBlock=ordering] .orderingRow .content form div{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    div[data-idBlock=rules] .ruleRow .content .field, div[data-idBlock=rules] .ruleRow .content .rule, div[data-idBlock=rules] .ruleRow .content .value{
+        margin-bottom: 5px;
+    }
+}
+
+div[data-idBlock=rules] .ruleRow .content .field .dataType, div[data-idBlock=ordering] .orderingRow .content .field .dataType{
+    margin-right: 5px;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+div[data-idBlock=rules] .ruleRow .content .field .tableName, div[data-idBlock=ordering] .orderingRow .content .field .tableName{
+    margin-right: 5px;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(93, 158, 199);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(53, 118, 160, 1);
+}
+
+div[data-idBlock=rules] .ruleRow .content .field .fieldName, div[data-idBlock=ordering] .orderingRow .content .field .fieldName{
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(99, 189, 158);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(86, 128, 113, 1);
+}
+
+div[data-idBlock=rules] .ruleRow .content .value *, div[data-idBlock=ordering] .orderingRow .content .value *{
+    background-color: rgba(128, 128, 128, 0.09);
+    border-radius: 5px;
+    line-height: 27px;
+    padding: 5px;
+    height: 37px;
+    font-size: 15px;
+    text-align: center;
+}
+
+div[data-idBlock=rules] .rules .group{
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+/* COLOR SCHEMES */
+div[data-idBlock=rules] .rules .group:nth-child(1), div[data-idBlock=rules] .rules .group .group:nth-child(1){
+    border-left: 2px solid #A5D6A7;
+    background-color: transparent;
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(2), div[data-idBlock=rules] .rules .group .group:nth-child(2){
+    border-left: 2px solid #9FA8DA;
+    background-color: rgba(159, 168, 218, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(3), div[data-idBlock=rules] .rules .group .group:nth-child(3){
+    border-left: 2px solid #80CBC4;
+    background-color: rgba(128, 203, 196, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(4), div[data-idBlock=rules] .rules .group .group:nth-child(4){
+    border-left: 2px solid #B39DDB;
+    background-color: rgba(179, 157, 219, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(5), div[data-idBlock=rules] .rules .group .group:nth-child(5){
+    border-left: 2px solid #90CAF9;
+    background-color: rgba(144, 202, 249, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(6), div[data-idBlock=rules] .rules .group .group:nth-child(6){
+    border-left: 2px solid #CE93D8;
+    background-color: rgba(206, 147, 216, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(7), div[data-idBlock=rules] .rules .group .group:nth-child(7){
+    border-left: 2px solid #F48FB1;
+    background-color: rgba(244, 143, 177, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(8), div[data-idBlock=rules] .rules .group .group:nth-child(8){
+    border-left: 2px solid #81D4FA;
+    background-color: rgba(129, 212, 250, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(9), div[data-idBlock=rules] .rules .group .group:nth-child(9){
+    border-left: 2px solid #80DEEA;
+    background-color: rgba(128, 222, 234, 0.1);
+}
+
+div[data-idBlock=rules] .rules .group:nth-child(10), div[data-idBlock=rules] .rules .group .group:nth-child(10){
+    border-left: 2px solid #EF9A9A;
+    background-color: rgba(239, 154, 154, 0.1);
+}
+/* END COLOR SCHEMES */
+
+div[data-idBlock=rules] .rules .group:hover{
+    background-color: white;
+}
+
+div[data-idBlock=rules] .rules .group:hover > .group{
+    background-color: rgba(82, 152, 252, 0.13);
+}
+
+div[data-idBlock=rules] .rules .group .group{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+div[data-idBlock=rules] .rules .group .group:hover {
+    background-color: white;
+}
+
+div[data-idBlock=rules] .rules .group .group:hover ~ .group{
+    background-color: rgba(82, 152, 252, 0.13);
+}
+
+div[data-idBlock=rules] .rules .group .ruleRow{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div[data-idBlock=rules] .rules .group .andOrBadge .value{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    color: #CFCFCF;
+    border: 1px solid #CFCFCF;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+div[data-idBlock=rules] .rules .value{
+    height: 37px;
+    display: inline-block;
+    line-height: 37px;
+}
+
+
+/* List of rule type */
+div[data-idBlock=rules] .rules .value .typesContainer{
+    position: absolute;
+    background-color: transparent;
+    z-index: 999;
+    display: none;
+    top: 50px
+}
+
+div[data-idBlock=rules] .rules .value .typesContainer .type{
+    width: 90px;
+    height: 40px;
+    border-radius: 20px;
+    line-height: 30px;
+    cursor: pointer;
+    border: 1px solid #CFCFCF;
+    margin: auto;
+    background-color: white;
+    box-shadow: 1px 1px 1px rgba(228, 228, 228, 1);
+    display: inline-block;
+}
+
+/* Nice display for the value */
+div[data-idBlock=rules] .rules .value .valueContainer{
+    width: 95%;
+    position: absolute;
+    top: 0px;
+    left: 5%;
+    overflow: hidden;
+    padding: 0px;
+
+    -webkit-animation: showValueContainer 0.3s; /* Chrome, Safari, Opera */
+    -webkit-animation-fill-mode: forwards;
+
+    animation: showValueContainer 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@media(max-width:1200px){
+    div[data-idBlock=rules] .rules .value .valueContainer{
+        left: 0%;
+        width: 100%;
+    }
+}
+
+div[data-idBlock=rules] .rules .value:hover > .valueContainer
+/*div[data-idBlock=rules] .rules .value input:focus + .valueContainer*/{
+    -webkit-animation: hideValueContainer 0.3s; /* Chrome, Safari, Opera */
+    -webkit-animation-fill-mode: forwards;
+
+    animation: hideValueContainer 0.3s;
+    animation-fill-mode: forwards;
+}
+
+/* Chrome, Safari, Opera */
+@media(max-width:1200px){
+    div[data-idBlock=rules] .rules .value .valueContainer{
+        left: 0%;
+    }
+}
+
+@-webkit-keyframes hideValueContainer {
+    from { opacity: 1; width: 95%; }
+    to { opacity: 0; width: 0%; }
+}
+
+/* Standard syntax */
+@keyframes hideValueContainer {
+    from { opacity: 1; width: 95%; }
+    to { opacity: 0; width: 0%; }
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes showValueContainer {
+    from { opacity: 0; width: 0%; }
+    to { opacity: 1; width: 95%; }
+}
+
+/* Standard syntax */
+@keyframes showValueContainer {
+    from { opacity: 0;width: 0%; }
+    to { opacity: 1; width: 95%;}
+}
+
+/* Chrome, Safari, Opera */
+@media(max-width:1200px){
+    @-webkit-keyframes hideValueContainer {
+        from { opacity: 1; width: 100%; }
+        to { opacity: 0; width: 0%; }
+    }
+
+    /* Standard syntax */
+    @keyframes hideValueContainer {
+        from { opacity: 1; width: 100%; }
+        to { opacity: 0; width: 0%; }
+    }
+
+    /* Chrome, Safari, Opera */
+    @-webkit-keyframes showValueContainer {
+        from { opacity: 0; width: 0%; }
+        to { opacity: 1; width: 100%; }
+    }
+
+    /* Standard syntax */
+    @keyframes showValueContainer {
+        from { opacity: 0;width: 0%; }
+        to { opacity: 1; width: 100%;}
+    }
+}
+
+div[data-idBlock=rules] .rules .value:hover > .input
+/*div[data-idBlock=rules] .rules .value input:focus*/{
+    -webkit-animation: showInputValue 0.3s; /* Chrome, Safari, Opera */
+    -webkit-animation-fill-mode: forwards;
+
+    animation: showInputValue 0.3s;
+    animation-fill-mode: forwards;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes showInputValue {
+    from {
+        opacity: 0;
+        width: 0%;
+    }
+
+    to {
+        opacity: 1;
+        width: 95%;
+    }
+}
+
+/* Standard syntax */
+@keyframes showInputValue {
+    from {
+        opacity: 0;
+        width: 0%;
+    }
+
+    to {
+        opacity: 1;
+        width: 95%;
+    }
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes hideInputValue {
+    from {
+        opacity: 1;
+        width: 95%;
+    }
+
+    to {
+        opacity: 0;
+        width: 0%;
+    }
+}
+
+/* Standard syntax */
+@keyframes hideInputValue {
+    from {
+        opacity: 1;
+        width: 95%;
+    }
+
+    to {
+        opacity: 0;
+        width: 0%;
+    }
+}
+
+
+div[data-idBlock=rules] .rules .value .valueContainer .type{
+    margin-right: 5px;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    line-height: 15px;
+    height: 27px;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+div[data-idBlock=rules] .rules .value .valueContainer .value{
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(99, 189, 158);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(86, 128, 113, 1);
+
+    line-height: 15px;
+    height: 27px;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+div[data-idBlock=rules] .rules .value .valueContainer .table{
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(93, 158, 199);
+    color: white;
+    box-shadow: 1px 1px 1px rgba(53, 118, 160, 1);
+}
+
+/* Actual input for value */
+div[data-idBlock=rules] .rules .value .input{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    opacity: 0;
+    width: 0%;
+    background-color: transparent;
+    line-height: 37px;
+    padding-top: 0px;
+    font-size: 16px;
+    height: 80px;
+    z-index: 999;
+
+    -webkit-animation: hideInputValue 0.3s; /* Chrome, Safari, Opera */
+    -webkit-animation-fill-mode: forwards;
+
+    animation: hideInputValue 0.3s;
+    animation-fill-mode: forwards;
+}
+
+div[data-idBlock=rules] .rules .value .input .inputInfo{
+    position: absolute;
+    padding: 3px 8px;
+    border-radius: 5px;
+    width: 45%;
+    text-align: center;
+    margin: auto;
+    background-color: rgb(239, 239, 239);
+    right: 5%;
+    top: 40px;
+    overflow: hidden;
+    font-size: 13px;
+    color: #666666;
+}
+
+div[data-idBlock=rules] .rules .value .input select{
+    width: 45%;
+    margin-right: 5%;
+}
+
+div[data-idBlock=rules] .rules .value .input input{
+    width: 45%;
+}
+
+div[data-idBlock=rules] .rulesLoading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    margin-top: -10px;
+}
+
+div[data-idBlock=rules] .rulesLoading .bullet {
+    position: absolute;
+    padding: 5px;
+    border-radius: 50%;
+    background: #5298fc;
+    -webkit-animation: rulesLoading 1s ease-in-out 0s infinite;
+    animation: rulesLoading 1s ease-in-out 0s infinite;
+}
+
+div[data-idBlock=rules] .rulesLoading .bullet:nth-child(1) {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+}
+
+div[data-idBlock=rules] .rulesLoading .bullet:nth-child(2) {
+    -webkit-animation-delay: 0.15s;
+    animation-delay: 0.15s;
+}
+
+div[data-idBlock=rules] .rulesLoading .bullet:nth-child(3) {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+
+div[data-idBlock=rules] .rulesLoading .bullet:nth-child(4) {
+    -webkit-animation-delay: 0.45s;
+    animation-delay: 0.45s;
+}
+
+@-webkit-keyframes rulesLoading {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+@keyframes rulesLoading {
+    0% {
+        -webkit-transform: translateX(-100px);
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(100px);
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+div[data-idBlock=rules] .addNewRuleButton{
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+div[data-idBlock=rules] .addNewRuleButton input{
+    text-align: center;
+}
+
+/* REORDERING RULES */
+div[data-idBlock=ordering] .orderingRow{
+    display:inline-block;
+}
+
+.ui-state-highlight{
+    height: 20px;
+    line-height: 20px;
+    background-color: rgba(82, 152, 252, 0.5);
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+/* EXPORT */
+#exportLibraries{
+    display: none;
+}
+
+.nav-tabs>li>a{
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    margin: 5px;
+    box-shadow: none;
+    color: #5298fc;
+    font-size: 15px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus{
+    background-color: #5298fc;
+    color: white;
+    box-shadow: none;
+    padding: 5px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.nav-tabs>li.active>a:hover{
+    padding: 5px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+div[data-idBlock=export] .code{
+    padding: 11px;
+    margin: 0 0 11.5px;
+    line-height: 1.846;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #e9f2ff!important;
+    border: 1px solid #5298fc;
+    border-radius: 3px;
+
+    font-size: 15px;
+    color: black;
+    font-family: "InputMono","Monaco","Courier New",Courier;
+
+    white-space: pre;
+}
+
+code{
+    -webkit-border-radius: 0 0 0 0!important;
+    background: none!important;
+    border: 0!important;
+    bottom: auto!important;
+    float: none!important;
+    height: auto!important;
+    left: auto!important;
+    line-height: 19px;
+    margin: 0!important;
+    outline: 0!important;
+    overflow: visible!important;
+    padding: 0!important;
+    position: static!important;
+    right: auto!important;
+    text-align: left!important;
+    top: auto!important;
+    vertical-align: baseline!important;
+    width: auto!important;
+    box-sizing: content-box!important;
+    font-family: "Monaco","Courier New",Courier,monospace!important;
+    font-weight: normal!important;
+    font-style: normal!important;
+    font-size: 13px;
+    min-height: inherit!important;
+}
+
+div[data-idBlock=export] .code .comment{
+    color: #408080!important
+}
+
+code.plain, code.plain a{
+    color: black;
+    background-color: transparent;
+}
+
+code.keyword, code.color1{
+    color: #069;
+    background-color: transparent;
+}
+
+code.string{
+    color: #ba2121;
+    background-color: transparent;
+}
+
+div[data-idBlock=export] ol{
+    counter-reset: li;
+    list-style-type: decimal;
+    list-style: none;
+}
+
+div[data-idBlock=export] p{
+    color: white;
+    font-weight: bold;
+}
+
+div[data-idBlock=export] ol>li:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: 25px;
+    text-align: center;
+    font-size: 22px;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 24px;
+    border: 2px solid white;
+}
+
+div[data-idBlock=export] ol>li>legend{
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    white-space: normal;
+}
+
+div[data-idBlock=export] .tab-pane-content{
+    background: rgba(57, 108, 131, 0.6);
+    background-image: linear-gradient(rgba(57, 108, 131, 0.6),rgba(22, 48, 71, 0.6));
+    border: 0;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+div[data-idBlock=export] .panel.active{
+    background-color: rgba(82, 152, 252, 0.22);
+}
+
+div[data-idBlock=export] .panel.active .panel-heading{
+    background-color: rgba(82, 152, 252, 1);
+    color: white;
+}
+
+/* TYPEAHEAD */
+.typeahead-selected {
+    background-color: #5298fc;
+    color: white;
+}
+.typeahead-item:hover {
+    cursor: pointer;
+
+}
+.typeahead-item {
+    padding-left: 20px;
+    padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.typeahead {
+    -webkit-transition: all .55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    -moz-transition: all .55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    -ms-transition: all .55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    -o-transition: all .55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: all .55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.slideInTypeahead{
+  animation: slideInTypeahead ease-in-out 0.3s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+  -webkit-animation: slideInTypeahead ease-in-out 0.3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/
+  -moz-animation: slideInTypeahead ease-in-out 0.3s;
+  -moz-animation-iteration-count: 1;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode:forwards; /*FF 5+*/
+  -o-animation: slideInTypeahead ease-in-out 0.3s;
+  -o-animation-iteration-count: 1;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode:forwards; /*Not implemented yet*/
+  -ms-animation: slideInTypeahead ease-in-out 0.3s;
+  -ms-animation-iteration-count: 1;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode:forwards; /*IE 10+*/
+}
+
+@keyframes slideInTypeahead{
+  0% {
+    opacity:0;
+    transform:  translate(0px,40px)  ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+}
+
+@-moz-keyframes slideInTypeahead{
+  0% {
+    opacity:0;
+    -moz-transform:  translate(0px,40px)  ;
+  }
+  100% {
+    opacity:1;
+    -moz-transform:  translate(0px,0px)  ;
+  }
+}
+
+@-webkit-keyframes slideInTypeahead {
+  0% {
+    opacity:0;
+    -webkit-transform:  translate(0px,40px)  ;
+  }
+  100% {
+    opacity:1;
+    -webkit-transform:  translate(0px,0px)  ;
+  }
+}
+
+@-o-keyframes slideInTypeahead {
+  0% {
+    opacity:0;
+    -o-transform:  translate(0px,40px)  ;
+  }
+  100% {
+    opacity:1;
+    -o-transform:  translate(0px,0px)  ;
+  }
+}
+
+@-ms-keyframes slideInTypeahead {
+  0% {
+    opacity:0;
+    -ms-transform:  translate(0px,40px)  ;
+  }
+  100% {
+    opacity:1;
+    -ms-transform:  translate(0px,0px)  ;
+  }
+}
+
+.slideOutTypeahead{
+  animation: slideOutTypeahead ease-in-out 0.3s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+  -webkit-animation: slideOutTypeahead ease-in-out 0.3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/
+  -moz-animation: slideOutTypeahead ease-in-out 0.3s;
+  -moz-animation-iteration-count: 1;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode:forwards; /*FF 5+*/
+  -o-animation: slideOutTypeahead ease-in-out 0.3s;
+  -o-animation-iteration-count: 1;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode:forwards; /*Not implemented yet*/
+  -ms-animation: slideOutTypeahead ease-in-out 0.3s;
+  -ms-animation-iteration-count: 1;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode:forwards; /*IE 10+*/
+}
+
+@keyframes slideOutTypeahead{
+  0% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+  100% {
+    opacity:0;
+    transform:  translate(0px,40px)  ;
+  }
+}
+
+@-moz-keyframes slideOutTypeahead{
+  0% {
+    opacity:1;
+    -moz-transform:  translate(0px,0px)  ;
+  }
+  100% {
+    opacity:0;
+    -moz-transform:  translate(0px,40px)  ;
+  }
+}
+
+@-webkit-keyframes slideOutTypeahead {
+  0% {
+    opacity:1;
+    -webkit-transform:  translate(0px,0px)  ;
+  }
+  100% {
+    opacity:0;
+    -webkit-transform:  translate(0px,40px)  ;
+  }
+}
+
+@-o-keyframes slideOutTypeahead {
+  0% {
+    opacity:1;
+    -o-transform:  translate(0px,0px)  ;
+  }
+  100% {
+    opacity:0;
+    -o-transform:  translate(0px,40px)  ;
+  }
+}
+
+@-ms-keyframes slideOutTypeahead {
+  0% {
+    opacity:1;
+    -ms-transform:  translate(0px,0px)  ;
+  }
+  100% {
+    opacity:0;
+    -ms-transform:  translate(0px,40px)  ;
+  }
+}

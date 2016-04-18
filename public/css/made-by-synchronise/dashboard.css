@@ -1,0 +1,151 @@
+#tutorialList .taskToDo{
+	cursor: pointer;
+	background: #5F7D8C;
+	font-size: 1.5em;
+	display: block;
+	color: white;
+	padding: 5px;
+	padding-left: 10px;
+	border: 1px solid #5F7D8C;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	transition: all .2s ease-in-out;
+}
+
+#tutorialList .taskToDo:hover{
+	transform: translateX(-20px);
+}
+
+#tutorialList .taskToDo a{
+	text-decoration: none;
+	color: white;
+}
+
+#tutorialList .taskToDo.success{
+	background: #89C540;
+	color: white;
+	border: 1px solid #89C540;
+}
+
+#lastComponentsList a:hover{
+	text-decoration: none;
+}
+
+#marketPlace{
+    min-height: 155px;
+    max-height: 155px;
+    height: 155px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline;
+}
+
+#marketPlace .blocks{
+    display: block;
+    overflow: hidden;
+}
+
+#marketPlace .block{
+    display: inline-block;
+    width: 20%;
+    height: 150px;
+    margin-left: 5px;
+
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -ms-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 1200px) {
+    #marketPlace .block{
+        width: 40%
+    }
+
+    #marketPlace .blocks .block:first-child{
+        margin-left: -20%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    #marketPlace .block{
+        width: 35%
+    }
+
+    #marketPlace .blocks .block:first-child{
+        margin-left: -17.5%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #marketPlace .block{
+        width: 45%
+    }
+
+    #marketPlace .blocks .block:first-child{
+        margin-left: -22.5%;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    #marketPlace .block{
+        width: 55%
+    }
+
+    #marketPlace .blocks .block:first-child{
+        margin-left: -27.5%;
+    }
+}
+
+#marketPlace .block .card{
+    height: 100%;
+    padding: 0;
+    border-radius: 5px;
+}
+
+#marketPlace .block .card .logoProject{
+    position: absolute;
+    width: 100%;
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+}
+
+#marketPlace .block .card .nameProject{
+    position: absolute;
+    width: 100%;
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+    margin-top: 75px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#marketPlace .block .card .logoProject img{
+    width: 50px;
+    border-radius: 5px;
+}
+
+#lastComponentsList .component{
+	padding: 2px;
+	border: 1px solid darkgray;
+	border-radius: 5px;
+	margin-bottom: 4px;
+	transition: transform 0.3s;
+}
+
+#lastComponentsList .component:hover{
+	transform: translateX(-20px);
+}
+
+#lastComponentsList .component .name{
+	color: black;
+	font-size: 1.2em;
+	text-decoration: none;
+}
+
+#lastComponentsList .component a:hover{
+	text-decoration: none;
+}

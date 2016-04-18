@@ -1,0 +1,20 @@
+<div role="tabpanel" class="tab-pane tab-pane-content active fade in" id="javascript">
+    <p style="color: white;font-size: 20px;font-weight: bold;"><span style="font-style: italic;">Query unique identifier :</span>&nbsp;&nbsp;<span class="code"><code class="plain queryUniqueIdentifier"></code></span>&nbsp;&nbsp;<button class="btn btn-sm btn-primary changeIdentifier">Change identifier</button></p>
+
+    <ol>
+        <li>
+            <legend>Import the Synchronise.IO library in your web page</legend>
+            <div class="code"><code class="plain">&lt;</code><code class="keyword">script</code> <code class="color1">src</code><code class="plain">=</code><code class="string">"//www.synchronise.io/libs/js/1.0.min.js"</code><code class="plain">&gt;&lt;/</code><code class="keyword">script</code><code class="plain">&gt;</code></div>
+        </li>
+
+        <li>
+            <legend>Initialize the library with your Public Key</legend>
+            <div class="code"><code class="keyword">Synchronise</code><code class="plain">.init(</code><code class="string">"<span class="public_key_value">###ENCRYPTED_PUBLIC_KEY###</span>"</code><code class="plain">)</code><button class="btn btn-sm btn-primary pull-right decryptKey">Display key</button></div>
+        </li>
+
+        <li>
+            <legend>Execute the query and get the data</legend>
+            <div class="code"><code class="keyword">Synchronise</code><code class="plain">.Query.run(</code><code class="string">"<span class="queryUniqueIdentifier"></span>"</code><code class="plain">, {<span class="parameters"></span>}, {</code><br/>&nbsp;&nbsp;<code class="keyword">success</code><code class="plain">: function(</code><code class="keyword">data</code><code class="plain">){</code><br/>&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">console.log(data);</code><br/>&nbsp;&nbsp;<code class="plain">},</code><br/>&nbsp;&nbsp;<code class="keyword">error</code><code class="plain">: function(</code><code class="keyword">error</code><code class="plain">){</code><br/>&nbsp;&nbsp;&nbsp;&nbsp;<code class="plain">console.warning(error);</code><br/><code class="plain">&nbsp;&nbsp;}</code><br/><code class="plain">});</code></div>
+        </li>
+    </ol>    
+</div>

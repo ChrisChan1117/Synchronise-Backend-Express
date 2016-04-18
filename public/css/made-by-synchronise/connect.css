@@ -1,0 +1,106 @@
+#wrapper{
+	padding-top: 30px;
+}
+
+/* Export */
+#export .code{
+    padding: 11px;
+    margin: 0 0 11.5px;
+    line-height: 1.846;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #e9f2ff!important;
+    border: 1px solid #5298fc;
+    border-radius: 3px;
+
+    font-size: 15px;
+    color: black;
+    font-family: "InputMono","Monaco","Courier New",Courier;
+
+    white-space: pre;
+}
+
+code{
+    -webkit-border-radius: 0 0 0 0!important;
+    background: none!important;
+    border: 0!important;
+    bottom: auto!important;
+    float: none!important;
+    height: auto!important;
+    left: auto!important;
+    line-height: 19px;
+    margin: 0!important;
+    outline: 0!important;
+    overflow: visible!important;
+    padding: 0!important;
+    position: static!important;
+    right: auto!important;
+    text-align: left!important;
+    top: auto!important;
+    vertical-align: baseline!important;
+    width: auto!important;
+    box-sizing: content-box!important;
+    font-family: "Monaco","Courier New",Courier,monospace!important;
+    font-weight: normal!important;
+    font-style: normal!important;
+    font-size: 13px;
+    min-height: inherit!important;
+}
+
+#export .code .comment{
+    color: #408080!important
+}
+
+code.plain, code.plain a{
+    color: black;
+    background-color: transparent;
+}
+
+code.keyword, code.color1{
+    color: #069;
+    background-color: transparent;
+}
+
+code.string{
+    color: #ba2121;
+    background-color: transparent;
+}
+
+#export ol{
+    counter-reset: li;
+    list-style-type: decimal;
+    list-style: none;
+}
+
+#export p{
+    font-weight: bold;
+}
+
+#export ol>li:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: 6px;
+    text-align: center;
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 24px;
+    border: 2px solid #1194F6;
+    color: #1194F6;
+}
+
+#export ol>li>legend{
+    white-space: normal;
+    color: #777;
+}
+
+#export .panel.active{
+    background-color: rgba(82, 152, 252, 0.22);
+}
+
+#export .panel.active .panel-heading{
+    background-color: rgba(82, 152, 252, 1);
+}

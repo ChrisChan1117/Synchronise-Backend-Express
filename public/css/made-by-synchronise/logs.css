@@ -1,0 +1,33 @@
+#page-wrapper{
+    margin-top: 30px;
+}
+
+@media (max-width: 768px){
+    #page-wrapper {
+        margin-top: 0px;
+    }
+}
+
+#LogsPlanPicker .panel{
+    -ms-transform: scale(0,0); /* IE 9 */
+    -webkit-transform: scale(0,0); /* Safari */
+    transform: scale(0,0);
+
+    -ms-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+
+    opacity: 0;
+}
+
+#LogsPlanPicker .displayed{
+    -ms-transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    transform: scale(1,1);
+
+    opacity: 1;
+}
+
+.panel-info .panel-heading{
+    color: white;
+}

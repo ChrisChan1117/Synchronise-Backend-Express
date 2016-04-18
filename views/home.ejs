@@ -1,0 +1,315 @@
+<% include template/header %>
+<div class="site">
+    <div class="site-canvas">
+        <header class="site-header">
+            <nav class="navbar navbar-theme">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <div class="navbar-brand-wrap">
+                            <a class="navbar-brand" href="#">
+                                <img src="https://images.synchronise.io/synchroniseSquare.png" alt="">
+                            </a>
+                        </div>
+                    </div> <!-- .navbar-header -->
+
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <div id="navBarRight"></div>
+                    </div> <!-- .navbar-collapse -->
+                </div>
+            </nav>
+        </header> <!-- .site-header -->
+
+        <main class="site-main">
+            <div id="home" class="section block-primary position-r align-c-xs-max">
+                <div id="particles-js" class="site-bg">
+                    <div class="site-bg-img"></div>
+                    <div class="site-bg-video"></div>
+                    <div class="site-bg-overlay"></div>
+                    <div class="site-bg-effect layer" data-depth=".30"></div>
+                    <canvas class="site-bg-canvas layer" data-depth=".30"></canvas>
+                </div> <!-- .site-bg -->
+
+                <div class="container">
+                    <div class="row row-table">
+                        <div class="col-sm-6">
+                            <div class="col-inner" data-sr="left">
+                                <div class="section-heading">
+                                    <h5 style="color: white">We create server backends, so you don't have to</h5>
+                                    <h1>We help you connect web services to your project in seconds.</h1>
+                                    <p>From Facebook to Mailgun or even Stripe, you can integrate them all in seconds in your app, website or even IoT project</p>
+                                </div> <!-- .section-heading -->
+
+                                <div class="section-content">
+                                    <a class="btn btn-primary m-y-5" href="#product">Learn More</a>
+                                    <a class="btn btn-default m-y-5 loginSignupButton">Signup for free</a>
+                                </div> <!-- .section-content -->
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-p-l-1 m-t-60-xs-max">
+                            <div class="col-inner clearfix">
+                                <img class="img-responsive float-r-sm-min m-x-auto-xs-max" src="https://images.synchronise.io/homeFirstImage.png" alt="" data-sr="right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- #home -->
+
+            <div id="product" class="section p-a-0 align-c">
+                <div class="container-fluid p-x-0">
+                    <div class="row row-table">
+                        <div class="col-sm-4 block-invert p-x-30-sm-max p-x-60-md-min p-t-20-sm-min align-t-sm-min">
+                            <div class="col-inner p-y-50-sm-min p-y-30-xs-max max-width m-x-auto-xs-max">
+                                <div class="icon-box _center">
+                                    <div class="icon-box-media">
+                                        <i class="fa fa-puzzle-piece"></i>
+                                    </div>
+                                    <div class="icon-box-heading">
+                                        <h3 style="color: white">Components</h3>
+                                    </div>
+                                    <div class="icon-box-content">
+                                        <p>Components let you integrate web services like Twilio or Mailgun in your app. They are very similar to the idea of addons, that you plug into your app.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 block-pink p-x-30-sm-max p-x-60-md-min p-t-20-sm-min align-t-sm-min">
+                            <div class="col-inner p-y-50-sm-min p-y-30-xs-max max-width m-x-auto-xs-max">
+                                <div class="icon-box _center">
+                                    <div class="icon-box-media">
+                                        <i class="fa fa-random workFlowIcon"></i>
+                                    </div>
+                                    <div class="icon-box-heading">
+                                        <h3 style="color: white">Workflows</h3>
+                                    </div>
+                                    <div class="icon-box-content">
+                                        <p>Workflows let you call multiple Components, one after the other, without writing a single line of code. You could for example signup a user, then send them a welcome message, and subscribe them to a newsletter, all that at the same time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 block-light p-x-30-sm-max p-x-60-md-min p-t-20-sm-min align-t-sm-min">
+                            <div class="col-inner p-y-50-sm-min p-y-30-xs-max max-width m-x-auto-xs-max">
+                                <div class="icon-box _center">
+                                    <div class="icon-box-media">
+                                        <i class="fa fa fa-plug"></i>
+                                    </div>
+                                    <div class="icon-box-heading">
+                                        <h3>Libraries</h3>
+                                    </div>
+                                    <div class="icon-box-content">
+                                        <p>We offer libraries in many languages to let you integrate the work you have done, wherever you want to.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- #about -->
+
+            <div id="components" class="section block-default align-c-xs-max">
+                <div class="container">
+                    <div class="row row-table">
+                        <div class="col-sm-6">
+                            <div class="col-inner">
+                                <div class="section-heading">
+                                    <h5>Don't reinvent the wheel.</h5>
+                                    <h2 style="color: black">Components</h2>
+                                    <p>Components let you integrate any web services without having to write code yourself. A Component can do any action, from sending an email, processing a credit card or event ordering a uber ride.</p>
+                                </div> <!-- .section-heading -->
+                                <div class="section-content">
+                                    <ul class="icon-list align-l m-t-30">
+                                        <li>Connect them in your app like addons</li>
+                                        <li>Don't write code that has already been produced</li>
+                                        <li>Integrate in seconds in any languages</li>
+                                    </ul>
+                                    <a class="btn btn-primary" href="#brief_2">Discover Workflows</a>
+                                    <a class="btn btn-default loginSignupButton">Signup for free</a>
+                                </div> <!-- .section-content -->
+                            </div>
+                        </div>
+                        <div class="col-sm-6 m-t-60-xs-max p-l-60-md-min">
+                            <div class="col-inner clearfix">
+                                <img class="img-responsive float-r-sm-min m-x-auto-xs-max" src="https://images.synchronise.io/components.jpg" alt="Components let you execute actions on web services like sending an email, ordering a uber cab, or signing up a user" data-sr="right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- #brief_1 -->
+
+            <div id="brief_2" class="section block-warning align-c-xs-max">
+                <div class="container">
+                    <div class="row row-table">
+                        <div class="col-sm-6 m-b-60-xs-max p-r-60-md-min">
+                            <div class="col-inner clearfix">
+                                <img class="img-responsive float-l-sm-min m-x-auto-xs-max" src="https://images.synchronise.io/workflow.jpg" alt="Workflows let you connect multiple web services without writing a single line of code" data-sr="left">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-inner">
+                                <div class="section-heading">
+                                    <h5>The power of the cloud at your fingertips</h5>
+                                    <h2>Workflows</h2>
+                                </div> <!-- .section-heading -->
+                                <div class="section-content">
+                                    <p>Workflows let you combine multiple actions in one powerful object. You could for example create a workflow that signs-up a user, send a welcome email and even subscribe them to a newsletter. All of that can be achieved without a single line of code.</p>
+                                    <ul class="icon-list align-l m-t-30">
+                                        <li>Combine multiple web services in one powerful object</li>
+                                        <li>No coding = faster development</li>
+                                        <li>Integrates in your app in seconds</li>
+                                    </ul>
+                                    <a class="btn btn-primary" href="#brief_3">Discover custom components</a>
+                                    <a class="btn btn-default loginSignupButton">Signup for free</a>
+                                </div> <!-- .section-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- #brief_2 -->
+
+            <div id="brief_3" class="section block-success align-c-xs-max">
+                <div class="container">
+                    <div class="row row-table">
+                        <div class="col-sm-6">
+                            <div class="col-inner">
+                                <div class="section-heading">
+                                    <h5>Shape the world your way</h5>
+                                    <h2>Custom components</h2>
+                                    <p>You can create your own components and integrate them in your app. We have made an easy to use web development interface, that let you create your own custom code.</p>
+                                </div> <!-- .section-heading -->
+                                <div class="section-content">
+                                    <ul class="icon-list align-l m-t-30">
+                                        <li>Create your own code and integrate it in your app</li>
+                                        <li>No tool to install and no server to setup</li>
+                                        <li>You can share your code with your collaborators or with the community</li>
+                                    </ul>
+                                    <a class="btn btn-primary" href="/marketplace">Discover our marketplace</a>
+                                    <a class="btn btn-default loginSignupButton">Signup for free</a>
+                                </div> <!-- .section-content -->
+                            </div>
+                        </div>
+                        <div class="col-sm-6 m-t-60-xs-max p-l-60-md-min">
+                            <div class="col-inner clearfix">
+                                <img class="img-responsive float-r-sm-min m-x-auto-xs-max" src="https://images.synchronise.io/components_custom.jpg" alt="" data-sr="right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- #brief_3 -->
+
+            <div id="pricing" class="section block-light align-c">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-inner">
+                                <div class="section-content m-t-60-sm-min">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-4">
+                                            <div class="pricing-table m-t-0-xs-max">
+                                                <div class="pricing-table-header block-invert">
+                                                    <img src="https://images.synchronise.io/earth.png" />
+                                                    <h2 class="pricing-table-title" style="color: white">FREE</h2>
+                                                </div>
+                                                <div class="pricing-table-content block-light">
+                                                    <ul class="pricing-table-list">
+                                                        <li><i class="fa fa-check"></i> 10K requests</li>
+                                                        <li><i class="fa fa-check"></i> Experiment without risks</li>
+                                                        <li><i class="fa fa-check"></i> Access to our entire market place</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="pricing-table-footer block-light">
+                                                    <a class="btn btn-default loginSignupButton">Signup for free</a>
+                                                </div>
+                                            </div> <!-- .pricing-table -->
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-4">
+                                            <div class="pricing-table">
+                                                <div class="pricing-table-header block-primary">
+                                                    <span class="pricing-table-badge">
+                                                        <i class="fa fa-star"></i>
+                                                    </span>
+                                                    <img src="https://images.synchronise.io/mars.png" />
+                                                    <h2 class="pricing-table-title" style="color: white"><span>$</span>4.95<span>/ mo.</span></h2>
+                                                </div>
+                                                <div class="pricing-table-content block-light">
+                                                    <ul class="pricing-table-list">
+                                                        <li><i class="fa fa-check"></i> unlimited requests</li>
+                                                        <li><i class="fa fa-check"></i> No commitment</li>
+                                                        <li><i class="fa fa-check"></i> Access to our entire market place</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="pricing-table-footer block-light">
+                                                    <a class="btn btn-default loginSignupButton">Signup for free</a>
+                                                </div>
+                                            </div> <!-- .pricing-table -->
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <div class="pricing-table">
+                                                <div class="pricing-table-header block-success">
+                                                    <img src="https://images.synchronise.io/venus.png" />
+                                                    <h2 class="pricing-table-title" style="color: white">Contact us</h2>
+                                                </div>
+                                                <div class="pricing-table-content block-light">
+                                                    <ul class="pricing-table-list">
+                                                        <li><i class="fa fa-check"></i> Dedicated servers</li>
+                                                        <li><i class="fa fa-check"></i> Components execute 5x faster</li>
+                                                        <li><i class="fa fa-check"></i> Dedicated support team</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="pricing-table-footer block-light">
+                                                    <a class="btn btn-default loginSignupButton">Signup for free</a>
+                                                </div>
+                                            </div> <!-- .pricing-table -->
+                                        </div>
+                                    </div>
+                                </div> <!-- .section-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- #download -->
+
+            <div id="download" class="section block-primary align-c">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-inner">
+                                <div class="section-heading">
+                                    <h2>Signup now, it's free!</h2>
+                                    <p>Start connecting your project to web services.</p>
+                                </div>
+                                <div class="section-content">
+                                    <a class="btn btn-default m-y loginSignupButton"></i>Signup</a>
+                                </div> <!-- .section-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- #download -->
+        </main> <!-- .site-main -->
+
+        <footer class="site-footer block-invert">
+            <div class="container">
+                <img class="site-footer-logo img-responsive" src="https://images.synchronise.io/synchroniseSquare.png" data-sr="bottom">
+                <ul class="site-footer-social-list">
+                    <li><a href="https://www.facebook.com/synchroniseio" target="_blank">Facebook</a></li>
+                    <li><a href="https://twitter.com/synchroniseio" target="_blank">Twitter</a></li>
+                    <li><a href="https://www.f6s.com/synchronise" target="_blank">F6S</a></li>
+                    <li><a href="https://angel.co/synchroniseio" target="_blank">AngelList</a></li>
+                </ul>
+            </div>
+        </footer> <!-- .site-footer -->
+    </div>
+</div>
+
+<% include template/footer %>

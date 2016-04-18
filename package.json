@@ -1,0 +1,77 @@
+{
+  "engines": {
+    "node": "4.2.3"
+  },
+  "private": false,
+  "name": "Synchronise",
+  "version": "0.0.1",
+  "description": "Synchronise.IO - Server: An integration Backend as a Service",
+  "bugs": "contact@synchronise.io",
+  "license": "MIT",
+  "author": "Thibaut Rey",
+  "contributors": "Thibaut Rey",
+  "repository": "https://github.com/synchroniseiorepo/server",
+  "scripts": {
+    "start": "node bin/www"
+  },
+  "bin": {
+    "filesearch": "bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "clearbit": "^1.2.1",
+    "compression": "^1.6.0",
+    "connect-flash": "0.1.1",
+    "cookie": "0.2.3",
+    "crypto": "0.0.3",
+    "debug": "2.2.0",
+    "express": "4.12.x",
+    "express-sitemap": "1.6.2",
+    "intercom-client": "2.6.0",
+    "jade": "1.11.0",
+    "jem-passport-bitbucket-oauth2": "^0.2.0",
+    "lazy": "1.0.11",
+    "lodash": "4.1.0",
+    "mailgun-js": "^0.7.7",
+    "markit": "^0.2.0",
+    "mysql": "^2.10.2",
+    "passport": "^0.3.2",
+    "passport-bitbucket-oauth2": "^0.1.2",
+    "passport-facebook": "^2.0.0",
+    "passport-github2": "^0.1.9",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-reddit": "^0.2.4",
+    "passport-twitter": "^1.0.4",
+    "promise": "7.1.1",
+    "socket.io": "1.3.7",
+    "socket.io-express-session": "0.1.3",
+    "stripe": "4.3.0",
+    "stripe-pdf-invoice": "^1.0.7",
+    "synchronise": "^1.0.3",
+    "twilio": "^2.8.0",
+    "underscore": "1.8.3",
+    "xero": "0.0.8"
+  },
+  "keywords": [
+    "synchronise"
+  ],
+  "devDependencies": {
+    "accepts": "~1.3.1",
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^4.1.3",
+    "babel-generator": "^6.4.5",
+    "babel-loader": "^6.0.1",
+    "babel-plugin-uglify": "^1.0.2",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.0.15",
+    "babel-traverse": "^6.4.5",
+    "babel-types": "^6.4.5",
+    "babylon": "^6.4.5",
+    "eslint-plugin-react": "^3.6.2",
+    "minimatch": "^2.0.3",
+    "react-hot-loader": "^1.3.0",
+    "source-map": "^0.5.0"
+  }
+}

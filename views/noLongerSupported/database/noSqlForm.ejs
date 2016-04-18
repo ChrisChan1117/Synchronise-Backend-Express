@@ -1,0 +1,55 @@
+<div class="flowPanel databaseForm" data-idBlock="nosqlForm" id="nosqlForm" data-masterType="nosql">
+    <div class="row" align="center">
+        <div class="col-xs-12">
+            <small>The credentials displayed below are transferred securely through SSL to your browser and decrypted using the password you gave us when you first signed-up. Your identity is saved locally in your browser by a unique token which is automatically removed at the end of your session. Your password is the only phrase capable of decrypting the passwords and therefore you should always keep it secret.</small>
+        </div>
+    </div>
+    
+	<div class="row-fluid">
+		<div class="col-xs-12">
+			<legend>NoSQL - Database</legend>
+            <form id="addNoSqlDatabaseForm">
+            	<div class="form-group">
+            		<label>Type</label>
+                    <select class="form-control type">
+                    	<option value="mongo">MongoDB</option>
+                    </select>
+            	</div>
+                <div class="form-group">
+                    <label>Database title</label>
+                    <input type="text" placeholder="Internal title" class="form-control title"  autocomplete="off">
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="Name of the database" class="form-control name" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>Url</label>
+                    <input type="text" placeholder="Url/IP of the database" class="form-control url"  autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>User</label>
+                    <input type="text" placeholder="Username of the database" class="form-control username"  autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Password of the database" class="form-control password" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>Port</label>
+                    <input type="text" placeholder="Leave empty for default (27017)" class="form-control port" autocomplete="off">
+                </div>
+            </form>
+            
+            <div class="row buttonAddDatabase" align="center">
+                <button class="btn btn-default buttonAddDatabaseAdd cbutton cbutton--effect-novak">Save</button>
+                <buton class="btn btn-default closeAddDatabase closeAddDatabase cbutton cbutton--effect-novak">Back</button>
+            </div>
+            
+            <div class="row-fluid">
+            	<br/>
+            </div>
+    	</div>        
+	</div>
+</div>
