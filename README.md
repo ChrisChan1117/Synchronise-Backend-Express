@@ -4,7 +4,7 @@ To get started, check out <https://www.synchronise.io>
 
 ## Table of contents
 * [Introduction](#introduction)
-* [Documentation](https://docs.synchronise.io)
+* [Documentation](http://synchroniseiorepo.github.io/documentation)
 * [Install and Run on your own server](#install-and-run-on-your-own-server)
 * [Contribute](#contribute)
 
