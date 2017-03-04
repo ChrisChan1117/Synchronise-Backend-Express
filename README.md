@@ -1,5 +1,4 @@
 # [Synchronise](https://www.synchronise.io)
-To get started, check out <https://www.synchronise.io>
 ![HomePage of Synchronise](https://raw.githubusercontent.com/synchroniseiorepo/server/master/public/images/githubImage1.png)
 
 ## Table of contents
@@ -17,9 +16,9 @@ Imagine a "Workflow" that "registers a user on your database", "send an email wi
 The entire codebase is provided as is, under the MIT licence except the database containing sensitive data of existing customers. This means you are free to copy, modify and distribute Synchronise however you want. Software should be shared, and I am convinced the work the community will achieve, will always surpass my own dedication to this platform.
 
 Here are the 3 features available so far:
-![Components on Synchronise](https://images.synchronise.io/githubImage2.png)
-![Workflows on Synchronise](https://images.synchronise.io/githubImage3.png)
-![Custom Components on Synchronise](https://images.synchronise.io/githubImage4.png)
+![Components on Synchronise](https://raw.githubusercontent.com/synchroniseiorepo/server/master/public/images/githubImage2.png)
+![Workflows on Synchronise](https://raw.githubusercontent.com/synchroniseiorepo/server/master/public/images/githubImage3.png)
+![Custom Components on Synchronise](https://raw.githubusercontent.com/synchroniseiorepo/server/master/public/images/githubImage4.png)
 
 ## Install and Run on your own server
 ### Fork it or Clone it
