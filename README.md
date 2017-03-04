@@ -43,7 +43,7 @@ Look for the lines starting like this:
 /***** DATABASE *****/
 // These are the credentials to connect to the databases
 // PRODUCTION DATABASE
-if(process.env.AWS){
+if(process.env.PRODUCTION){
 	var rcEvents = {
 ```
 

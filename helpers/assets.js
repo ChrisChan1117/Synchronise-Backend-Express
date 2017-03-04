@@ -2,51 +2,72 @@ var path      = require('path');
 var jssha     = require(path.normalize(__dirname + '/jssha256.js'));
 var redis     = require('redis').createClient;
 var itcm      = require('intercom-client');
-var intercom  = new itcm.Client(intercomCredentials());
+var Mailgun   = require('mailgun-send');
 
-exports.LIMIT_REQUESTS_FREE_PLAN = 10000;
-exports.SHOULD_USE_SLL = false;
+exports.LIMIT_REQUESTS_FREE_PLAN = process.env.FREE_PLAN_LIMIT? process.env.FREE_PLAN_LIMIT : 10000;
+exports.SHOULD_USE_SLL = process.env.SHOULD_USE_SLL? process.env.SHOULD_USE_SLL : false;
 
 // Put yur Own developer API key from Synchronise. This is your public key as a customer of Synchronise.
 // If you created your own instance of Synchronise, this public key should be the one of the first user created on your instance (the admin)
-exports.SYNCHRONISEAPIKEY = "";
+exports.SYNCHRONISEAPIKEY = process.env.SYNCHRONISEAPIKEY? process.env.SYNCHRONISEAPIKEY : "";
 
 /***** Mailgun *****/
 // This is used to send emails from Synchronise
 exports.mailgun = function(){
-	return {
-		key: '',
-        sender: ''
-	};
+	if(process.env.PRODUCTION){
+		if(process.env.MAILGUN_KEY && process.env.MAILGUN_SENDER){
+			Mailgun.config({
+				key: process.env.MAILGUN_KEY,
+				sender: process.env.MAILGUN_SENDER
+			});
+			return Mailgun;
+		}else{
+			return null;
+		}
+	}else{
+		if(process.env.MAILGUN_KEY_DEV && process.env.MAILGUN_SENDER_DEV){
+			Mailgun.config({
+				key: process.env.MAILGUN_KEY_DEV,
+				sender: process.env.MAILGUN_SENDER_DEV
+			});
+			return Mailgun;
+		}else{
+			return null;
+		}
+	}
 };
 
 /***** STRIPE *****/
 // This is used to process credit cards on the platform.
 // Not required if you only use Synchronise for yourself
 exports.stripe_secret_key = function(){
-	if(process.env.AWS){ // PRODUCTION
-		return "";
+	if(process.env.PRODUCTION){ // PRODUCTION
+		return process.env.STRIPE_SECRET_KEY;
 	}else{ // DEVELOPMENT
-		return "";
+		return process.env.STRIPE_SECRET_KEY_DEV;
 	}
 };
 
 /***** AWS *****/
 // Used to communicate with your own AWS account
 exports.AWSCredentials = {
-	accessKeyId: "",
-	secretAccessKey: ""
+	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+	secretAccessKey: process.env.AWE_SECRET_ACCESS_KEY
 };
 
 /***** INTERCOM *****/
 // This is used to communicated with customers from the server
 // Not required if you only use Synchronise for yourself
 function intercomCredentials(){
-	if(process.env.AWS){ // PRODUCTION
-		return { appId: '', appApiKey: '' };
+	if(process.env.PRODUCTION){ // PRODUCTION
+		return { appId: process.env.INTERCOM_APP_ID, appApiKey: process.ENV.INTERCOM_API_KEY };
 	}else{ // DEVELOPMENT
-		return { appId: '', appApiKey: '' };
+		return { appId: process.env.INTERCOM_APP_ID_DEV, appApiKey: process.ENV.INTERCOM_API_KEY_DEV };
 	}
+}
+
+if(intercomCredentials().appId.length && intercomCredentials().appApiKey.length){
+	var intercom  = new itcm.Client(intercomCredentials());
 }
 
 // Your API Secret for Intercom
@@ -54,79 +75,81 @@ exports.intercom_api_secret = "-R4ejO3nZtHoYxnc0k";
 exports.intercom            = intercom;
 
 exports.intercomTrackEvent  = function(event_name, user_id){
-	var time = Math.round(new Date().getTime()/1000);
-	intercom.events.create({
-		event_name: event_name,
-		created_at: time,
-		user_id: user_id
-	});
+	if(intercom){
+		var time = Math.round(new Date().getTime()/1000);
+		intercom.events.create({
+			event_name: event_name,
+			created_at: time,
+			user_id: user_id
+		});
+	}
 };
 
 /***** SOCIAL APP KEYS *****/
 // This is used to configure the OAuth communications with the different services
 // Not required if you do not want to use social logins
 exports.facebookCredentials = function(){
-	if(process.env.AWS){ // PRODUCTION
+	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: "",
-			app_secret: "",
-			accessTokenForDebug: "",
-			callbackURL: "https://yoururl.com/auth/facebook/callback"
+			app_id: process.env.FACEBOOK_APP_ID,
+			app_secret: process.env.FACEBOOK_APP_SECRET,
+			accessTokenForDebug: process.env.FACEBOOK_ACCESS_TOKEN_FOR_DEBUG,
+			callbackURL: process.env.FACEBOOK_CALLBACK_URL
 		};
 	}else{ // DEVELOPMENT
 		return {
-			app_id: "",
-			app_secret: "",
-			accessTokenForDebug: "",
-			callbackURL: "http://localhost:3001/auth/facebook/callback"
+			app_id: process.env.FACEBOOK_APP_ID_DEV,
+			app_secret: process.env.FACEBOOK_APP_SECRET_DEV,
+			accessTokenForDebug: process.env.FACEBOOK_ACCESS_TOKEN_FOR_DEBUG_DEV,
+			callbackURL: process.env.FACEBOOK_CALLBACK_URL_DEV
 		};
 	}
 };
 
 exports.githubCredentials = function(){
-	if(process.env.AWS){ // PRODUCTION
+	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: "",
-			app_secret: "",
-			callbackURL: "https://yoururl.com/auth/github/callback"
+			app_id: process.env.GITHUB_APP_ID,
+			app_secret: process.env.GITHUB_APP_SECRET,
+			callbackURL: process.env.GITHUB_CALLBACK_URL
 		};
 	}else{ // DEVELOPMENT
 		return {
-			app_id: "",
-			app_secret: "",
-			callbackURL: "http://localhost:3001/auth/github/callback"
+			app_id: process.env.GITHUB_APP_ID_DEV,
+			app_secret: process.env.GITHUB_APP_SECRET_DEV,
+			callbackURL: process.env.GITHUB_CALLBACK_URL_DEV
 		};
 	}
 };
 
 exports.bitbucketCredentials = function(){
-	if(process.env.AWS){ // PRODUCTION
+	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: "",
-			app_secret: "",
-			callbackURL: "https://yoururl.com/auth/bitbucket/callback"
+			app_id: process.env.BITBUCKET_APP_ID,
+			app_secret: process.env.BITBUCKET_APP_SECRET,
+			callbackURL: process.env.BITBUCKET_CALLBACK_URL
 		};
 	}else{
 		return {
-			app_id: "",
-			app_secret: "",
-			callbackURL: "http://localhost:3001/auth/bitbucket/callback"
+			app_id: process.env.BITBUCKET_APP_ID_DEV,
+			app_secret: process.env.BITBUCKET_APP_SECRET_DEV,
+			callbackURL: process.env.BITBUCKET_CALLBACK_URL_DEV
 		};
 	}
 };
 
 exports.googleCredentials = function(){
-	if(process.env.AWS){ // PRODUCTION
+	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: "",
-			app_secret: "",
-			callbackURL: "https://yoururl.com/auth/google/callback"
+			app_id: process.env.GOOGLE_APP_ID,
+			app_secret: process.env.GOOGLE_APP_SECRET,
+			callbackURL: process.env.GOOGLE_CALLBACK_URL
 		};
 	}else{
 		return {
-			app_id: "",
-			app_secret: "",
-			callbackURL: "http://localhost:3001/auth/google/callback"
+			app_id: process.env.GOOGLE_APP_ID_DEV,
+			app_secret: process.env.GOOGLE_APP_SECRET_DEV,
+			callbackURL: process.env.GOOGLE_CALLBACK_URL_DEV
 		};
 	}
 };
@@ -134,72 +157,72 @@ exports.googleCredentials = function(){
 /***** DATABASE *****/
 // These are the credentials to connect to the databases
 // PRODUCTION DATABASE
-if(process.env.AWS){
+if(process.env.PRODUCTION){
 	var rcEvents = {
-		host       : "",
-		port       : '',
-		pass       : "",
+		host       : process.env.REDIS_EVENTS_HOST,
+		port       : process.env.REDIS_EVENTS_PORT,
+		pass       : process.env.REDIS_EVENTS_PASS,
 		disableTTL : true,
-		secret     : ""
+		secret     : process.env.REDIS_EVENTS_SECRET
 	};
 
 	var rcSession = {
-		host       : "",
-		port       : '',
-		pass       : "",
+		host       : process.env.REDIS_SESSION_HOST,
+		port       : process.env.REDIS_SESSION_PORT,
+		pass       : process.env.REDIS_SESSION_PASS,
 		disableTTL : true,
-		secret     : ''
+		secret     : process.env.REDIS_SESSION_SECRET
 	};
 
 	var rcData = {
-		host       : "",
-		port       : '',
-		pass       : "",
+		host       : process.env.REDIS_DATA_DATA,
+		port       : process.env.REDIS_DATA_PORT,
+		pass       : process.env.REDIS_DATA_PASS,
 		disableTTL : true,
-		secret     : ''
+		secret     : process.env.REDIS_DATA_SECRET
 	};
 }else{
-// DEVELOPMENT DATABASE
+	// DEVELOPMENT DATABASE
 	var rcEvents = {
-		host       : "",
-		port       : '',
-		pass       : "",
+		host       : process.env.REDIS_EVENTS_HOST_DEV,
+		port       : process.env.REDIS_EVENTS_PORT_DEV,
+		pass       : process.env.REDIS_EVENTS_PASS_DEV,
 		disableTTL : true,
-		secret     : ""
+		secret     : process.env.REDIS_EVENTS_SECRET_DEV
 	};
 
 	var rcSession = {
-		host       : "",
-		port       : '',
-		pass       : "",
+		host       : process.env.REDIS_SESSION_HOST_DEV,
+		port       : process.env.REDIS_SESSION_PORT_DEV,
+		pass       : process.env.REDIS_SESSION_PASS_DEV,
 		disableTTL : true,
-		secret     : ""
+		secret     : process.env.REDIS_SESSION_SECRET_DEV
 	};
 
 	var rcData = {
-		host       : "",
-		port       : '',
-		pass       : "",
+		host       : process.env.REDIS_DATA_DATA_DEV,
+		port       : process.env.REDIS_DATA_PORT_DEV,
+		pass       : process.env.REDIS_DATA_PASS_DEV,
 		disableTTL : true,
-		secret     : ""
+		secret     : process.env.REDIS_DATA_SECRET_DEV
 	};
 }
 
 var publishRedisAdapter    = redis(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
-	publishRedisAdapter.on("error", function(error){
-		console.log("Error SubscriberRedisAdapter : " + error);
-	});
+publishRedisAdapter.on("error", function(error){
+	console.log("Error SubscriberRedisAdapter : " + error);
+});
 
 var subscriberRedisAdapter = redis(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
-	subscriberRedisAdapter.on("error", function(error){
-		console.log("Error SubscriberRedisAdapter : " + error);
-	});
-	subscriberRedisAdapter.subscribe("any");
+subscriberRedisAdapter.on("error", function(error){
+	console.log("Error SubscriberRedisAdapter : " + error);
+});
+subscriberRedisAdapter.subscribe("any");
 
 var redisDataStore = redis(rcData.port, rcData.host, { detect_buffers: true, auth_pass: rcData.pass });
-	redisDataStore.on("error", function(error){
-		console.log("Error RedisDataStore : " + error);
-	});
+redisDataStore.on("error", function(error){
+	console.log("Error RedisDataStore : " + error);
+});
 
 // Caching system for publish commands
 exports.publishRedisAdapter = function(){
@@ -263,9 +286,9 @@ exports.subscriberRedisAdapter = function(){
 };
 
 var redisSessionStore      = redis(rcSession.port, rcSession.host, { auth_pass: rcSession.pass });
-	redisSessionStore.on("error", function (error) {
-	    console.log("Error RedisSessionStore : " + error);
-	});
+redisSessionStore.on("error", function (error) {
+	console.log("Error RedisSessionStore : " + error);
+});
 
 exports.redisSessionStore            = redisSessionStore;
 exports.redisSessionStoreCredentials = rcSession;
@@ -274,24 +297,24 @@ exports.redisDataStoreCredentials    = rcData;
 
 /***** NAVBAR *****/
 global.navbarButtonsState = {
-					      	home: '',
-					        features: '',
-					        docs: '',
-					        about: '',
-					        dashboard: '',
-					        query: '',
-					        chartform: '',
-					        database: '',
-					        analytics: '',
-					        subdashboard: '',
-					        api: '',
-							superadmin: '',
-							component: '',
-							workflow: '',
-							tokens: '',
-							events: '',
-							project: ''
-					     };
+	home: '',
+	features: '',
+	docs: '',
+	about: '',
+	dashboard: '',
+	query: '',
+	chartform: '',
+	database: '',
+	analytics: '',
+	subdashboard: '',
+	api: '',
+	superadmin: '',
+	component: '',
+	workflow: '',
+	tokens: '',
+	events: '',
+	project: ''
+};
 
 exports.navbarButtonsState = global.navbarButtonsState;
 
@@ -316,7 +339,7 @@ exports.randomString = function(size){
 	for( var i=0; i < size; i++ )
 	text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-		return text;
+	return text;
 };
 
 exports.mergeObjectsProperties = function(){
@@ -348,7 +371,7 @@ exports.nativeToSIODataType = function(nativeType){
 			case 'nchar':
 			case 'nvarchar':
 			case 'ntext':
-				return 'string'; // STRING
+			return 'string'; // STRING
 
 			case 'byte':
 			case 'integer':
@@ -369,7 +392,7 @@ exports.nativeToSIODataType = function(nativeType){
 			case 'smallmoney':
 			case 'money':
 			case 'real':
-				return 'number'; // NUMBER
+			return 'number'; // NUMBER
 
 			case 'date/time':
 			case 'date':
@@ -380,11 +403,11 @@ exports.nativeToSIODataType = function(nativeType){
 			case 'timestamp':
 			case 'time':
 			case 'year':
-				return 'date'; // DATE
+			return 'date'; // DATE
 
 			case 'yes/no':
 			case 'bit':
-				return 'boolean'; // BOOLEAN
+			return 'boolean'; // BOOLEAN
 
 			case 'ole object':
 			case 'blob':
@@ -396,10 +419,10 @@ exports.nativeToSIODataType = function(nativeType){
 			case 'sql_variant':
 			case 'uniqueidentifier':
 			case 'xml':
-				return 'data'; // DATA
+			return 'data'; // DATA
 
 			default:
-				return 'unknown';
+			return 'unknown';
 		}
 	}else{
 		return 'unknown';
@@ -408,26 +431,26 @@ exports.nativeToSIODataType = function(nativeType){
 
 exports.defaultRuleForFieldType = function(fieldType){
 	switch(fieldType){
-	case 'boolean':
+		case 'boolean':
 		return "true";
 
-	case 'unknown':
+		case 'unknown':
 		return "unknown";
 
-	case 'data':
+		case 'data':
 		return "data";
 
-	case 'date':
+		case 'date':
 		return "before";
 
-	case 'number':
+		case 'number':
 		return "equals";
 
-	case 'string':
+		case 'string':
 		return "equals";
 	}
 };
 
 exports.isJson = function(str) {
-    try { JSON.parse(str); } catch (e) { return false; } return true;
+	try { JSON.parse(str); } catch (e) { return false; } return true;
 }

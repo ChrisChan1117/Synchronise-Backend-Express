@@ -3,7 +3,6 @@ var _             = require('underscore');
 var Promise       = require('promise');
 var crypto        = require('crypto');
 var SHA256        = require("crypto-js/sha256");
-var Mailgun       = require('mailgun-send');
 var request       = require('request');
 var passport      = require('passport');
 var crypto        = require('crypto');
@@ -17,11 +16,10 @@ var emailTemplate = require(path.normalize(__dirname + '/../models/Email'));
 var CryptoJS      = node_cryptojs.CryptoJS;
 var orm           = require(path.normalize(__dirname + '/../helpers/orm'));
 var assets        = require(path.normalize(__dirname + '/../helpers/assets'));
+var Mailgun       = assets.mailgun();
 var userH         = require(path.normalize(__dirname + '/../helpers/user'));
 var securityH     = require(path.normalize(__dirname + '/../helpers/security'));
 var Synchronise   = require("synchronise")(assets.SYNCHRONISEAPIKEY);
-
-Mailgun.config(assets.mailgun());
 
 // Answers whether user should login or signup in regard to the email address provided
 // Params :
@@ -126,7 +124,7 @@ exports.signup = function(request, response){
                 if(err){
                     response.error(err);
                 }else{
-                    if(process.env.AWS){ // Only send mailgun in production mode
+                    if(Mailgun){
                         Mailgun.send({
                             recipient: email,
                             subject: emailTemplate.signup.subject,
@@ -492,7 +490,7 @@ function executeStrategy(accessToken, refreshToken, profile, done){
                     if(err){
                         response.error(err);
                     }else{
-                        if(process.env.AWS){ // Only send mailgun in production mode
+                        if(Mailgun){
                             Mailgun.send({
                                 recipient: email,
                                 subject: emailTemplate.signup.subject,
@@ -530,37 +528,45 @@ function executeStrategy(accessToken, refreshToken, profile, done){
 }
 
 // Facebook OAuth 2.0
-passport.use(new FacebookP({
-    clientID: assets.facebookCredentials().app_id,
-    clientSecret: assets.facebookCredentials().app_secret,
-    callbackURL: assets.facebookCredentials().callbackURL,
-    enableProof: true,
-    profileFields: ['id', 'displayName', 'email']
-}, executeStrategy));
+if(assets.facebookCredentials().app_id.length && assets.facebookCredentials().app_secret.length && assets.facebookCredentials().callbackURL.length){
+    passport.use(new FacebookP({
+        clientID: assets.facebookCredentials().app_id,
+        clientSecret: assets.facebookCredentials().app_secret,
+        callbackURL: assets.facebookCredentials().callbackURL,
+        enableProof: true,
+        profileFields: ['id', 'displayName', 'email']
+    }, executeStrategy));
+}
 
 // Github OAuth 2.0
-passport.use(new GithubP({
-    clientID: assets.githubCredentials().app_id,
-    clientSecret: assets.githubCredentials().app_secret,
-    callbackURL: assets.githubCredentials().callbackURL
-}, executeStrategy));
+if(assets.githubCredentials().app_id.length && assets.githubCredentials().app_secret.length && assets.githubCredentials().callbackURL.length){
+    passport.use(new GithubP({
+        clientID: assets.githubCredentials().app_id,
+        clientSecret: assets.githubCredentials().app_secret,
+        callbackURL: assets.githubCredentials().callbackURL
+    }, executeStrategy));
+}
 
 // Bitbucket OAuth 2.0
-passport.use(new BitbucketP({
-    clientID: assets.bitbucketCredentials().app_id,
-    clientSecret: assets.bitbucketCredentials().app_secret,
-    callbackURL: assets.bitbucketCredentials().callbackURL,
-    profileFields: ['id', 'displayName', 'email']
-}, function(accessToken, refreshToken, profile, done){
-    accessToken.provider = "bitbucket";
-    executeStrategy(accessToken, refreshToken, profile, done);
-}));
+if(assets.bitbucketCredentials().app_id.length && assets.bitbucketCredentials().app_secret.length && assets.bitbucketCredentials().callbackURL.length){
+    passport.use(new BitbucketP({
+        clientID: assets.bitbucketCredentials().app_id,
+        clientSecret: assets.bitbucketCredentials().app_secret,
+        callbackURL: assets.bitbucketCredentials().callbackURL,
+        profileFields: ['id', 'displayName', 'email']
+    }, function(accessToken, refreshToken, profile, done){
+        accessToken.provider = "bitbucket";
+        executeStrategy(accessToken, refreshToken, profile, done);
+    }));
+}
 
 // Google OAuth 2.0
-passport.use(new GoogleP({
-    clientID: assets.googleCredentials().app_id,
-    clientSecret: assets.googleCredentials().app_secret,
-    callbackURL: assets.googleCredentials().callbackURL
-}, executeStrategy));
+if(assets.googleCredentials().app_id.length && assets.googleCredentials().app_secret.length && assets.googleCredentials().callbackURL.length){
+    passport.use(new GoogleP({
+        clientID: assets.googleCredentials().app_id,
+        clientSecret: assets.googleCredentials().app_secret,
+        callbackURL: assets.googleCredentials().callbackURL
+    }, executeStrategy));
+}
 
 exports.passport = passport;

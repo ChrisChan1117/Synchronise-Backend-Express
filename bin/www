@@ -2,7 +2,7 @@
 var cluster      = require('cluster');
 if(cluster.isMaster){
     var numCPUs = require('os').cpus().length;
-    if(!process.env.AWS){
+    if(!process.env.PRODUCTION){
         numCPUs = 1;
     }
     for (var i = 0; i < numCPUs; i++) {
@@ -37,7 +37,7 @@ if(cluster.isMaster){
      */
 
     var server;
-    if(process.env.AWS || !assets.SHOULD_USE_SLL){
+    if(process.env.PRODUCTION || !assets.SHOULD_USE_SLL){
         server = http.createServer(app);
     }else{
         var privateKey = fs.readFileSync(path.normalize(__dirname + '/../privatekey.pem'));
