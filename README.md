@@ -1,16 +1,12 @@
 # [Synchronise](https://www.synchronise.io)
 To get started, check out <https://www.synchronise.io>
-![HomePage of Synchronise](https://images.synchronise.io/githubImage1.png)
+![HomePage of Synchronise](https://raw.githubusercontent.com/synchroniseiorepo/server/master/public/images/githubImage1.png)
 
 ## Table of contents
-* [Quick start](#quick-start)
 * [Introduction](#introduction)
-* [Documentation](https://docs.synchronise.io)
+* [Documentation](http://synchroniseiorepo.github.io/documentation)
 * [Install and Run on your own server](#install-and-run-on-your-own-server)
 * [Contribute](#contribute)
-
-## Quick start
-You do not need to install your own instance of Synchronise to use it. I advise that you experiment with the platform first. You can do so for FREE at [www.synchronise.io](https://www.synchronise.io). Once you are comfortable using it, you can come back anytime, and learn how to create your own instance of the Synchronise server.
 
 ## Introduction
 Synchronise is an integration backend as a service created by [Thibaut Rey](https://www.twitter.com/thibautrey). It helps you connect web services to your app, without having to configure everything yourself or even maintain a server. It simplifies the integration process by standardising any APIs, and turning them into objects called "Components".
