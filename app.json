@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "description": "Synchronise IO micro service backend ",
+  "scripts": {
+  },
+  "env": {
+    "PRODUCTION": "false"
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
