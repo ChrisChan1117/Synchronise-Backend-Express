@@ -1,6 +1,6 @@
 # [Synchronise](https://www.synchronise.io)
 To get started, check out <https://www.synchronise.io>
-![HomePage of Synchronise](https://images.synchronise.io/githubImage1.png)
+![HomePage of Synchronise](https://raw.githubusercontent.com/synchroniseiorepo/server/master/public/images/githubImage1.png)
 
 ## Table of contents
 * [Introduction](#introduction)
