@@ -225,10 +225,10 @@ if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 	var redisDataStoreCredentials         = url.parse(redisURLS[1]);
 	var redisSessionStoreCredentials      = url.parse(redisURLS[2]);
 
-	var publishRedisAdapter    = redisCreateClient(publishRedisAdapterCredentials.port, publishRedisAdapterCredentials.host, { rno_ready_check: true, eturn_buffers: false });
-	var subscriberRedisAdapter = redisCreateClient(subscriberRedisAdapterCredentials.port, subscriberRedisAdapterCredentials.host, { no_ready_check: true, detect_buffers: false, return_buffers: false });
-	var redisDataStore         = redisCreateClient(redisDataStoreCredentials.port, redisDataStoreCredentials.host, { no_ready_check: true, detect_buffers: true });
-	var redisSessionStore      = redisCreateClient(redisSessionStoreCredentials.port, redisSessionStoreCredentials.host, {no_ready_check: true});
+	var publishRedisAdapter    = redisCreateClient(publishRedisAdapterCredentials.port, publishRedisAdapterCredentials.hostname, { rno_ready_check: true, eturn_buffers: false });
+	var subscriberRedisAdapter = redisCreateClient(subscriberRedisAdapterCredentials.port, subscriberRedisAdapterCredentials.hostname, { no_ready_check: true, detect_buffers: false, return_buffers: false });
+	var redisDataStore         = redisCreateClient(redisDataStoreCredentials.port, redisDataStoreCredentials.hostname, { no_ready_check: true, detect_buffers: true });
+	var redisSessionStore      = redisCreateClient(redisSessionStoreCredentials.port, redisSessionStoreCredentials.hostname, {no_ready_check: true});
 }else{
 	var publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
 	var subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
