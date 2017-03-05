@@ -48,7 +48,8 @@ exports.executeWorkflow = function(request, response){
                                 if(parseInt(user.requests_executed) >= (LIMIT_REQUESTS_FREE_PLAN+parseInt(user.bonus_requests))
                                     && user.subscription != "mars"
                                     && user.subscription != "marsyear"
-                                    && user.subscription != "superjedi"){
+                                    && user.subscription != "superjedi"
+                                    && LIMIT_REQUESTS_FREE_PLAN != -1){
                                     response.error({err: "You have reached the limit of your FREE plan. Add a payment method to continue executing Workflows.", code: 108}, 108);
                                 }else{
                                     logObject.id_user = user.id;

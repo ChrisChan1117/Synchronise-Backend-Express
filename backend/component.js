@@ -43,10 +43,11 @@ exports.executeComponent = function(request, response, type_request){
                     }else{
                         // Get the user object with its Public key
                         d.User.userByPublicKey(public_key).then(function(user){
-                            if(parseInt(user.requests_executed) >= (LIMIT_REQUESTS_FREE_PLAN+parseInt(user.bonus_requests))
+                            if(parseInt(user.requests_executed) >= (LIMIT_REQUESTS_FREE_PLAN+parseInt(user.bonus_requests) )
                                 && user.subscription != "mars"
                                 && user.subscription != "marsyear"
-                                && user.subscription != "superjedi"){
+                                && user.subscription != "superjedi"
+                                && LIMIT_REQUESTS_FREE_PLAN != -1){
 
                                 response.error({err: "You have reached the limit of your FREE plan. Add a payment method to continue executing Components.", code: 108}, 108);
 

@@ -1,8 +1,9 @@
-var path      = require('path');
-var jssha     = require(path.normalize(__dirname + '/jssha256.js'));
-var redis     = require('redis').createClient;
-var itcm      = require('intercom-client');
-var Mailgun   = require('mailgun-send');
+var path              = require('path');
+var jssha             = require(path.normalize(__dirname + '/jssha256.js'));
+var redis             = require('redis');
+var redisCreateClient = redis.createClient;
+var itcm              = require('intercom-client');
+var Mailgun           = require('mailgun-send');
 
 exports.LIMIT_REQUESTS_FREE_PLAN = process.env.FREE_PLAN_LIMIT? process.env.FREE_PLAN_LIMIT : 10000;
 exports.SHOULD_USE_SLL = process.env.SHOULD_USE_SLL? process.env.SHOULD_USE_SLL : false;
@@ -60,13 +61,13 @@ exports.AWSCredentials = {
 // Not required if you only use Synchronise for yourself
 function intercomCredentials(){
 	if(process.env.PRODUCTION){ // PRODUCTION
-		return { appId: process.env.INTERCOM_APP_ID, appApiKey: process.ENV.INTERCOM_API_KEY };
+		return { appId: process.env.INTERCOM_APP_ID, appApiKey: process.env.INTERCOM_API_KEY };
 	}else{ // DEVELOPMENT
-		return { appId: process.env.INTERCOM_APP_ID_DEV, appApiKey: process.ENV.INTERCOM_API_KEY_DEV };
+		return { appId: process.env.INTERCOM_APP_ID_DEV, appApiKey: process.env.INTERCOM_API_KEY_DEV };
 	}
 }
 
-if(intercomCredentials().appId.length && intercomCredentials().appApiKey.length){
+if(intercomCredentials().appId && intercomCredentials().appApiKey){
 	var intercom  = new itcm.Client(intercomCredentials());
 }
 
@@ -208,18 +209,34 @@ if(process.env.PRODUCTION){
 	};
 }
 
-var publishRedisAdapter    = redis(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
+// We are running on heroku servers
+if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
+	var redisURLS = [];
+	for (var i = 0; i < Object.keys(process.env).length; i++) {
+		var row = process.env[Object.keys[i]];
+		if(row.indexOf("redis") != -1){
+			redisURLS.push(row);
+		}
+	}
+
+	var publishRedisAdapter    = redis(redisURLS[0]);
+	var subscriberRedisAdapter = redis(redisURLS[1]);
+	var redisDataStore         = redis(redisURLS[2]);
+}else{
+	var publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
+	var subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
+	var redisDataStore         = redisCreateClient(rcData.port, rcData.host, { detect_buffers: true, auth_pass: rcData.pass });
+}
+
 publishRedisAdapter.on("error", function(error){
 	console.log("Error SubscriberRedisAdapter : " + error);
 });
 
-var subscriberRedisAdapter = redis(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
 subscriberRedisAdapter.on("error", function(error){
 	console.log("Error SubscriberRedisAdapter : " + error);
 });
 subscriberRedisAdapter.subscribe("any");
 
-var redisDataStore = redis(rcData.port, rcData.host, { detect_buffers: true, auth_pass: rcData.pass });
 redisDataStore.on("error", function(error){
 	console.log("Error RedisDataStore : " + error);
 });

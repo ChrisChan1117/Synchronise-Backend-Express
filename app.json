@@ -1,17 +1,224 @@
 {
-  "name": "server",
-  "description": "Synchronise IO micro service backend ",
-  "scripts": {
-  },
-  "env": {
-    "PRODUCTION": "false"
-  },
-  "formation": {
-  },
-  "addons": [
+    "name": "server",
+    "description": "Synchronise IO micro service backend ",
+    "scripts": {
+    },
+    "env": {
+        "PRODUCTION": "false",
+        "FREE_PLAN_LIMIT":{
+            "description": "The number of requests a user can do to the API without requiring a paid plan. Requests are unlimited if this value is -1",
+            "value": "-1",
+            "required": true
+        },
+        "SHOULD_USE_SLL":{
+            "description": "Whether or not the server should be configured to be secured over ssl. If you want to use synchronise over SSL you need to store a privatekey.pem and certificate.pem files in the root folder.",
+            "value": "false",
+            "required": false
+        },
+        "SYNCHRONISEAPIKEY":{
+            "description": "This is the default API KEY for SYNCHRONISE (we use synchronise to run synchronise, its kind of an inception). This key must be the API key of the first registered user (which also happens to be the admin).",
+            "value": "",
+            "required": false
+        },
+        "MAILGUN_KEY":{
+            "description": "If you want to receive signup confirmation emails you must create a mailgun account and put your KEY here.",
+            "value": "",
+            "required": false
+        },
+        "MAILGUN_SENDER":{
+            "description": "This is the email sender of your mailgun account",
+            "value": "",
+            "required": false
+        },
+        "MAILGUN_KEY_DEV":{
+            "description": "Same as above but for dev environment",
+            "value": "",
+            "required": false
+        },
+        "MAILGUN_SENDER_DEV":{
+            "description": "Same as above but for dev environment",
+            "value": "",
+            "required": false
+        },
+        "STRIPE_SECRET_KEY":{
+            "description": "If you want to setup synchronise as a commercial product and charge people you need to use stripe. Put your stripe SECRET KEY",
+            "value": "",
+            "required": false
+        },
+        "STRIPE_SECRET_KEY_DEV":{
+            "description": "If you want to setup synchronise as a commercial product and charge people you need to use stripe. Put your stripe SECRET KEY for DEV environment",
+            "value": "",
+            "required": false
+        },
+        "AWS_ACCESS_KEY_ID":{
+            "description": "Put your AWS ACCESS KEY to be able to store files on your s3",
+            "value": "",
+            "required": false
+        },
+        "AWE_SECRET_ACCESS_KEY":{
+            "description": "Put your AWS SECRET ACCESS KEY",
+            "value": "",
+            "required": false
+        },
+        "INTERCOM_APP_ID":{
+            "description": "If you wish to provide a customer service you must use Intercom. Put your APP ID here.",
+            "value": "",
+            "required": false
+        },
+        "INTERCOM_API_KEY":{
+            "description": "Put your Intercom API KEY here.",
+            "value": "",
+            "required": false
+        },
+        "INTERCOM_APP_ID_DEV":{
+            "description": "Same as above but for DEV environment",
+            "value": "",
+            "required": false
+        },
+        "INTERCOM_API_KEY_DEV":{
+            "description": "Same as above but for DEV environment",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_APP_ID":{
+            "description": "If you want to provide social login and signup with Facebook you need to create a facebook app. Put your APP ID here.",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_APP_SECRET":{
+            "description": "Put your app SECRET KEY here.",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_ACCESS_TOKEN_FOR_DEBUG":{
+            "description": "Put your app TOKEN FOR DEBUG here",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_CALLBACK_URL":{
+            "description": "Put your app callback url here",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_APP_ID_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_APP_SECRET_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_ACCESS_TOKEN_FOR_DEBUG_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "FACEBOOK_CALLBACK_URL_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "GITHUB_APP_ID":{
+            "description": "If you want to provide social login and signup with Github you need to create a Github app. Put your APP ID here.",
+            "value": "",
+            "required": false
+        },
+        "GITHUB_APP_SECRET":{
+            "description": "Put your app secret key here",
+            "value": "",
+            "required": false
+        },
+        "GITHUB_CALLBACK_URL":{
+            "description": "Put your app callback url here",
+            "value": "",
+            "required": false
+        },
+        "GITHUB_APP_ID_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "GITHUB_APP_SECRET_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "GITHUB_CALLBACK_URL_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "BITBUCKET_APP_ID":{
+            "description": "If you want to provide social login and signup with Bitbucket you need to create a Bitbucket app. Put your APP ID here.",
+            "value": "",
+            "required": false
+        },
+        "BITBUCKET_APP_SECRET":{
+            "description": "Put your app secret key here",
+            "value": "",
+            "required": false
+        },
+        "BITBUCKET_CALLBACK_URL":{
+            "description": "Put your app callback url here",
+            "value": "",
+            "required": false
+        },
+        "BITBUCKET_APP_ID_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "BITBUCKET_APP_SECRET_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "BITBUCKET_CALLBACK_URL_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "GOOGLE_APP_ID":{
+            "description": "If you want to provide social login and signup with Google you need to create a Google app. Put your APP ID here.",
+            "value": "",
+            "required": false
+        },
+        "GOOGLE_APP_SECRET":{
+            "description": "Put your app secret key here",
+            "value": "",
+            "required": false
+        },
+        "GOOGLE_CALLBACK_URL":{
+            "description": "Put your app callback url here@",
+            "value": "",
+            "required": false
+        },
+        "GOOGLE_APP_ID_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "GOOGLE_APP_SECRET_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        },
+        "GOOGLE_CALLBACK_URL_DEV":{
+            "description": "Same as above but for dev",
+            "value": "",
+            "required": false
+        }
+    },
+    "formation": {
+    },
+    "addons": [
+        "heroku-redis:hobby-dev",
+        "heroku-redis:hobby-dev",
+        "heroku-redis:hobby-dev"
+    ],
+    "buildpacks": [
 
-  ],
-  "buildpacks": [
-
-  ]
+    ]
 }
