@@ -55,7 +55,7 @@ app.set('trust proxy', 1);
 var sessionInstance = session({
     store            : RedisStore,
     key              : 'synchroniseio.sid',
-    secret           : assets.redisSessionStoreCredentials.secret,
+    secret           : assets.randomString(10),
     resave           : false,
     saveUninitialized: true,
     genid            : function(req) {
