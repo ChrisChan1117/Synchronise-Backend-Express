@@ -1,6 +1,7 @@
 {
     "name": "Synchronise.IO - Server",
     "description": "Synchronise IO micro service backend ",
+    "logo": "https://raw.githubusercontent.com/synchroniseiorepo/server/master/public/images/synchroniseFullBlack.png",
     "scripts": {
     },
     "env": {
