@@ -213,7 +213,7 @@ if(process.env.PRODUCTION){
 if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 	var redisURLS = [];
 	for (var i = 0; i < Object.keys(process.env).length; i++) {
-		var row = process.env[Object.keys[i]];
+		var row = process.env[Object.keys(process.env)[i]];
 		if(row.indexOf("redis") != -1){
 			redisURLS.push(row);
 		}
