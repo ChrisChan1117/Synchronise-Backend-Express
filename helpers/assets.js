@@ -220,12 +220,14 @@ if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 	}
 
 	var publishRedisAdapter    = redis.createClient(redisURLS[0]);
-	var subscriberRedisAdapter = redis.createClient(redisURLS[1]);
-	var redisDataStore         = redis.createClient(redisURLS[2]);
+	var subscriberRedisAdapter = redis.createClient(redisURLS[0]);
+	var redisDataStore         = redis.createClient(redisURLS[1]);
+	var redisSessionStore      = redis.createClient(redisURLS[2]);
 }else{
 	var publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
 	var subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
 	var redisDataStore         = redisCreateClient(rcData.port, rcData.host, { detect_buffers: true, auth_pass: rcData.pass });
+	var redisSessionStore      = redisCreateClient(rcSession.port, rcSession.host, { auth_pass: rcSession.pass });
 }
 
 publishRedisAdapter.on("error", function(error){
@@ -239,6 +241,9 @@ subscriberRedisAdapter.subscribe("any");
 
 redisDataStore.on("error", function(error){
 	console.log("Error RedisDataStore : " + error);
+});
+redisSessionStore.on("error", function (error) {
+	console.log("Error RedisSessionStore : " + error);
 });
 
 // Caching system for publish commands
@@ -301,11 +306,6 @@ exports.subscriberRedisAdapter = function(){
 
 	return subscriberRedisAdapter;
 };
-
-var redisSessionStore      = redis(rcSession.port, rcSession.host, { auth_pass: rcSession.pass });
-redisSessionStore.on("error", function (error) {
-	console.log("Error RedisSessionStore : " + error);
-});
 
 exports.redisSessionStore            = redisSessionStore;
 exports.redisSessionStoreCredentials = rcSession;
