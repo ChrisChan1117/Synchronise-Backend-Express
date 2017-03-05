@@ -4,6 +4,7 @@ var redis             = require('redis');
 var redisCreateClient = redis.createClient;
 var itcm              = require('intercom-client');
 var Mailgun           = require('mailgun-send');
+var url               = require('url');
 
 exports.LIMIT_REQUESTS_FREE_PLAN = process.env.FREE_PLAN_LIMIT? process.env.FREE_PLAN_LIMIT : 10000;
 exports.SHOULD_USE_SLL = process.env.SHOULD_USE_SLL? process.env.SHOULD_USE_SLL : false;
@@ -219,10 +220,15 @@ if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 		}
 	}
 
-	var publishRedisAdapter    = redis.createClient(redisURLS[0]);
-	var subscriberRedisAdapter = redis.createClient(redisURLS[0]);
-	var redisDataStore         = redis.createClient(redisURLS[1]);
-	var redisSessionStore      = redis.createClient(redisURLS[2]);
+	var publishRedisAdapterCredentials    = url.parse(redisURLS[0]);
+	var subscriberRedisAdapterCredentials = url.parse(redisURLS[0]);
+	var redisDataStoreCredentials         = url.parse(redisURLS[1]);
+	var redisSessionStoreCredentials      = url.parse(redisURLS[2]);
+
+	var publishRedisAdapter    = redisCreateClient(publishRedisAdapterCredentials.port, publishRedisAdapterCredentials.host, { rno_ready_check: true, eturn_buffers: false });
+	var subscriberRedisAdapter = redisCreateClient(subscriberRedisAdapterCredentials.port, subscriberRedisAdapterCredentials.host, { no_ready_check: true, detect_buffers: false, return_buffers: false });
+	var redisDataStore         = redisCreateClient(redisDataStoreCredentials.port, redisDataStoreCredentials.host, { no_ready_check: true, detect_buffers: true });
+	var redisSessionStore      = redisCreateClient(redisSessionStoreCredentials.port, redisSessionStoreCredentials.host, {no_ready_check: true});
 }else{
 	var publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
 	var subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
