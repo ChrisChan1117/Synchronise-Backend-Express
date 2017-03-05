@@ -219,9 +219,9 @@ if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 		}
 	}
 
-	var publishRedisAdapter    = redis(redisURLS[0]);
-	var subscriberRedisAdapter = redis(redisURLS[1]);
-	var redisDataStore         = redis(redisURLS[2]);
+	var publishRedisAdapter    = redis.createClient(redisURLS[0]);
+	var subscriberRedisAdapter = redis.createClient(redisURLS[1]);
+	var redisDataStore         = redis.createClient(redisURLS[2]);
 }else{
 	var publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
 	var subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
