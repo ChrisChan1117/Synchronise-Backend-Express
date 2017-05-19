@@ -51,7 +51,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function()
                     }
 
                     if(!params.style.icon){
-                        params.style.icon = "https://images.synchronise.io/defaultProjectIcon.png";
+                        params.style.icon = "/images/defaultProjectIcon.png";
                     }
 
                     if(target.isMounted()){

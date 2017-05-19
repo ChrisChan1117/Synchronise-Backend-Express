@@ -242,7 +242,7 @@
                                         React.createElement(
                                             "div",
                                             { className: "planetContainer", style: { width: "100%", position: "absolute", textAlign: "center", left: "0", top: "-60px" } },
-                                            React.createElement("img", { className: "img-responsive planetImage", src: "https://images.synchronise.io/earth.png", style: { width: "100px", margin: "auto" } })
+                                            React.createElement("img", { className: "img-responsive planetImage", src: "/images/earth.png", style: { width: "100px", margin: "auto" } })
                                         ),
                                         React.createElement(
                                             "h3",
@@ -288,7 +288,7 @@
                                         React.createElement(
                                             "div",
                                             { className: "planetContainer", style: { width: "100%", position: "absolute", textAlign: "center", left: "0", top: "-60px" } },
-                                            React.createElement("img", { className: "img-responsive planetImage", src: "https://images.synchronise.io/mars.png", style: { width: "100px", margin: "auto" } })
+                                            React.createElement("img", { className: "img-responsive planetImage", src: "/images/mars.png", style: { width: "100px", margin: "auto" } })
                                         ),
                                         React.createElement(
                                             "h3",
@@ -776,7 +776,7 @@
                     React.createElement(
                         "td",
                         null,
-                        React.createElement("img", { src: "https://images.synchronise.io/cards/" + this.props.type + ".png", alt: this.props.type }),
+                        React.createElement("img", { src: "/images/cards/" + this.props.type + ".png", alt: this.props.type }),
                         " (",
                         this.props.last4,
                         ") ",

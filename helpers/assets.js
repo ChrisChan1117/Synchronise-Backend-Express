@@ -93,17 +93,17 @@ exports.intercomTrackEvent  = function(event_name, user_id){
 exports.facebookCredentials = function(){
 	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: process.env.FACEBOOK_APP_ID,
-			app_secret: process.env.FACEBOOK_APP_SECRET,
-			accessTokenForDebug: process.env.FACEBOOK_ACCESS_TOKEN_FOR_DEBUG,
-			callbackURL: process.env.FACEBOOK_CALLBACK_URL
+			app_id: process.env.FACEBOOK_APP_ID || false,
+			app_secret: process.env.FACEBOOK_APP_SECRET || false,
+			accessTokenForDebug: process.env.FACEBOOK_ACCESS_TOKEN_FOR_DEBUG || false,
+			callbackURL: process.env.FACEBOOK_CALLBACK_URL || false
 		};
 	}else{ // DEVELOPMENT
 		return {
-			app_id: process.env.FACEBOOK_APP_ID_DEV,
-			app_secret: process.env.FACEBOOK_APP_SECRET_DEV,
-			accessTokenForDebug: process.env.FACEBOOK_ACCESS_TOKEN_FOR_DEBUG_DEV,
-			callbackURL: process.env.FACEBOOK_CALLBACK_URL_DEV
+			app_id: process.env.FACEBOOK_APP_ID_DEV || false,
+			app_secret: process.env.FACEBOOK_APP_SECRET_DEV || false,
+			accessTokenForDebug: process.env.FACEBOOK_ACCESS_TOKEN_FOR_DEBUG_DEV || false,
+			callbackURL: process.env.FACEBOOK_CALLBACK_URL_DEV || false
 		};
 	}
 };
@@ -111,15 +111,15 @@ exports.facebookCredentials = function(){
 exports.githubCredentials = function(){
 	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: process.env.GITHUB_APP_ID,
-			app_secret: process.env.GITHUB_APP_SECRET,
-			callbackURL: process.env.GITHUB_CALLBACK_URL
+			app_id: process.env.GITHUB_APP_ID || false,
+			app_secret: process.env.GITHUB_APP_SECRET || false,
+			callbackURL: process.env.GITHUB_CALLBACK_URL || false
 		};
 	}else{ // DEVELOPMENT
 		return {
-			app_id: process.env.GITHUB_APP_ID_DEV,
-			app_secret: process.env.GITHUB_APP_SECRET_DEV,
-			callbackURL: process.env.GITHUB_CALLBACK_URL_DEV
+			app_id: process.env.GITHUB_APP_ID_DEV || false,
+			app_secret: process.env.GITHUB_APP_SECRET_DEV || false,
+			callbackURL: process.env.GITHUB_CALLBACK_URL_DEV || false
 		};
 	}
 };
@@ -127,15 +127,15 @@ exports.githubCredentials = function(){
 exports.bitbucketCredentials = function(){
 	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: process.env.BITBUCKET_APP_ID,
-			app_secret: process.env.BITBUCKET_APP_SECRET,
-			callbackURL: process.env.BITBUCKET_CALLBACK_URL
+			app_id: process.env.BITBUCKET_APP_ID || false,
+			app_secret: process.env.BITBUCKET_APP_SECRET || false,
+			callbackURL: process.env.BITBUCKET_CALLBACK_URL || false
 		};
 	}else{
 		return {
-			app_id: process.env.BITBUCKET_APP_ID_DEV,
-			app_secret: process.env.BITBUCKET_APP_SECRET_DEV,
-			callbackURL: process.env.BITBUCKET_CALLBACK_URL_DEV
+			app_id: process.env.BITBUCKET_APP_ID_DEV || false,
+			app_secret: process.env.BITBUCKET_APP_SECRET_DEV || false,
+			callbackURL: process.env.BITBUCKET_CALLBACK_URL_DEV || false
 		};
 	}
 };
@@ -143,15 +143,15 @@ exports.bitbucketCredentials = function(){
 exports.googleCredentials = function(){
 	if(process.env.PRODUCTION){ // PRODUCTION
 		return {
-			app_id: process.env.GOOGLE_APP_ID,
-			app_secret: process.env.GOOGLE_APP_SECRET,
-			callbackURL: process.env.GOOGLE_CALLBACK_URL
+			app_id: process.env.GOOGLE_APP_ID || false,
+			app_secret: process.env.GOOGLE_APP_SECRET || false,
+			callbackURL: process.env.GOOGLE_CALLBACK_URL || false
 		};
 	}else{
 		return {
-			app_id: process.env.GOOGLE_APP_ID_DEV,
-			app_secret: process.env.GOOGLE_APP_SECRET_DEV,
-			callbackURL: process.env.GOOGLE_CALLBACK_URL_DEV
+			app_id: process.env.GOOGLE_APP_ID_DEV || false,
+			app_secret: process.env.GOOGLE_APP_SECRET_DEV || false,
+			callbackURL: process.env.GOOGLE_CALLBACK_URL_DEV || false
 		};
 	}
 };
@@ -186,24 +186,24 @@ if(process.env.PRODUCTION){
 }else{
 	// DEVELOPMENT DATABASE
 	var rcEvents = {
-		host       : process.env.REDIS_EVENTS_HOST_DEV,
-		port       : process.env.REDIS_EVENTS_PORT_DEV,
+		host       : process.env.REDIS_EVENTS_HOST_DEV || "redis-11812.c12.us-east-1-4.ec2.cloud.redislabs.com",
+		port       : process.env.REDIS_EVENTS_PORT_DEV || "11812",
 		pass       : process.env.REDIS_EVENTS_PASS_DEV,
 		disableTTL : true,
 		secret     : process.env.REDIS_EVENTS_SECRET_DEV
 	};
 
 	var rcSession = {
-		host       : process.env.REDIS_SESSION_HOST_DEV,
-		port       : process.env.REDIS_SESSION_PORT_DEV,
+		host       : process.env.REDIS_SESSION_HOST_DEV || "redis-11812.c12.us-east-1-4.ec2.cloud.redislabs.com",
+		port       : process.env.REDIS_SESSION_PORT_DEV || "11812",
 		pass       : process.env.REDIS_SESSION_PASS_DEV,
 		disableTTL : true,
 		secret     : process.env.REDIS_SESSION_SECRET_DEV
 	};
 
 	var rcData = {
-		host       : process.env.REDIS_DATA_DATA_DEV,
-		port       : process.env.REDIS_DATA_PORT_DEV,
+		host       : process.env.REDIS_DATA_DATA_DEV || "redis-11812.c12.us-east-1-4.ec2.cloud.redislabs.com",
+		port       : process.env.REDIS_DATA_PORT_DEV || "11812",
 		pass       : process.env.REDIS_DATA_PASS_DEV,
 		disableTTL : true,
 		secret     : process.env.REDIS_DATA_SECRET_DEV
@@ -211,6 +211,7 @@ if(process.env.PRODUCTION){
 }
 
 // We are running on heroku servers
+var publishRedisAdapter, subscriberRedisAdapter, redisDataStore, redisSessionStore;
 if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 	var redisURLS = [];
 	for (var i = 0; i < Object.keys(process.env).length; i++) {
@@ -225,19 +226,23 @@ if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 	var redisDataStoreCredentials         = url.parse(redisURLS[1]);
 	var redisSessionStoreCredentials      = url.parse(redisURLS[2]);
 
-	var publishRedisAdapter    = redisCreateClient(publishRedisAdapterCredentials.port, publishRedisAdapterCredentials.hostname, { rno_ready_check: true, eturn_buffers: false });
-		publishRedisAdapter.auth(publishRedisAdapterCredentials.auth.split(":")[1]);
-	var subscriberRedisAdapter = redisCreateClient(subscriberRedisAdapterCredentials.port, subscriberRedisAdapterCredentials.hostname, { no_ready_check: true, detect_buffers: false, return_buffers: false });
-		subscriberRedisAdapter.auth(subscriberRedisAdapterCredentials.auth.split(":")[1]);
-	var redisDataStore         = redisCreateClient(redisDataStoreCredentials.port, redisDataStoreCredentials.hostname, { no_ready_check: true, detect_buffers: true });
-		redisDataStore.auth(redisDataStoreCredentials.auth.split(":")[1]);
-	var redisSessionStore      = redisCreateClient(redisSessionStoreCredentials.port, redisSessionStoreCredentials.hostname, {no_ready_check: true});
-		redisSessionStore.auth(redisSessionStoreCredentials.auth.split(":")[1]);
+	publishRedisAdapter    = redisCreateClient(publishRedisAdapterCredentials.port, publishRedisAdapterCredentials.hostname, { rno_ready_check: true, return_buffers: false });
+	publishRedisAdapter.auth(publishRedisAdapterCredentials.auth.split(":")[1]);
+	subscriberRedisAdapter = redisCreateClient(subscriberRedisAdapterCredentials.port, subscriberRedisAdapterCredentials.hostname, { no_ready_check: true, detect_buffers: false, return_buffers: false });
+	subscriberRedisAdapter.auth(subscriberRedisAdapterCredentials.auth.split(":")[1]);
+	redisDataStore         = redisCreateClient(redisDataStoreCredentials.port, redisDataStoreCredentials.hostname, { no_ready_check: true, detect_buffers: true });
+	redisDataStore.auth(redisDataStoreCredentials.auth.split(":")[1]);
+	redisSessionStore      = redisCreateClient(redisSessionStoreCredentials.port, redisSessionStoreCredentials.hostname, {no_ready_check: true});
+	redisSessionStore.auth(redisSessionStoreCredentials.auth.split(":")[1]);
 }else{
-	var publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false, auth_pass: rcEvents.pass });
-	var subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false, auth_pass: rcEvents.pass });
-	var redisDataStore         = redisCreateClient(rcData.port, rcData.host, { detect_buffers: true, auth_pass: rcData.pass });
-	var redisSessionStore      = redisCreateClient(rcSession.port, rcSession.host, { auth_pass: rcSession.pass });
+	publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false });
+	if(rcEvents.pass){publishRedisAdapter.auth(rcEvents.pass);}
+	subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false });
+	if(rcEvents.pass){subscriberRedisAdapter.auth(rcEvents.pass);}
+	redisDataStore         = redisCreateClient(rcData.port, rcData.host, { detect_buffers: true });
+	if(rcData.pass){redisDataStore.auth(rcData.pass);}
+	redisSessionStore      = redisCreateClient(rcSession.port, rcSession.host);
+	if(rcSession.pass){redisSessionStore.auth(rcSession.pass);}
 }
 
 publishRedisAdapter.on("error", function(error){

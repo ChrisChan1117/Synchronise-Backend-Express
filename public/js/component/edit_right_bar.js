@@ -541,7 +541,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                             React.createElement(
                                 "div",
                                 { style: { position: "absolute", right: "0px", marginTop: "0px", zIndex: 999, opacity: 0 }, className: "handIndicator" },
-                                React.createElement("img", { src: "https://images.synchronise.io/handPointingLeft.png" })
+                                React.createElement("img", { src: "/images/handPointingLeft.png" })
                             ),
                             React.createElement(
                                 "div",

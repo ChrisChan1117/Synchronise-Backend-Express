@@ -357,7 +357,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                                 handIndicator = React.createElement(
                                     "div",
                                     { style: { position: "absolute", right: "-20px", marginTop: "-57px", zIndex: 999, opacity: 0 }, className: "handIndicator" },
-                                    React.createElement("img", { src: "https://images.synchronise.io/handPointingLeft.png" })
+                                    React.createElement("img", { src: "/images/handPointingLeft.png" })
                                 );
                             }
                             return React.createElement(

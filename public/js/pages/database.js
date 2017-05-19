@@ -420,7 +420,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                     React.createElement('i', { className: 'fa fa-cog updateDatabase', onClick: this.updateCredentials }),
                     React.createElement('i', { className: classNameForRefreshSchemaButton, onClick: this.updateSchema }),
                     React.createElement('i', { className: 'fa fa-trash removeDatabase', onClick: this.removeDatabase }),
-                    React.createElement('img', { src: 'https://images.synchronise.io/databasesType/' + this.state.type + '-icon.png' }),
+                    React.createElement('img', { src: '/images/databasesType/' + this.state.type + '-icon.png' }),
                     React.createElement(
                         'h4',
                         { className: 'title' },
@@ -1095,7 +1095,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 React.createElement(
                     'div',
                     { className: 'panel-body' },
-                    React.createElement('img', { src: "https://images.synchronise.io/databasesType/" + this.props.image, width: '100px' }),
+                    React.createElement('img', { src: "/images/databasesType/" + this.props.image, width: '100px' }),
                     this.props.label
                 )
             );

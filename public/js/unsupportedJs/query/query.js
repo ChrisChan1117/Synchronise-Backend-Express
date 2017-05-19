@@ -121,7 +121,7 @@
             displayName: "ProjectBlock",
 
             getInitialState: function getInitialState() {
-                var icon = "https://images.synchronise.io/defaultProjectIcon.png";
+                var icon = "/images/defaultProjectIcon.png";
                 if (this.props.icon) {
                     icon = this.props.icon;
                 }

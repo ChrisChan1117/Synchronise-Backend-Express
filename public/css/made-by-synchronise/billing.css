@@ -78,23 +78,23 @@ body {
 }
 
 .cc-num.visa + .cardimage{
-	background:url('https://images.synchronise.io/cards/visa.png') no-repeat center center;
+	background:url('/images/cards/visa.png') no-repeat center center;
 }
 
 .cc-num.amex + .cardimage{
-	background:url('https://images.synchronise.io/cards/amex.png') no-repeat center center;
+	background:url('/images/cards/amex.png') no-repeat center center;
 }
 
 .cc-num.mastercard + .cardimage{
-	background:url('https://images.synchronise.io/cards/mastercard.png') no-repeat center center;
+	background:url('/images/cards/mastercard.png') no-repeat center center;
 }
 
 .cc-num.diners + .cardimage{
-	background:url('https://images.synchronise.io/cards/diners.png') no-repeat center center;
+	background:url('/images/cards/diners.png') no-repeat center center;
 }
 
 .cc-num.discover + .cardimage{
-	background:url('https://images.synchronise.io/cards/discover.png') no-repeat center center;
+	background:url('/images/cards/discover.png') no-repeat center center;
 }
 
 .cardInfo__submission{

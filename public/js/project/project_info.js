@@ -8,8 +8,8 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
 
         getInitialState: function getInitialState() {
             return {
-                iconUrl: "https://images.synchronise.io/defaultProjectIcon.png",
-                defaultProjectIcon: "https://images.synchronise.io/defaultProjectIcon.png",
+                iconUrl: "/images/defaultProjectIcon.png",
+                defaultProjectIcon: "/images/defaultProjectIcon.png",
                 iconFile: false,
                 name: "",
                 url: "",

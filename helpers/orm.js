@@ -14,6 +14,8 @@ var opts = {
     host     : assets.redisDataStoreCredentials.host,
     port     : assets.redisDataStoreCredentials.port,
     password : assets.redisDataStoreCredentials.secret,
+    pass     : assets.redisDataStoreCredentials.secret,
+    secret   : assets.redisDataStoreCredentials.secret,
     query    : {
         pool     : true,
         debug    : false,

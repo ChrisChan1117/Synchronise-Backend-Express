@@ -19,7 +19,7 @@ dependenciesLoader(["Component", "React", "ReactDOM", "$", "_"], function(){
                 availableInputs.push({
                     parent : "workflow",
                     inputs : target.props.inputs,
-                    icon   : "https://images.synchronise.io/defaultProjectIcon.png",
+                    icon   : "/images/defaultProjectIcon.png",
                     index  : -1
                 });
             }
@@ -31,7 +31,7 @@ dependenciesLoader(["Component", "React", "ReactDOM", "$", "_"], function(){
 
             var componentsWithOutputs = toMap.map(function(row){
                 if(!row.logo){
-                    row.logo = "https://images.synchronise.io/defaultProjectIcon.png";
+                    row.logo = "/images/defaultProjectIcon.png";
                 }
                 return row;
             });

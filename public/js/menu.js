@@ -13,8 +13,8 @@ var displayGetFreeRequestsModal;
             referralLink = "https://www.synchronise.io/?referral=" + Synchronise.User.current().id;
             var modal = new Modal();
             modal.title("Free requests");
-            var string = "<div class='col-lg-6'><legend>Invite your friends <img src='https://images.synchronise.io/emojiFriend.png' style='height: 20px;'/></legend><h4 style='text-align:center'>10,000 requests</h4>Get <b>10,000</b> requests everytime a friends signup. There is no limit on the amount of friend you can invite.<div style='text-align:center; margin-top: 10px'><a class='btn btn-block btn-social shareOnMessenger' style='background: white; box-shadow: none; border: 1px solid darkgray'><span class='fa'><img src='https://images.synchronise.io/messenger.png' style='width: 30px; height: 30px'/></span> Send via Messenger</a><a href='https://twitter.com/intent/tweet?text=Stop reinventing the wheel! Reusable cloud components are there.&url=" + referralLink + "&hashtags=cloud,app&via=synchroniseio' class='btn btn-block btn-social btn-twitter' style='border: 0px; box-shadow: none;'><span class='fa fa-twitter'></span> Post a Tweet</a><input type='text' class='form-control' value='" + referralLink + "'></div></div>";
-            string += "<div class='col-lg-6'><legend>Add a payment method <img src='https://images.synchronise.io/emojiPaymentMethod.png' style='width: 25px'/></legend><h4 style='text-align:center'>20,000 requests</h4>Add a payment method and we'll give you an extra <b>20,000</b> requests and you <b>won't</b> be charged, ever, until you decide to switch to a payed plan. <br/><br/>Why? When you save a payment method you give us a strong sign that you believe in our platform and that means a lot to us. This is our way of saying thank you for your support. <div style='text-align:center; margin-top: 10px'><a class='btn btn-primary' href='/billing?tab=paymentMethods'>Add payment method</a></div></div>";
+            var string = "<div class='col-lg-6'><legend>Invite your friends <img src='/images/emojiFriend.png' style='height: 20px;'/></legend><h4 style='text-align:center'>10,000 requests</h4>Get <b>10,000</b> requests everytime a friends signup. There is no limit on the amount of friend you can invite.<div style='text-align:center; margin-top: 10px'><a class='btn btn-block btn-social shareOnMessenger' style='background: white; box-shadow: none; border: 1px solid darkgray'><span class='fa'><img src='/images/messenger.png' style='width: 30px; height: 30px'/></span> Send via Messenger</a><a href='https://twitter.com/intent/tweet?text=Stop reinventing the wheel! Reusable cloud components are there.&url=" + referralLink + "&hashtags=cloud,app&via=synchroniseio' class='btn btn-block btn-social btn-twitter' style='border: 0px; box-shadow: none;'><span class='fa fa-twitter'></span> Post a Tweet</a><input type='text' class='form-control' value='" + referralLink + "'></div></div>";
+            string += "<div class='col-lg-6'><legend>Add a payment method <img src='/images/emojiPaymentMethod.png' style='width: 25px'/></legend><h4 style='text-align:center'>20,000 requests</h4>Add a payment method and we'll give you an extra <b>20,000</b> requests and you <b>won't</b> be charged, ever, until you decide to switch to a payed plan. <br/><br/>Why? When you save a payment method you give us a strong sign that you believe in our platform and that means a lot to us. This is our way of saying thank you for your support. <div style='text-align:center; margin-top: 10px'><a class='btn btn-primary' href='/billing?tab=paymentMethods'>Add payment method</a></div></div>";
 
             modal.content(string);
             modal.show();
@@ -957,7 +957,7 @@ var displayGetFreeRequestsModal;
                     React.createElement(
                         "a",
                         { href: "/billing?tab=planTab" },
-                        React.createElement("img", { src: "https://images.synchronise.io/" + Synchronise.User.current().subscription + ".png", alt: "Plan", style: { height: "30px", width: "30px", marginTop: "0px" } })
+                        React.createElement("img", { src: "/images/" + Synchronise.User.current().subscription + ".png", alt: "Plan", style: { height: "30px", width: "30px", marginTop: "0px" } })
                     )
                 );
 
@@ -1158,7 +1158,7 @@ var displayGetFreeRequestsModal;
                     React.createElement(
                         "div",
                         { className: "hidden-xs", style: { left: "0", top: "0", position: "absolute" } },
-                        React.createElement("img", { src: "https://images.synchronise.io/synchroniseSquare.png", style: { height: "64px", marginLeft: "10px" } })
+                        React.createElement("img", { src: "/images/synchroniseSquare.png", style: { height: "64px", marginLeft: "10px" } })
                     ),
                     React.createElement(
                         "div",
@@ -1167,7 +1167,7 @@ var displayGetFreeRequestsModal;
                         React.createElement(
                             "a",
                             { href: "/" },
-                            React.createElement("img", { src: "https://images.synchronise.io/synchroniseSquare.png", style: { height: "64px", marginLeft: "10px" } })
+                            React.createElement("img", { src: "/images/synchroniseSquare.png", style: { height: "64px", marginLeft: "10px" } })
                         )
                     ),
                     React.createElement(

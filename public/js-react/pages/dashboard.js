@@ -259,7 +259,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function(){
 
                                 if(row.handIndicator){
                                     handIndicator = (
-                                        <div style={{position: "absolute", right: "-20px", marginTop: "-57px", zIndex: 999, opacity: 0}} className="handIndicator"><img src="https://images.synchronise.io/handPointingLeft.png"/></div>
+                                        <div style={{position: "absolute", right: "-20px", marginTop: "-57px", zIndex: 999, opacity: 0}} className="handIndicator"><img src="/images/handPointingLeft.png"/></div>
                                     );
                                 }
                                 return (<a href={row.link} onClick={row.onClick} style={{textDecoration: "none"}}><div key={"task"+index} className={"taskToDo "+status}>{row.text}</div>{handIndicator}</a>);

@@ -19,7 +19,7 @@
                     success: function success(projects) {
                         var projectsNew = _.each(projects, function (item) {
                             if (!item.icon) {
-                                item.icon = "https://images.synchronise.io/defaultProjectIcon.png";
+                                item.icon = "/images/defaultProjectIcon.png";
                             }
                         });
 

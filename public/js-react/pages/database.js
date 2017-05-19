@@ -374,7 +374,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function(){
                         <i className={classNameForRefreshSchemaButton} onClick={this.updateSchema}></i>
                         <i className="fa fa-trash removeDatabase" onClick={this.removeDatabase}></i>
 
-                        <img src={'https://images.synchronise.io/databasesType/'+this.state.type+'-icon.png'} />
+                        <img src={'/images/databasesType/'+this.state.type+'-icon.png'} />
                         <h4 className="title">{this.state.title}</h4>
 
                         <div className="open">Open</div>
@@ -915,7 +915,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function(){
             return (
                 <div className={"panel panel-default col-md-2 databaseSubtype "+ isSelectedClass} onClick={this.props.selected}>
                   <div className="panel-body">
-                    <img src={"https://images.synchronise.io/databasesType/"+this.props.image} width="100px" />
+                    <img src={"/images/databasesType/"+this.props.image} width="100px" />
                     {this.props.label}
                   </div>
                 </div>

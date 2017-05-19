@@ -277,7 +277,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                         if (data.icon) {
                             params.icon = data.icon;
                         } else {
-                            params.icon = "https://images.synchronise.io/defaultProjectIcon.png";
+                            params.icon = "/images/defaultProjectIcon.png";
                         }
 
                         if (target.isMounted()) {
@@ -297,7 +297,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                         bg_color: "white",
                         txt_color: "black",
                         icon_flts: "",
-                        icon: "https://images.synchronise.io/defaultProjectIcon.png",
+                        icon: "/images/defaultProjectIcon.png",
                         loading: false
                     });
                 }

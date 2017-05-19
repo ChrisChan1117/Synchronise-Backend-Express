@@ -4,8 +4,8 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function(){
     ProjectModalInfo = React.createClass({
         getInitialState: function(){
             return {
-                iconUrl              : "https://images.synchronise.io/defaultProjectIcon.png",
-                defaultProjectIcon   : "https://images.synchronise.io/defaultProjectIcon.png",
+                iconUrl              : "/images/defaultProjectIcon.png",
+                defaultProjectIcon   : "/images/defaultProjectIcon.png",
                 iconFile             : false,
                 name                 : "",
                 url                  : "",

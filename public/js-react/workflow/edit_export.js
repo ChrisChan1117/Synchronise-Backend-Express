@@ -183,7 +183,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function()
                 <ol>
                     <li>
                         <legend>Import the Synchronise.JS library in your project</legend>
-                        <div className="code import" onClick={this.selectImport} style={{cursor: "pointer"}}><code className="plain">&lt;</code><code className="keyword">script</code> <code className="color1">src</code><code className="plain">=</code><code className="string">"https://js.synchronise.io/1.0.min.js"</code><code className="plain">&gt;&lt;/</code><code className="keyword">script</code><code className="plain">&gt;</code></div>
+                        <div className="code import" onClick={this.selectImport} style={{cursor: "pointer"}}><code className="plain">&lt;</code><code className="keyword">script</code> <code className="color1">src</code><code className="plain">=</code><code className="string">"/js/1.0.min.js"</code><code className="plain">&gt;&lt;/</code><code className="keyword">script</code><code className="plain">&gt;</code></div>
                     </li>
 
                     <li>

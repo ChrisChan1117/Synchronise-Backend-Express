@@ -439,7 +439,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     <div id="rightBar" className="row">
                         <div className="col-xs-12">
                             <div className="row" style={{marginBottom: "20px"}}>
-                                <div style={{position: "absolute", right: "0px", marginTop: "0px", zIndex: 999, opacity: 0}} className="handIndicator"><img src="https://images.synchronise.io/handPointingLeft.png"/></div>
+                                <div style={{position: "absolute", right: "0px", marginTop: "0px", zIndex: 999, opacity: 0}} className="handIndicator"><img src="/images/handPointingLeft.png"/></div>
                                 <div className="col-xs-12" style={{textAlign: "center"}}>
                                     <button className="btn btn-primary" onClick={this.runComponent}>Run</button>
                                     <a className="btn btn-info" href={urlForDocumentation} style={{marginLeft: "5px"}} target="_blank">Documentation</a>

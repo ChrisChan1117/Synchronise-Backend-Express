@@ -109,7 +109,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
         render: function render() {
             var content = "";
             if (!this.state.loading && typeof this.state.project != "undefined") {
-                var icon = "https://images.synchronise.io/defaultProjectIcon.png";
+                var icon = "/images/defaultProjectIcon.png";
                 if (this.state.project.icon) {
                     icon = this.state.project.icon;
                 }

@@ -180,7 +180,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                     success: function success(urls) {
                         target.updateSection("image", {
                             target: {
-                                value: "https://images.synchronise.io/" + urls[0].filename
+                                value: "/images/" + urls[0].filename
                             }
                         });
                     },

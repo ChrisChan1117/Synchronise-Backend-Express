@@ -8,7 +8,7 @@ var passport      = require('passport');
 var crypto        = require('crypto');
 var FacebookP     = require('passport-facebook').Strategy;
 var GithubP       = require('passport-github2').Strategy;
-var BitbucketP    = require('jem-passport-bitbucket-oauth2').Strategy;
+//var BitbucketP    = require('jem-passport-bitbucket-oauth2').Strategy;
 var GoogleP       = require('passport-google-oauth20').Strategy;
 
 var node_cryptojs = require(path.normalize(__dirname + '/../libraries/security/cryptojs'));
@@ -548,6 +548,7 @@ if(assets.githubCredentials().app_id.length && assets.githubCredentials().app_se
 }
 
 // Bitbucket OAuth 2.0
+/*
 if(assets.bitbucketCredentials().app_id.length && assets.bitbucketCredentials().app_secret.length && assets.bitbucketCredentials().callbackURL.length){
     passport.use(new BitbucketP({
         clientID: assets.bitbucketCredentials().app_id,
@@ -558,7 +559,7 @@ if(assets.bitbucketCredentials().app_id.length && assets.bitbucketCredentials().
         accessToken.provider = "bitbucket";
         executeStrategy(accessToken, refreshToken, profile, done);
     }));
-}
+}*/
 
 // Google OAuth 2.0
 if(assets.googleCredentials().app_id.length && assets.googleCredentials().app_secret.length && assets.googleCredentials().callbackURL.length){

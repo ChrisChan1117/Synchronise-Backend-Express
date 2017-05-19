@@ -174,7 +174,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
                         React.createElement(
                             "code",
                             { className: "string" },
-                            "\"https://js.synchronise.io/1.0.min.js\""
+                            "\"/js/1.0.min.js\""
                         ),
                         React.createElement(
                             "code",

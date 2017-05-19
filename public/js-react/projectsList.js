@@ -161,7 +161,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function(){
     var ProjectBlock = React.createClass({
         displayName: "ProjectBlock",
         getInitialState: function(){
-            var icon = "https://images.synchronise.io/defaultProjectIcon.png";
+            var icon = "/images/defaultProjectIcon.png";
             if(this.props.icon){
                 icon = this.props.icon;
             }

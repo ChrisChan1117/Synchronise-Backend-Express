@@ -171,7 +171,7 @@
                                     <div className="panel panel-primary">
                                         <div className="panel-heading" style={{textAlign: "center"}}>
                                             <div className="planetContainer" style={{width: "100%", position: "absolute", textAlign: "center", left: "0", top: "-60px"}}>
-                                                <img className="img-responsive planetImage" src="https://images.synchronise.io/earth.png" style={{width: "100px", margin: "auto"}}/>
+                                                <img className="img-responsive planetImage" src="/images/earth.png" style={{width: "100px", margin: "auto"}}/>
                                             </div>
                                             <h3 style={{color: "white"}}>Earth</h3>
                                         </div>
@@ -193,7 +193,7 @@
                                     <div className="panel panel-warning">
                                         <div className="panel-heading" style={{textAlign: "center"}}>
                                             <div className="planetContainer" style={{width: "100%", position: "absolute", textAlign: "center", left: "0", top: "-60px"}}>
-                                                <img className="img-responsive planetImage" src="https://images.synchronise.io/mars.png" style={{width: "100px", margin: "auto"}}/>
+                                                <img className="img-responsive planetImage" src="/images/mars.png" style={{width: "100px", margin: "auto"}}/>
                                             </div>
                                             <h3 style={{color: "white"}}>Mars</h3>
                                         </div>
@@ -507,7 +507,7 @@
 
                 return (
                     <tr>
-                        <td><img src={"https://images.synchronise.io/cards/"+this.props.type+".png"} alt={this.props.type}/> ({this.props.last4}) {isDefault} {isSettingAsDefault}</td>
+                        <td><img src={"/images/cards/"+this.props.type+".png"} alt={this.props.type}/> ({this.props.last4}) {isDefault} {isSettingAsDefault}</td>
                         <td>{this.props.firstname}</td>
                         <td>{this.props.surname}</td>
                         <td>{this.props.company}</td>
