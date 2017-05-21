@@ -1,18 +1,16 @@
-"use strict";
-
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "ProjectsList", "ProjectPicker"], function () {
     var isCreatingWorkflow = false;
     var projectsForPicker = [];
     var projectListLoading = true;
 
     Synchronise.Cloud.run("projectList", {}, {
-        success: function success(data) {
+        success: function (data) {
             projectsForPicker = _.map(data, function (row) {
                 return row.id;
             });
             projectListLoading = false;
         },
-        error: function error(err) {
+        error: function (err) {
             new ModalErrorParse(err);
             projectListLoading = false;
         }
@@ -20,58 +18,52 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Project
 
     function createWorkflow(id_project) {
         if (!isCreatingWorkflow) {
-            var interval;
+            function callback(id_project) {
+                window.setTimeout(function () {
+                    new ModalAskInput("How do you want to call your new Workflow?", function (name) {
+                        if (name) {
+                            isCreatingWorkflow = true;
 
-            (function () {
-                var callback = function callback(id_project) {
-                    window.setTimeout(function () {
-                        new ModalAskInput("How do you want to call your new Workflow?", function (name) {
-                            if (name) {
-                                isCreatingWorkflow = true;
+                            var params = { name: name };
+                            params.id_project = id_project;
 
-                                var params = { name: name };
-                                params.id_project = id_project;
-
-                                Synchronise.Cloud.run("createWorkflow", params, {
-                                    success: function success(component) {
-                                        document.location.href = "/workflow/edit?id=" + component.id;
-                                    },
-                                    error: function error(err) {
-                                        console.log(err);
-                                        new ModalErrorParse(err);
-                                    }
-                                });
-                            }
-                        }, "Crop a picture and send it by email, signup a user, process a payment...");
-                    }, 600);
-                };
-
-                if (typeof id_project != "string") {
-                    interval = window.setInterval(function () {
-                        if (!projectListLoading) {
-                            window.clearInterval(interval);
-                            if (projectsForPicker.length) {
-                                ReactDOM.render(React.createElement(ProjectPicker, { projects: projectsForPicker, idMount: "ProjectPicker", onClickProject: callback }), document.getElementById("ProjectPicker"));
-                            } else {
-                                new ModalConfirm("A Workflow must be stored in a project. Do you want to create a new project?", function (confirm) {
-                                    if (confirm) {
-                                        document.location.href = "/project?displayModalCreate=true&backuri=" + encodeURIComponent("/workflow?displayModalCreate=true") + "&backlabel=" + encodeURIComponent("Back to Workflow");
-                                    }
-                                });
-                            }
+                            Synchronise.Cloud.run("createWorkflow", params, {
+                                success: function (component) {
+                                    document.location.href = "/workflow/edit?id=" + component.id;
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                    new ModalErrorParse(err);
+                                }
+                            });
                         }
-                    }, 1);
-                } else {
-                    callback(id_project);
-                }
-            })();
+                    }, "Crop a picture and send it by email, signup a user, process a payment...");
+                }, 600);
+            }
+
+            if (typeof id_project != "string") {
+                var interval = window.setInterval(function () {
+                    if (!projectListLoading) {
+                        window.clearInterval(interval);
+                        if (projectsForPicker.length) {
+                            ReactDOM.render(React.createElement(ProjectPicker, { projects: projectsForPicker, idMount: "ProjectPicker", onClickProject: callback }), document.getElementById("ProjectPicker"));
+                        } else {
+                            new ModalConfirm("A Workflow must be stored in a project. Do you want to create a new project?", function (confirm) {
+                                if (confirm) {
+                                    document.location.href = "/project?displayModalCreate=true&backuri=" + encodeURIComponent("/workflow?displayModalCreate=true") + "&backlabel=" + encodeURIComponent("Back to Workflow");
+                                }
+                            });
+                        }
+                    }
+                }, 1);
+            } else {
+                callback(id_project);
+            }
         }
     }
 
     var Workflows = React.createClass({
-        displayName: "Workflows",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 removing: false,
@@ -79,12 +71,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Project
                 IDsProjectsWithWorkflows: []
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("listOfWorkflows", { realtime: true, cacheFirst: true }, {
-                success: function success(data) {
+                success: function (data) {
                     var IDsProjectsWithWorkflows = [];
                     for (var i = 0; i < data.length; i++) {
                         var workflow = data[i];
@@ -98,10 +90,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Project
                         IDsProjectsWithWorkflows: IDsProjectsWithWorkflows
                     });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
@@ -110,20 +102,20 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Project
                 createWorkflow();
             }
         },
-        clickOnProjectItem: function clickOnProjectItem(id) {
+        clickOnProjectItem: function (id) {
             document.location.href = "/workflow/edit?id=" + id;
         },
-        onClickRemove: function onClickRemove(id) {
+        onClickRemove: function (id) {
             var target = this;
             if (!this.state.removing) {
                 ModalConfirm("You are about to remove this workflow. Are you sure you want to continue?", function (confirm) {
                     if (confirm) {
                         target.setState({ removing: true });
                         Synchronise.Cloud.run("removeWorkflow", { id: id }, {
-                            error: function error(err) {
+                            error: function (err) {
                                 new ModalErrorParse(err);
                             },
-                            always: function always() {
+                            always: function () {
                                 target.setState({ removing: false });
                             }
                         });
@@ -131,13 +123,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Project
                 });
             }
         },
-        onCreate: function onCreate(id_project) {
+        onCreate: function (id_project) {
             createWorkflow(id_project);
         },
-        shouldDisplayProject: function shouldDisplayProject(item) {
+        shouldDisplayProject: function (item) {
             return this.state.IDsProjectsWithWorkflows.indexOf(item.id) != -1;
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var content = "";
 
@@ -245,25 +237,23 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Project
     });
 
     var Header = React.createClass({
-        displayName: "Header",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return { loading: false, amount: 0 };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("countComponent", { realtime: true }, {
-                success: function success(results) {
+                success: function (results) {
                     target.setState({ amount: results.count });
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var createButton = "";
             if (this.state.amount) {
                 createButton = React.createElement(

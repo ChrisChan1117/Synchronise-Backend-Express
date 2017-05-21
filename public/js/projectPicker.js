@@ -1,5 +1,3 @@
-"use strict";
-
 var ProjectPicker;
 dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // - (string)idMount: Id of the node where the component has been mounted
@@ -7,7 +5,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // - (array)projects: An array of IDs of projects
     ProjectPicker = React.createClass({
         displayName: "ProjectPicker",
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             KeyEventController.subscribeComponent("projectPicker", function (key) {
@@ -26,7 +24,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
                 });
             }
         },
-        hide: function hide() {
+        hide: function () {
             var target = this;
             $(ReactDOM.findDOMNode(this)).find('.card').animate({ opacity: 0 }, 300, function () {
                 $(ReactDOM.findDOMNode(this)).animate({ opacity: 0 }, 300, function () {
@@ -36,11 +34,11 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
 
             KeyEventController.unsubscribeComponent("projectPicker");
         },
-        clickOnProject: function clickOnProject(id_project) {
+        clickOnProject: function (id_project) {
             this.props.onClickProject(id_project);
             this.hide();
         },
-        render: function render() {
+        render: function () {
             var target = this;
             return React.createElement(
                 "div",
@@ -80,33 +78,33 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // - (function)onClickProject: Callback to trigger when a project is clicked
     var ProjectPickerItem = React.createClass({
         displayName: "ProjectPickerItem",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 project: undefined
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("getProject", { id_project: this.props.id, cacheFirst: true }, {
-                success: function success(data) {
+                success: function (data) {
                     if (target.isMounted()) {
                         target.setState({ project: data });
                     }
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     if (target.isMounted()) {
                         target.setState({ loading: false });
                     }
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var content = "";
             if (!this.state.loading && typeof this.state.project != "undefined") {
                 var icon = "/images/defaultProjectIcon.png";

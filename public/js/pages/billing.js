@@ -1,5 +1,3 @@
-"use strict";
-
 (function () {
     dependenciesLoader(["$", "React", "_", "Loader", "urlH", "Synchronise"], function () {
         if (urlH.getParam("tab")) {
@@ -8,7 +6,7 @@
 
         var SubscriptionSelection = React.createClass({
             displayName: "SubscriptionSelection",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     saving: false,
                     loading: false,
@@ -18,7 +16,7 @@
                     subscriptionEnds: new Date()
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 target.setState({ loading: true });
 
@@ -32,7 +30,7 @@
                     });
                 });
             },
-            selectPlan: function selectPlan(planName, planType, price) {
+            selectPlan: function (planName, planType, price) {
                 var target = this;
                 var messageConfirm = "";
                 var panelClass = "";
@@ -65,7 +63,7 @@
                         target.setState({ saving: true });
 
                         var query = Synchronise.Cloud.run("changePlan", { plan: { name: planName, type: planType } }, {
-                            error: function error(err) {
+                            error: function (err) {
                                 if (err.message == "noCard") {
                                     $('#tabs [href="#paymentMethods"]').tab("show");
                                     $("#collapseCardForm").collapse('show');
@@ -73,12 +71,12 @@
                                     new ModalErrorParse(err);
                                 }
                             },
-                            success: function success() {
+                            success: function () {
                                 if (planName != "earth") {
                                     fbq('track', 'Purchase', { value: parseInt(price), currency: 'USD' });
                                 }
                             },
-                            always: function always() {
+                            always: function () {
                                 target.setState({ saving: false });
                             }
                         });
@@ -87,22 +85,22 @@
 
                 fbq('track', 'InitiateCheckout');
             },
-            cancelSubscription: function cancelSubscription() {
+            cancelSubscription: function () {
                 var target = this;
                 if (!target.state.cancelling) {
                     target.setState({ cancelling: true });
 
                     Synchronise.Cloud.run("cancelSubscription", {}, {
-                        error: function error(err) {
+                        error: function (err) {
                             new ModalErrorParse(err);
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ cancelling: false });
                         }
                     });
                 }
             },
-            render: function render() {
+            render: function () {
                 var target = this;
                 var currentDate = new Date();
 
@@ -348,31 +346,29 @@
         ReactDOM.render(React.createElement(SubscriptionSelection, null), document.getElementById("SubscriptionSelection"));
 
         var Invoices = React.createClass({
-            displayName: "Invoices",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     loading: false,
                     invoices: []
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 target.setState({ loading: true });
 
                 Synchronise.Cloud.run("listOfInvoicesForUser", {}, {
-                    success: function success(data) {
+                    success: function (data) {
                         target.setState({ invoices: data });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loading: false });
                     }
                 });
             },
-            render: function render() {
+            render: function () {
                 var content = React.createElement(Loader, null);
 
                 if (!this.state.loading) {
@@ -509,24 +505,22 @@
 
         // Displays the list of cards stored on the users account
         var CardsList = React.createClass({
-            displayName: "CardsList",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     loading: true,
                     cards: []
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 target.setState({ loading: true });
 
                 Synchronise.Cloud.run("getCardsListForUser", { realtime: true }, {
-                    success: function success(cards) {
+                    success: function (cards) {
                         target.setState({ cards: cards });
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loading: false });
                     }
                 });
@@ -535,7 +529,7 @@
                     $("#collapseCardForm").collapse('show');
                 }
             },
-            render: function render() {
+            render: function () {
                 // Still loading
                 var content = React.createElement(
                     "table",
@@ -633,28 +627,26 @@
 
         // Displays an alert if the user has not linked a card
         var CardStoreAlert = React.createClass({
-            displayName: "CardStoreAlert",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     cards: [],
                     loading: true
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 Synchronise.Cloud.run("getCardsListForUser", { realtime: true }, {
-                    success: function success(cards) {
+                    success: function (cards) {
                         target.setState({ cards: cards });
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({
                             loading: false
                         });
                     }
                 });
             },
-            render: function render() {
+            render: function () {
                 var content = React.createElement("div", null);
 
                 if (!this.state.cards.length && !this.state.loading) {
@@ -686,30 +678,28 @@
         // - last4        : last 4 digits of the card
         // - isDefault : whether the card is the default one
         var CardListItem = React.createClass({
-            displayName: "CardListItem",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     isSettingAsDefault: false,
                     removing: false
                 };
             },
-            changeDefaultCard: function changeDefaultCard(event) {
+            changeDefaultCard: function (event) {
                 event.preventDefault();
 
                 var target = this;
                 target.setState({ isSettingAsDefault: true });
 
                 Synchronise.Cloud.run("setDefaultCard", { id_card: this.props.id }, {
-                    always: function always() {
+                    always: function () {
                         target.setState({ isSettingAsDefault: false });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     }
                 });
             },
-            deleteCard: function deleteCard(event) {
+            deleteCard: function (event) {
                 event.preventDefault();
 
                 var target = this;
@@ -717,16 +707,16 @@
                 if (!target.state.removing) {
                     target.setState({ removing: true });
                     Synchronise.Cloud.run("deleteCard", { id_card: this.props.id }, {
-                        always: function always() {
+                        always: function () {
                             target.setState({ removing: false });
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             new ModalErrorParse(err);
                         }
                     });
                 }
             },
-            render: function render() {
+            render: function () {
                 var isDefault = React.createElement(
                     "a",
                     { alt: "Set card as default", onClick: this.changeDefaultCard },
@@ -816,9 +806,7 @@
     dependenciesLoader(["$", "React", "_", "Stripe", "Loader"], function () {
         // Displays a form to add a new card
         var CardForm = React.createClass({
-            displayName: "CardForm",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     saving: false,
                     first_name: "",
@@ -833,12 +821,12 @@
                     company: ""
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 $('#collapseCardForm').on('shown.bs.collapse', function () {
                     $('#collapseCardForm input').first().focus();
                 });
             },
-            submit: function submit(event) {
+            submit: function (event) {
                 event.preventDefault();
                 if (!this.state.saving) {
                     var target = this;
@@ -863,7 +851,7 @@
                                     exp_month: target.state.card_expiry.month,
                                     exp_year: target.state.card_expiry.year
                                 }, {
-                                    success: function success() {
+                                    success: function () {
                                         target.setState({
                                             first_name: "",
                                             surname: "",
@@ -880,10 +868,10 @@
                                         $('#collapseCardForm').collapse('hide');
                                         fbq('track', 'AddPaymentInfo');
                                     },
-                                    error: function error(err) {
+                                    error: function (err) {
                                         new ModalErrorParse(err);
                                     },
-                                    always: function always() {
+                                    always: function () {
                                         target.setState({ saving: false });
                                     }
                                 });
@@ -894,26 +882,26 @@
                     }
                 }
             },
-            handleCompanyName: function handleCompanyName(event) {
+            handleCompanyName: function (event) {
                 var target = this;
                 target.setState({ company: event.target.value });
             },
-            handleFirstName: function handleFirstName(event) {
+            handleFirstName: function (event) {
                 var target = this;
                 target.setState({ first_name: event.target.value });
             },
-            handleSurname: function handleSurname(event) {
+            handleSurname: function (event) {
                 var target = this;
                 target.setState({ surname: event.target.value });
             },
-            handleCardNumber: function handleCardNumber(event) {
+            handleCardNumber: function (event) {
                 $('[data-numeric]').payment('restrictNumeric');
                 $('input.cc-num').payment('formatCardNumber');
 
                 var target = this;
                 target.setState({ card_number: event.target.value });
             },
-            handleCardExpiry: function handleCardExpiry(event) {
+            handleCardExpiry: function (event) {
                 $('[data-numeric]').payment('restrictNumeric');
                 $('input.cc-exp').payment('formatCardExpiry');
 
@@ -938,13 +926,13 @@
                         year: year
                     } });
             },
-            handleCardCVC: function handleCardCVC(event) {
+            handleCardCVC: function (event) {
                 var target = this;
                 target.setState({ card_cvc: event.target.value });
 
                 $('input.cc-cvc').payment('formatCardCVC');
             },
-            render: function render() {
+            render: function () {
                 var identifiedForm = "";
                 var identifiedFirstName = "";
                 var identifiedSurname = "";
@@ -1091,7 +1079,7 @@
                                 React.createElement("input", { id: "cc-num",
                                     type: "tel",
                                     className: "paymentInput cc-num unknown form-control " + identifiedCardNum,
-                                    placeholder: "•••• •••• •••• ••••",
+                                    placeholder: "\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022",
                                     autocompletetype: "cc-number",
                                     required: "required",
                                     value: this.state.card_number,
@@ -1165,41 +1153,39 @@
 
         // Displays a form to add a coupon code
         var CouponCodeForm = React.createClass({
-            displayName: "CouponCodeForm",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     coupon: "",
                     saving: false
                 };
             },
-            couponChanged: function couponChanged(event) {
+            couponChanged: function (event) {
                 var target = this;
                 target.setState({ coupon: event.target.value });
             },
-            applyCoupon: function applyCoupon() {
+            applyCoupon: function () {
                 var target = this;
                 if (!target.state.saving && this.state.coupon.length) {
                     target.setState({ saving: true });
 
                     Synchronise.Cloud.run("applyCoupon", { coupon: this.state.coupon }, {
-                        success: function success() {
+                        success: function () {
                             var modal = new Modal();
                             modal.title("Coupon");
                             modal.content("Your coupon has been applied successfully.");
                             modal.footer("", true);
                             modal.show();
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             new ModalErrorParse(err);
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ saving: false, coupon: "" });
                         }
                     });
                 }
             },
-            render: function render() {
+            render: function () {
                 var labelForButton = "Add coupon";
                 if (this.state.saving) {
                     labelForButton = "Saving...";

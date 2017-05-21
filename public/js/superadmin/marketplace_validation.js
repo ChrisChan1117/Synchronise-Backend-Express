@@ -1,9 +1,7 @@
-"use strict";
-
 dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "_"], function () {
     var MarketplaceValidation = React.createClass({
         displayName: "MarketplaceValidation",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 loaded: false,
@@ -13,30 +11,30 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 }
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             $(ReactDOM.findDOMNode(this)).on('click', '#loadMarkplaceValidation', function () {
                 target.loadData();
             });
         },
-        loadData: function loadData() {
+        loadData: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("superadminLoadMarketplaceValidationData", { realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({ data: data });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false, loaded: true });
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var content = "";
 
             if (!this.state.loaded && !this.state.loading) {
@@ -89,7 +87,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
 
     var MarketplaceValidationComponentItem = React.createClass({
         displayName: "MarketplaceValidationComponentItem",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 loaded: false,
@@ -98,58 +96,58 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 user: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
         },
-        toggleComponentDisplay: function toggleComponentDisplay() {
+        toggleComponentDisplay: function () {
             var target = this;
             target.setState({ opened: !target.state.opened });
 
             target.loadData();
         },
-        loadData: function loadData() {
+        loadData: function () {
             var target = this;
             if (!target.state.loaded && !target.state.loading) {
                 target.setState({ loading: true });
 
                 Synchronise.Cloud.run("getProject", { id_project: this.props.data.id_project }, {
-                    success: function success(data) {
+                    success: function (data) {
                         target.setState({ project: data });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loaded: true, loading: false });
                     }
                 });
 
                 Synchronise.Cloud.run("userObject", { user_id: this.props.data.user_id }, {
-                    success: function success(data) {
+                    success: function (data) {
                         target.setState({ user: data });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loaded: true });
                     }
                 });
             }
         },
-        approveComponent: function approveComponent() {
+        approveComponent: function () {
             var target = this;
             if (!this.state.approving) {
                 target.setState({ approving: true });
 
                 Synchronise.Cloud.run("superadminApproveComponent", { id: this.props.data.id }, {
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     }
                 });
             }
         },
-        render: function render() {
+        render: function () {
             var projectContent = "";
             if (this.state.project) {
                 var urlProject = "";

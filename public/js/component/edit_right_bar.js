@@ -1,5 +1,3 @@
-"use strict";
-
 var RightBar;
 
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMirror", "urlH", "Typeahead"], function () {
@@ -9,14 +7,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
     // - (number)exec_time: The duration of the last execution
     // - (string)results: The results string
     var Results = React.createClass({
-        displayName: "Results",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 codeMirror: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             /*var code = CodeMirror.fromTextArea(document.getElementById('results'), {
                 mode        : "javascript",
                 theme       : "material",
@@ -26,7 +22,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             });
              this.setState({codeMirror: code});*/
         },
-        componentWillReceiveProps: function componentWillReceiveProps(props) {
+        componentWillReceiveProps: function (props) {
             var target = this;
             // Formats the displays of the JSON if necessary
             if (props.hasOwnProperty('results')) {
@@ -37,7 +33,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 }
             }
         },
-        render: function render() {
+        render: function () {
             var classForStatus = "";
             var duration = "";
             switch (this.props.status) {
@@ -120,14 +116,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
     // Props:
     // - (string)logs: The logs to display
     var Console = React.createClass({
-        displayName: "Console",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 codeMirror: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var code = CodeMirror.fromTextArea(document.getElementById('console'), {
                 mode: "javascript",
                 theme: "material",
@@ -139,7 +133,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
 
             this.setState({ codeMirror: code });
         },
-        render: function render() {
+        render: function () {
             if (this.state.codeMirror) {
                 var string = "";
                 {
@@ -176,19 +170,17 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
     - (boolean)loading : Wether or not the component is still loading
     */
     var InputsForRightBar = React.createClass({
-        displayName: "InputsForRightBar",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 valuesForInputs: {}
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             if (this.props.component) {
                 var target = this;
             }
         },
-        inputChanged: function inputChanged(name, event) {
+        inputChanged: function (name, event) {
             var valuesForInputs = this.state.valuesForInputs;
             var value;
             if (event.hasOwnProperty('target')) {
@@ -204,7 +196,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
 
             this.props.valuesForInputs(valuesForInputs);
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var inputs = "";
 
@@ -330,9 +322,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
 
     // Displays the right bar (Run button, Results status, Console)
     RightBar = React.createClass({
-        displayName: "RightBar",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 running: false,
                 execution_start: new Date(),
@@ -345,7 +335,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 valuesForInputs: {}
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             // Save the state of tabs in the url query
@@ -358,7 +348,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 $(ReactDOM.findDOMNode(this)).find('.nav-tabs a[aria-controls=' + urlH.getParam('tab') + ']').tab('show');
             }
         },
-        formatInput: function formatInput(type, string) {
+        formatInput: function (type, string) {
             switch (type) {
                 case "text":
                     return string;
@@ -386,7 +376,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     break;
             }
         },
-        runComponent: function runComponent() {
+        runComponent: function () {
             var target = this;
             if (this.state.timeout) {
                 window.clearTimeout(this.state.timeout);
@@ -423,12 +413,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             }, 300);
 
             Synchronise.Cloud.run("executeComponent", _.extend({ id_component: urlH.getParam("id") }, inputs), {
-                success: function success(data) {
+                success: function (data) {
                     var exec_time = (new Date().getTime() - target.state.execution_start.getTime()) / 1000;
                     target.setState({ status: "success", results: data, execution_time: exec_time });
                     answered = true;
                 },
-                error: function error(err) {
+                error: function (err) {
                     if (err.code == 102) {
                         target.setState({ missing: err.missing });
                     } else if (err.code == 101) {
@@ -438,11 +428,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     target.setState({ status: "error", results: err });
                     answered = true;
                 },
-                always: function always() {},
-                progress: function progress() {
+                always: function () {},
+                progress: function () {
                     target.setState({ status: "progress" });
                 },
-                log: function log(message) {
+                log: function (message) {
                     var date = new Date();
                     var logs = target.state.logs;
                     logs.push({
@@ -465,10 +455,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             target.setState({ timeout: timeout });
             /*}*/
         },
-        valuesForInputs: function valuesForInputs(_valuesForInputs) {
-            this.setState({ valuesForInputs: _valuesForInputs });
+        valuesForInputs: function (valuesForInputs) {
+            this.setState({ valuesForInputs: valuesForInputs });
         },
-        render: function render() {
+        render: function () {
             var content = React.createElement(
                 "div",
                 { id: "rightBar" },

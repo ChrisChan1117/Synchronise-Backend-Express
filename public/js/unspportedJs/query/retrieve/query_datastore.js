@@ -1,12 +1,8 @@
-"use strict";
-
 var QueryDatastore;
 (function () {
     dependenciesLoader(["$", "React", "ReactDOM", "Loader", "Synchronise", "PanelFlow", "panelFlow" /* Instance of the flow */], function () {
         QueryDatastore = React.createClass({
-            displayName: "QueryDatastore",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     currentPage: 0,
                     db_type: "",
@@ -16,12 +12,12 @@ var QueryDatastore;
                     loading_db_type: false
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 var queryId = urlH.getParam("query");
                 if (queryId) {
                     Synchronise.Cloud.run("getQuery", { id_query: queryId, realtime: false }, {
-                        success: function success(query) {
+                        success: function (query) {
                             target.select_db_type(query.db_type);
                             target.setState({
                                 loading_db_type: true,
@@ -38,7 +34,7 @@ var QueryDatastore;
                     }
                 });
             },
-            select_db_type: function select_db_type(new_db_type) {
+            select_db_type: function (new_db_type) {
                 var target = this;
                 target.setState({
                     db_type: new_db_type,
@@ -47,7 +43,7 @@ var QueryDatastore;
                 });
 
                 Synchronise.Cloud.run("getListOfDatabaseWithType", { type: new_db_type, realtime: true }, {
-                    success: function success(result) {
+                    success: function (result) {
                         target.setState({
                             loading_db_type: true,
                             databases: []
@@ -59,10 +55,10 @@ var QueryDatastore;
 
                         for (var i = 0; i < result.databases.length; i++) {
                             Synchronise.Cloud.run("databaseObject", { realtime: false, id: result.databases[i].id }, {
-                                success: function success(db) {
+                                success: function (db) {
                                     databases = databases.concat(db);
                                 },
-                                always: function always() {
+                                always: function () {
                                     dbLoaded++;
                                     // When all DB have been loaded
                                     if (dbLoaded >= result.databases.length) {
@@ -86,7 +82,7 @@ var QueryDatastore;
                     }
                 });
             },
-            select_datastore: function select_datastore(id) {
+            select_datastore: function (id) {
                 var target = this;
 
                 if (target.state.selected_db_id != id) {
@@ -107,13 +103,13 @@ var QueryDatastore;
                                     id_db: id,
                                     db_type: target.state.db_type
                                 }, {
-                                    success: function success() {
+                                    success: function () {
                                         panelFlow.scrollToBlock('name');
                                     },
-                                    error: function error(err) {
+                                    error: function (err) {
                                         new ModalParseError(err);
                                     },
-                                    always: function always() {
+                                    always: function () {
                                         modalMessage.hide();
                                     }
                                 });
@@ -130,7 +126,7 @@ var QueryDatastore;
                             type: type,
                             db_type: this.state.db_type
                         }, {
-                            success: function success(query) {
+                            success: function (query) {
                                 urlH.insertParam("query", query.id);
                                 modalMessage.hide();
                                 panelFlow.scrollToBlock('name');
@@ -141,7 +137,7 @@ var QueryDatastore;
                     panelFlow.scrollToBlock('name');
                 }
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "div",
                     null,
@@ -165,32 +161,30 @@ var QueryDatastore;
         });
 
         var Datastores = React.createClass({
-            displayName: "Datastores",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     loading: false,
                     databaseTypes: [],
                     selected_db_type: null
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 target.setState({ loading: true });
 
                 Synchronise.Cloud.run("getTypeOfDatastores", { realtime: false }, {
-                    success: function success(data) {
+                    success: function (data) {
                         target.setState({ databaseTypes: data });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalParseError(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loading: false, updating: false });
                     }
                 });
             },
-            selectDBType: function selectDBType(db_type_index) {
+            selectDBType: function (db_type_index) {
                 var selected = this.state.databaseTypes[db_type_index];
 
                 this.setState({
@@ -199,7 +193,7 @@ var QueryDatastore;
 
                 this.props.select_db_type(selected.masterType);
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 var loader = "";
@@ -221,14 +215,12 @@ var QueryDatastore;
         });
 
         var Datastore = React.createClass({
-            displayName: "Datastore",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     active: false
                 };
             },
-            render: function render() {
+            render: function () {
                 var classname = "panel panel-default dataStoreType";
                 if (this.props.selected) {
                     classname += " active";
@@ -256,7 +248,7 @@ var QueryDatastore;
 
         var DatastorePatternList = new React.createClass({
             displayName: "DatastorePatternList",
-            selected: function selected(index) {
+            selected: function (index) {
                 var target = this;
                 target.setState({
                     selected_datastore: index
@@ -276,7 +268,7 @@ var QueryDatastore;
                                 id_db: selected.id,
                                 db_type: target.props.db_type
                             }, {
-                                success: function success(query) {
+                                success: function (query) {
                                     modalMessage.hide();
                                     window.setTimeout(function () {
                                         panelFlow.scrollToBlock('name');
@@ -292,7 +284,7 @@ var QueryDatastore;
                         type: type,
                         db_type: this.props.db_type
                     }, {
-                        success: function success(query) {
+                        success: function (query) {
                             urlH.insertParam("query", window.idProject);
                             modalMessage.hide();
                             window.setTimeout(function () {
@@ -302,7 +294,7 @@ var QueryDatastore;
                     });
                 }
             },
-            render: function render() {
+            render: function () {
                 var target = this;
                 var loader = "";
 
@@ -363,7 +355,7 @@ var QueryDatastore;
 
         var DatastorePattern = new React.createClass({
             displayName: "DatastorePattern",
-            render: function render() {
+            render: function () {
                 var className = "panel fadeInListDataStorePanel";
                 if (this.props.selected) {
                     className += " active";

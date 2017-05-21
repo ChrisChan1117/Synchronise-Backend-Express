@@ -3,7 +3,7 @@
 var DatabaseFunctions;
 
 dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchronise", "ModalErrorParse", "KeyEventController", "Mousetrap"], function () {
-	DatabaseFunctions = (function () {
+	DatabaseFunctions = function () {
 		/////////// REACT CLASSES //////////
 
 		// Container of all the schema process
@@ -14,9 +14,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 		// - [string]confirmButton
 		// - [function]resolve
 		var SchemaUpdatePopup = React.createClass({
-			displayName: "SchemaUpdatePopup",
-
-			getInitialState: function getInitialState() {
+			getInitialState: function () {
 				return {
 					defaultClassName: "container-fluid",
 					className: "container-fluid",
@@ -41,7 +39,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					}
 				};
 			},
-			updateDimensions: function updateDimensions() {
+			updateDimensions: function () {
 				var domElement = $(ReactDOM.findDOMNode(this));
 				var totalHeight = domElement.height();
 				var marginTop = "0px";
@@ -63,10 +61,10 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					}
 				});
 			},
-			componentWillUnmount: function componentWillUnmount() {
+			componentWillUnmount: function () {
 				$(window).off('resize.SchemaUpdatePopup');
 			},
-			componentDidMount: function componentDidMount() {
+			componentDidMount: function () {
 				var target = this;
 
 				window.setTimeout(function () {
@@ -76,7 +74,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 				$(window).on('resize.SchemaUpdatePopup', target.updateDimensions);
 
 				var query = Synchronise.Cloud.run("getDatabaseSchemaUpdates", { idDatabase: this.props.idDatabase, realtime: true }, {
-					success: function success(databaseStructure) {
+					success: function (databaseStructure) {
 						if (databaseStructure.status == "noUpdate") {
 							target.cancel();
 						} else {
@@ -100,13 +98,13 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 
 						var siotarget = this;
 					},
-					error: function error(_error) {
-						new ModalErrorParse(_error);
+					error: function (error) {
+						new ModalErrorParse(error);
 					},
-					abort: function abort() {
+					abort: function () {
 						target.cancel();
 					},
-					always: function always() {
+					always: function () {
 						target.setState({ loading: false });
 					}
 				});
@@ -132,14 +130,14 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					queryObject: query
 				});
 			},
-			componentWillUnmount: function componentWillUnmount() {
+			componentWillUnmount: function () {
 				if (typeof this.state.queryObject != "undefined") {
 					this.state.queryObject.setRealtime(false);
 				}
 
 				Mousetrap.unbind('mod+z');
 			},
-			cancel: function cancel() {
+			cancel: function () {
 				var target = this;
 				this.setState({ className: this.state.defaultClassName + ' fadeOutBigBackground' });
 
@@ -150,7 +148,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					ReactDOM.unmountComponentAtNode(document.getElementById('databaseSchemaUpdatePopupContainer'));
 				}, 300);
 			},
-			confirm: function confirm() {
+			confirm: function () {
 				var target = this;
 
 				var schemaToUse = {};
@@ -168,7 +166,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 
 				this.props.resolve();
 			},
-			renameField: function renameField(tableName, oldNameField, newNameField) {
+			renameField: function (tableName, oldNameField, newNameField) {
 				var schema = JSON.parse(JSON.stringify(this.state.schema));
 
 				var schemaChangeHistory = this.state.schemaChangeHistory;
@@ -224,8 +222,8 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					positionInHistory: this.state.positionInHistory + 1 // Go to next state in history
 				});
 			},
-			renameTable: function renameTable(oldNameTable, newNameTable) {},
-			undo: function undo() {
+			renameTable: function (oldNameTable, newNameTable) {},
+			undo: function () {
 				if (this.state.schemaChangeHistory.length && this.state.positionInHistory > 0) {
 					this.setState({
 						schema: this.state.schemaChangeHistory[this.state.positionInHistory - 1],
@@ -233,7 +231,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					});
 				}
 			},
-			redo: function redo() {
+			redo: function () {
 				if (this.state.positionInHistory < this.state.schemaChangeHistory.length - 1 && this.state.schemaChangeHistory.length) {
 					this.setState({
 						schema: this.state.schemaChangeHistory[this.state.positionInHistory + 1],
@@ -241,7 +239,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					});
 				}
 			},
-			render: function render() {
+			render: function () {
 				var loader = "";
 				var footer = "";
 				var undoRedoButtons = "";
@@ -347,15 +345,13 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 		// - complete : set to 100%
 		// - reset : set to 0%
 		var ProgressUpdate = React.createClass({
-			displayName: "ProgressUpdate",
-
-			getInitialState: function getInitialState() {
+			getInitialState: function () {
 				return { progress: 0, styleToApply: {} };
 			},
-			setStyle: function setStyle(style) {
+			setStyle: function (style) {
 				this.setState({ styleToApply: style });
 			},
-			setProgress: function setProgress(progress) {
+			setProgress: function (progress) {
 				this.setState({ progress: progress });
 				var newWidth = this.state.totalsize * this.state.progress;
 
@@ -367,15 +363,15 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					this.setState({ styleToApply: currentStyle });
 				});
 			},
-			complete: function complete() {
+			complete: function () {
 				// Set progress has complete
 				this.setProgress(1);
 			},
-			reset: function reset() {
+			reset: function () {
 				// Set progress to beginning
 				this.setProgress(0);
 			},
-			render: function render() {
+			render: function () {
 				return React.createElement("div", { className: "progressUpdate", style: this.state.styleToApply });
 			}
 		});
@@ -388,16 +384,14 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 		// - titleBlockRight
 		// - blockRightElements
 		var SchemaUpdateSubpopup = React.createClass({
-			displayName: "SchemaUpdateSubpopup",
-
-			getInitialState: function getInitialState() {
+			getInitialState: function () {
 				return {
 					defaultClassName: "renamePopup",
 					className: "renamePopup",
 					selectedValue: ""
 				};
 			},
-			componentDidMount: function componentDidMount() {
+			componentDidMount: function () {
 				var target = this;
 				target.setState({
 					className: this.state.defaultClassName + ' fadeInBigBackground',
@@ -424,10 +418,10 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 
 				$(window).on('resize.SchemaUpdateSubPopup', this.updateDimensions);
 			},
-			componentWillUnmount: function componentWillUnmount() {
+			componentWillUnmount: function () {
 				$(window).off('resize.SchemaUpdateSubPopup');
 			},
-			updateDimensions: function updateDimensions() {
+			updateDimensions: function () {
 				var target = this;
 
 				var domElement = $(ReactDOM.findDOMNode(this));
@@ -440,10 +434,10 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 
 				domElement.find('.ThirdSide ul').css('height', height + 'px');
 			},
-			itemSelected: function itemSelected(item) {
+			itemSelected: function (item) {
 				this.setState({ selectedValue: item });
 			},
-			cancel: function cancel() {
+			cancel: function () {
 				this.hide();
 				if (typeof this.props.callback != "undefined") {
 					if (typeof this.props.callback.abort != "undefined") {
@@ -451,7 +445,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					}
 				}
 			},
-			confirm: function confirm() {
+			confirm: function () {
 				this.hide();
 				if (typeof this.props.callback != "undefined") {
 					if (typeof this.props.callback.resolve != "undefined") {
@@ -459,7 +453,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					}
 				}
 			},
-			hide: function hide() {
+			hide: function () {
 				var target = this;
 				target.setState({
 					className: this.state.className + ' fadeOutBigBackground'
@@ -471,7 +465,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					ReactDOM.unmountComponentAtNode(document.getElementById('databaseSchemaUpdateSubpopup'));
 				}, 500);
 			},
-			render: function render() {
+			render: function () {
 				var target = this;
 
 				return React.createElement(
@@ -571,12 +565,10 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 		// - value
 		// - title
 		var SchemaUpdateSubpopupItem = React.createClass({
-			displayName: "SchemaUpdateSubpopupItem",
-
-			onClickRadio: function onClickRadio(e) {
+			onClickRadio: function (e) {
 				this.props.controller(e.currentTarget.value);
 			},
-			render: function render() {
+			render: function () {
 				var checked = "";
 				if (this.props.selectedValue == this.props.value) {
 					checked = "checked";
@@ -609,21 +601,19 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 		// - title
 		// - fields
 		var TableItem = React.createClass({
-			displayName: "TableItem",
-
-			getInitialState: function getInitialState() {
+			getInitialState: function () {
 				return {
 					defaultStyle: "col-lg-3 col-md-4 col-sm-6 col-xs-12 tableDB",
 					customStyle: "hidden",
 					status: this.props.status
 				};
 			},
-			componentDidMount: function componentDidMount() {
+			componentDidMount: function () {
 				this.setState({
 					customStyle: "fadeInBigBackground"
 				});
 			},
-			renameTable: function renameTable() {
+			renameTable: function () {
 				var target = this;
 				if (this.state.status == "remove") {
 					var tablesAvailable = _.map(_.filter(this.props.schema, function (table) {
@@ -640,14 +630,14 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 						elementTitleBlockLeft: target.props.title,
 						titleBlockRight: "Available tables on the database",
 						callback: {
-							resolve: function resolve(newTableName) {
+							resolve: function (newTableName) {
 								target.props.renameTable(target.props.title, newTableName);
 							}
 						},
 						blockRightElements: tablesAvailable }), document.getElementById('databaseSchemaUpdateSubpopup'));
 				}
 			},
-			render: function render() {
+			render: function () {
 				var target = this;
 				var renameTableBlock = "";
 				if (this.state.status == "remove") {
@@ -702,9 +692,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 		// - status : (normal, add, remove)
 		// - name
 		var TableItemField = React.createClass({
-			displayName: "TableItemField",
-
-			renameField: function renameField() {
+			renameField: function () {
 				var target = this;
 
 				var tablesAvailable = _.map(_.filter(_.filter(target.props.schema, function (table) {
@@ -723,13 +711,13 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					elementTitleBlockLeft: this.props.name,
 					titleBlockRight: "Available elements on the database",
 					callback: {
-						resolve: function resolve(newFieldName) {
+						resolve: function (newFieldName) {
 							target.props.renameField(target.props.nameTable, target.props.name, newFieldName);
 						}
 					},
 					blockRightElements: tablesAvailable }), document.getElementById('databaseSchemaUpdateSubpopup'));
 			},
-			render: function render() {
+			render: function () {
 				var renameBlock = "";
 				if (this.props.tableStatus == "normal" && this.props.status == "remove") {
 					renameBlock = React.createElement(
@@ -738,7 +726,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 						React.createElement(
 							"span",
 							null,
-							" "
+							"\xA0"
 						),
 						React.createElement(
 							"a",
@@ -761,7 +749,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 						React.createElement(
 							"span",
 							null,
-							" "
+							"\xA0"
 						)
 					);
 				}
@@ -778,7 +766,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 						React.createElement(
 							"span",
 							null,
-							" "
+							"\xA0"
 						)
 					);
 				}
@@ -795,7 +783,7 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 
 		////////// DECLARE FUNCTIONS OF THE CLASS //////////
 		return {
-			updateDatabase: function updateDatabase(idDatabase) {
+			updateDatabase: function (idDatabase) {
 				return new Promise(function (resolve, reject) {
 					var dataForReact = {
 						title: "Database Schema Update",
@@ -809,11 +797,11 @@ dependenciesLoader(["$", "_", "React", "ReactDOM", "Loader", "Promise", "Synchro
 					ReactDOM.render(React.createElement(SchemaUpdatePopup, dataForReact), document.getElementById('databaseSchemaUpdatePopupContainer'));
 				});
 			},
-			databaseSchema: function databaseSchema(idDatabase) {
+			databaseSchema: function (idDatabase) {
 				return new Promise(function (resolve, reject) {
 					resolve();
 				});
 			}
 		};
-	})();
+	}();
 });

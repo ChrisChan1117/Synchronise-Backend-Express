@@ -1,17 +1,13 @@
-"use strict";
-
 var InputType;
 
 dependenciesLoader(["React", "ReactDOM", "_"], function () {
     // ----------------------------------- INPUTS -----------------------------------------------------
     // Displays one select option with the given values
     var InputTypeContent = React.createClass({
-        displayName: "InputTypeContent",
-
-        onClickArrow: function onClickArrow() {
+        onClickArrow: function () {
             $(ReactDOM.findDOMNode(this)).find('select').trigger('click');
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { style: { paddingRight: "7px", display: "inline-block" } },
@@ -50,9 +46,7 @@ dependenciesLoader(["React", "ReactDOM", "_"], function () {
     // Displays all of the select options of the list
     // - (boolean)displayOptionalButton: Whether or not to display a button that allows to make the input as optional
     InputType = React.createClass({
-        displayName: "InputType",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 selectedType: ["text"],
                 types: {
@@ -160,12 +154,12 @@ dependenciesLoader(["React", "ReactDOM", "_"], function () {
                 }
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             if (this.props.inputType) {
                 this.setState({ selectedType: this.props.inputType });
             }
         },
-        inputChanged: function inputChanged(index, d, event) {
+        inputChanged: function (index, d, event) {
             var selectedType = this.state.selectedType;
             selectedType.length = index + 1; // Remove everything after the given index
             selectedType[index] = event.target.value;
@@ -186,13 +180,13 @@ dependenciesLoader(["React", "ReactDOM", "_"], function () {
 
             this.props.typeChangedForField(selectedType, this.props.name);
         },
-        remove: function remove(name) {
+        remove: function (name) {
             this.props.remove(name);
         },
-        nameInputChanged: function nameInputChanged(name, event) {
+        nameInputChanged: function (name, event) {
             this.props.nameInputChanged(name, event.target.value);
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var content = "";
 
@@ -211,7 +205,7 @@ dependenciesLoader(["React", "ReactDOM", "_"], function () {
                             "label",
                             null,
                             React.createElement("input", { style: { position: "relative" }, type: "checkbox", checked: checkedValue, checked: checkedValue, onClick: this.props.changeOptional }),
-                            " optional"
+                            "\xA0optional"
                         )
                     );
                 }

@@ -1,52 +1,50 @@
-"use strict";
-
 dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "_", "Typeahead"], function () {
     // Displays all the sections
     var Sections = React.createClass({
         displayName: "Sections",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 saving: false,
                 sections: []
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("getSectionsMarketPlace", { realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({
                         sections: _.sortBy(data, function (row) {
                             return row.order;
                         })
                     });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        addSection: function addSection() {
+        addSection: function () {
             var target = this;
             if (!target.state.saving) {
                 target.setState({ saving: true });
 
                 Synchronise.Cloud.run("addSectionMarketPlace", {}, {
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ saving: false });
                     }
                 });
             }
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 null,
@@ -78,7 +76,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // - (integer)index: the index of the section in the list
     var Section = React.createClass({
         displayName: "Section",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 saving: false,
@@ -93,12 +91,12 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 filePickerValue: ""
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("getSectionMarketPlaceById", { id: this.props.id, realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({
                         blocks: _.sortBy(data.blocks, function (row) {
                             return row.order;
@@ -109,15 +107,15 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                         image: data.image
                     });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        updateSection: function updateSection(property, event) {
+        updateSection: function (property, event) {
             var target = this;
 
             var data = {};
@@ -126,25 +124,25 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
             target.setState(_.extend({ saving: true }, data));
 
             Synchronise.Cloud.run("updateSectionMarketPlace", _.extend({ id: this.props.id }, data), {
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ saving: false });
                 }
             });
         },
-        removeSection: function removeSection() {
+        removeSection: function () {
             var target = this;
             new ModalConfirm("Are you sure you want to remove that section", function (confirm) {
                 if (confirm) {
                     if (!target.state.removingSection) {
                         target.setState({ removingSection: true });
                         Synchronise.Cloud.run("removeSectionMarketPlace", { id: target.props.id }, {
-                            error: function error(err) {
+                            error: function (err) {
                                 new ModalErrorParse(err);
                             },
-                            always: function always() {
+                            always: function () {
                                 target.setState({ removingSection: false });
                             }
                         });
@@ -152,7 +150,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 }
             });
         },
-        addItem: function addItem() {
+        addItem: function () {
             var target = this;
             if (!target.state.addingItem) {
                 target.updateSection("blocks", {
@@ -166,42 +164,42 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 });
             }
         },
-        uploadImage: function uploadImage() {
+        uploadImage: function () {
             var target = this;
             $(ReactDOM.findDOMNode(this)).find('.filePicker').trigger('click');
         },
-        filePickerValueChange: function filePickerValueChange(event) {
+        filePickerValueChange: function (event) {
             var target = this;
             target.setState({ uploadingImage: true });
 
             if (!this.state.uploadingImage) {
                 var value = $(ReactDOM.findDOMNode(this)).find('.filePicker').prop("files");
                 Synchronise.File.upload(value, "synchronise-images", {
-                    success: function success(urls) {
+                    success: function (urls) {
                         target.updateSection("image", {
                             target: {
                                 value: "/images/" + urls[0].filename
                             }
                         });
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ uploadingImage: false });
                     }
                 });
             }
         },
-        itemChanged: function itemChanged(index, id_new_item) {
+        itemChanged: function (index, id_new_item) {
             var blocks = this.state.blocks.slice(0); // Copy the existing array
             blocks[index].id = id_new_item;
             this.updateSection("blocks", { target: { value: blocks } });
         },
-        itemTypeChanged: function itemTypeChanged(index, newType) {
+        itemTypeChanged: function (index, newType) {
             var blocks = this.state.blocks.slice(0); // Copy the existing array
             blocks[index].type = newType;
             blocks[index].id = "";
             this.updateSection("blocks", { target: { value: blocks } });
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var uploadButtonLabel = "Upload image";
@@ -333,20 +331,20 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // - (function)itemTypeChanged: Callback to be triggered whenever the type of the item has changed
     var SectionItem = React.createClass({
         displayName: "SectionItem",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 optionsForTypeahead: []
             };
         },
-        itemSearchSelected: function itemSearchSelected(e) {
+        itemSearchSelected: function (e) {
             if (e.item) {
                 this.props.itemChanged(e.item.value);
             }
         },
-        typeaheadSearchChanged: function typeaheadSearchChanged(e) {
+        typeaheadSearchChanged: function (e) {
             var target = this;
             Synchronise.Cloud.run("searchForItemsInMarketPlace", { type: this.props.type, search: e.target.value }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({ optionsForTypeahead: _.map(data, function (row) {
                             var dataToPush = {
                                 value: row.id,
@@ -360,15 +358,15 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                             return dataToPush;
                         }) });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 }
             });
         },
-        typeChanged: function typeChanged(e) {
+        typeChanged: function (e) {
             this.props.itemTypeChanged(e.target.value);
         },
-        render: function render() {
+        render: function () {
             var content = "";
             switch (this.props.type) {
                 case "project":
@@ -420,7 +418,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // - (string)id: The id of the item
     var SectionItemProject = React.createClass({
         displayName: "SectionItemProject",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 name: "Loading...",
@@ -429,27 +427,27 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 logoUrl: ""
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             if (target.props.id.length) {
                 target.loadData();
             }
         },
-        componentWillReceiveProps: function componentWillReceiveProps(data1, data2) {
+        componentWillReceiveProps: function (data1, data2) {
             var target = this;
 
             if (data1.id.length) {
                 target.loadData(data1.id);
             }
         },
-        loadData: function loadData(id) {
+        loadData: function (id) {
             var target = this;
             target.setState({ loading: true });
 
             if (id) {
                 Synchronise.Cloud.run("getProject", { id_project: id, cacheFirst: true }, {
-                    success: function success(data) {
+                    success: function (data) {
                         if (target.isMounted()) {
                             target.setState({
                                 name: data.name,
@@ -459,10 +457,10 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                             });
                         }
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         if (target.isMounted()) {
                             target.setState({ loading: false });
                         }
@@ -470,7 +468,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 });
             }
         },
-        render: function render() {
+        render: function () {
             var contentItem = React.createElement("div", null);
             if (this.props.id.length) {
                 contentItem = React.createElement(
@@ -504,7 +502,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // Display the Marketplace settings
     var MarketPlace = React.createClass({
         displayName: "MarketPlace",
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { className: "row-fluid" },

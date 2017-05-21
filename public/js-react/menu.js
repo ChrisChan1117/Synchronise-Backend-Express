@@ -302,31 +302,30 @@ var displayGetFreeRequestsModal;
                                    onClick={target.submitForm}>Login/Signup</a>
                 			</div>
                 		</form>
-
-                        <hr/>
-
-                        <div className="row-fluid">
-                            <div className="col-xs-12 col-sm-6" style={{marginBottom: "5px"}}>
-                                <a className="btn btn-block btn-social btn-github" href="/auth/github" style={{textAlign: "center"}}>
-                                    Github signin
-                                </a>
-                                <a className="btn btn-block btn-social btn-bitbucket" href="/auth/bitbucket" style={{textAlign: "center"}}>
-                                    Bitbucket signin
-                                </a>
-                            </div>
-
-                            <div className="ol-xs-12 col-sm-6">
-                                <a className="btn btn-block btn-social btn-facebook" href="/auth/facebook" style={{textAlign: "center"}}>
-                                    Facebook signin
-                                </a>
-
-                                <a className="btn btn-block btn-social btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", textAlign: "center"}}>
-                                    Google signin
-                                </a>
-                            </div>
-                        </div>
                 	</div>
                 );
+                /*
+                <hr/>
+                <div className="row-fluid">
+                    <div className="col-xs-12 col-sm-6" style={{marginBottom: "5px"}}>
+                        <a className="btn btn-block btn-social btn-github" href="/auth/github" style={{textAlign: "center"}}>
+                            Github signin
+                        </a>
+                        <a className="btn btn-block btn-social btn-bitbucket" href="/auth/bitbucket" style={{textAlign: "center"}}>
+                            Bitbucket signin
+                        </a>
+                    </div>
+
+                    <div className="ol-xs-12 col-sm-6">
+                        <a className="btn btn-block btn-social btn-facebook" href="/auth/facebook" style={{textAlign: "center"}}>
+                            Facebook signin
+                        </a>
+
+                        <a className="btn btn-block btn-social btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", textAlign: "center"}}>
+                            Google signin
+                        </a>
+                    </div>
+                </div>*/
             }
         });
 
@@ -445,33 +444,34 @@ var displayGetFreeRequestsModal;
 
                 var content = "";
                 if(document.location.pathname != "/" && document.location.pathname != ""){
+                    /*
+                    <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px"}}>
+                            <span className="fa fa-github"></span>
+                        </a>
+                    </li>
+
+                    <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px"}}>
+                            <span className="fa fa-bitbucket"></span>
+                        </a>
+                    </li>
+
+                    <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px"}}>
+                            <span className="fa fa-google"></span>
+                        </a>
+                    </li>
+
+                    <li className="hidden-xs" style={{marginRight: "15px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px"}}>
+                            <span className="fa fa-facebook"></span>
+                        </a>
+                    </li>
+                    */
                     content = (
                         <div>
                             <ul className="nav navbar-nav navbar-right">
-                                <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
-                                    <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px"}}>
-                                        <span className="fa fa-github"></span>
-                                    </a>
-                                </li>
-
-                                <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
-                                    <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px"}}>
-                                        <span className="fa fa-bitbucket"></span>
-                                    </a>
-                                </li>
-
-                                <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
-                                    <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px"}}>
-                                        <span className="fa fa-google"></span>
-                                    </a>
-                                </li>
-
-                                <li className="hidden-xs" style={{marginRight: "15px", marginTop: "15px", paddingBottom: "0px"}}>
-                                    <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px"}}>
-                                        <span className="fa fa-facebook"></span>
-                                    </a>
-                                </li>
-
                                 <li className="hidden-xs" style={{borderLeft: "1px solid white"}}>
                                     <a href="#"
                                        onClick={this.toggleModal}><u>L</u>ogin/Signup {shortcut}</a>
@@ -497,38 +497,42 @@ var displayGetFreeRequestsModal;
                             <li className="hidden-xs">
                                 <a href="#"
                                    onClick={this.toggleModal}><u>L</u>ogin/Signup</a>
-                                   <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
-                                       <span className="fa fa-github"></span>
-                                   </a>
-                                   <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
-                                       <span className="fa fa-bitbucket"></span>
-                                   </a>
-                                   <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px"}}>
-                                       <span className="fa fa-google"></span>
-                                   </a>
-                                   <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px", color: "white"}}>
-                                       <span className="fa fa-facebook"></span>
-                                   </a>
                             </li>
 
                             <li className="visible-xs">
                                 <a href="#"
                                    onClick={this.toggleModal}><u>L</u>ogin/Signup</a>
-                                   <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
-                                       <span className="fa fa-github"></span>
-                                   </a>
-                                   <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
-                                       <span className="fa fa-bitbucket"></span>
-                                   </a>
-                                   <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px"}}>
-                                       <span className="fa fa-google"></span>
-                                   </a>
-                                   <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px", color: "white"}}>
-                                       <span className="fa fa-facebook"></span>
-                                   </a>
                             </li>
                         </ul>
                     );
+
+                    /*
+                    <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-github"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-bitbucket"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px"}}>
+                        <span className="fa fa-google"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px", color: "white"}}>
+                        <span className="fa fa-facebook"></span>
+                    </a>
+
+                    <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-github"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-bitbucket"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px"}}>
+                        <span className="fa fa-google"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px", color: "white"}}>
+                        <span className="fa fa-facebook"></span>
+                    </a>
+                    */
                 }
 
                 return content;

@@ -1,11 +1,7 @@
-"use strict";
-
 var ProjectModalTeam;
 dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     ProjectModalTeam = React.createClass({
-        displayName: "ProjectModalTeam",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 teamMembers: [],
                 listOfKnownPeople: [],
@@ -16,12 +12,12 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 leaving: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             // Load the list of members allowed to access this project
             if (this.props.id_project) {
                 Synchronise.Cloud.run("teamMembersForProject", { id_project: this.props.id_project, realtime: true }, {
-                    success: function success(members) {
+                    success: function (members) {
                         if (target.isMounted()) {
                             target.setState({
                                 teamMembers: members,
@@ -29,7 +25,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                             });
                         }
                     },
-                    error: function error() {
+                    error: function () {
                         if (target.isMounted()) {
                             target.setState({
                                 loading: false
@@ -43,7 +39,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 listOfKnownPeople: this.props.knownUsers
             });
         },
-        memberSelected: function memberSelected(item) {
+        memberSelected: function (item) {
             var target = this;
 
             if (!this.state.addingMember) {
@@ -67,13 +63,13 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                     permissions[this.state.addMemberPermission] = true;
                 }
                 Synchronise.Cloud.run("addMemberToProject", { searchString: string, permissions: permissions, id_project: this.props.id_project }, {
-                    always: function always() {
+                    always: function () {
                         target.setState({
                             addingMember: false,
                             valueInputAddMember: ''
                         });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         console.log(err);
                         function validateEmail(email) {
                             var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -93,11 +89,11 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                             new ModalErrorParse(err);
                         }
                     },
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        selectAddMemberPermissionChange: function selectAddMemberPermissionChange(e) {
+        selectAddMemberPermissionChange: function (e) {
             var target = this;
             var value = e.target.value;
             if (value == "own") {
@@ -118,23 +114,23 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 });
             }
         },
-        closeModal: function closeModal() {
+        closeModal: function () {
             this.props.closeModal();
         },
-        leaveProject: function leaveProject() {
+        leaveProject: function () {
             var target = this;
             this.setState({
                 leaving: true
             });
 
             Synchronise.Cloud.run("leaveProject", { id_project: this.props.id_project }, {
-                success: function success() {
+                success: function () {
                     target.closeModal();
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     if (target.isMounted()) {
                         target.setState({
                             leaving: false
@@ -143,7 +139,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var labelForLeaveButton;
             var addMember;
@@ -222,9 +218,9 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                                 placeholder: "Type an email address or the name of someone you already know",
                                 value: this.state.valueInputAddMember,
                                 options: this.state.listOfKnownPeople,
-                                onSelected: this.memberSelected,
+                                onSelected: this.memberSelected
                                 /*onChange={this.inputAddMemberChange}*/
-                                ref: "addMemberInput" }),
+                                , ref: "addMemberInput" }),
                             addingMemberLoader
                         ),
                         React.createElement(
@@ -289,14 +285,12 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     });
 
     var ProjectModalTeamMember = React.createClass({
-        displayName: "ProjectModalTeamMember",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false
             };
         },
-        changeMemberPermission: function changeMemberPermission(e) {
+        changeMemberPermission: function (e) {
             var target = this;
             var valueForSelect = "";
             var select = e.target;
@@ -325,11 +319,11 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 new ModalConfirm("You are about to give the owner permission to that user. You will no longer have the right to administrate this project if you continue. Are you sure you want to do this ?", function (confirm) {
                     if (confirm) {
                         Synchronise.Cloud.run("changeMemberPermissionsForProject", { id_project: target.props.id_project, id_team_member: target.props.id_user, permissions: permissions }, {
-                            success: function success() {
+                            success: function () {
                                 target.closeModal();
                             },
-                            error: function error(err) {},
-                            always: function always(permissions) {}
+                            error: function (err) {},
+                            always: function (permissions) {}
                         });
                     } else {
                         _.each(Object.keys(target.props.item.permissions), function (current) {
@@ -342,16 +336,16 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 });
             } else {
                 Synchronise.Cloud.run("changeMemberPermissionsForProject", { id_project: this.props.id_project, id_team_member: this.props.id_user, permissions: permissions }, {
-                    success: function success() {},
-                    error: function error(err) {},
-                    always: function always(permissions) {}
+                    success: function () {},
+                    error: function (err) {},
+                    always: function (permissions) {}
                 });
             }
         },
-        closeModal: function closeModal() {
+        closeModal: function () {
             this.props.closeModal();
         },
-        removeMember: function removeMember() {
+        removeMember: function () {
             var target = this;
 
             if (!target.state.loading) {
@@ -363,16 +357,16 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                     opacity: 0.3
                 }, 300);
                 Synchronise.Cloud.run("removeTeamMemberFromProject", { id_project: this.props.id_project, id_team_member: this.props.id_user }, {
-                    success: function success() {
+                    success: function () {
                         element.slideUp();
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                         element.animate({
                             opacity: 1
                         }, 300);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({
                             loading: false
                         });
@@ -380,7 +374,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 });
             }
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var selectContent = "";
             var valueForSelect = "";

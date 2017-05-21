@@ -1,22 +1,18 @@
-"use strict";
-
 (function () {
     dependenciesLoader(["React", "ReactDOM", "Synchronise", "Typeahead", "Loader", "ProjectModalInfo", "ProjectModalTeam", "ProjectModalStore"], function () {
         // Display the list of projects
         var ProjectsList = React.createClass({
-            displayName: "ProjectsList",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     projects: [],
                     loading: true
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 Synchronise.Cloud.run("projectList", { realtime: true, cacheFirst: true }, {
-                    success: function success(projects) {
+                    success: function (projects) {
                         var projectsNew = _.each(projects, function (item) {
                             if (!item.icon) {
                                 item.icon = "/images/defaultProjectIcon.png";
@@ -35,7 +31,7 @@
                 // Loads the list of known relationship with the current user.
                 // This includes all the people he/she has already talked to, worked with in a common project, or invited
                 Synchronise.Cloud.run("getUserConnections", { realtime: true, user_object: true }, {
-                    success: function success(members) {
+                    success: function (members) {
                         _.each(members, function (member) {
                             member.text = member.name + " (" + member.email + ")";
                             member.value = member.email;
@@ -53,10 +49,10 @@
                     collectInputForProjectAndReturn(false);
                 }
             },
-            createProject: function createProject() {
+            createProject: function () {
                 collectInputForProjectAndReturn(false);
             },
-            render: function render() {
+            render: function () {
                 var target = this;
                 var loading = "";
                 if (this.state.loading) {
@@ -153,20 +149,18 @@
         // - (string)txt_color   : The text color of the project
         // - (string)flt_color   : The filter to apply to the project
         var ProjectBlock = React.createClass({
-            displayName: "ProjectBlock",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     contentClassName: ""
                 };
             },
-            settings: function settings() {
+            settings: function () {
                 collectInputForProjectAndReturn(this.props.id_project, "info", this.props.permissions, this.props.knownUsers);
             },
-            team: function team() {
+            team: function () {
                 collectInputForProjectAndReturn(this.props.id_project, "team", this.props.permissions, this.props.knownUsers);
             },
-            "delete": function _delete() {
+            delete: function () {
                 var target = this;
                 var DOMElement = $(ReactDOM.findDOMNode(target));
 
@@ -177,23 +171,23 @@
                         }, 300);
 
                         Synchronise.Cloud.run("removeProject", { id_project: target.props.id_project }, {
-                            success: function success() {
+                            success: function () {
                                 DOMElement.animate({
                                     width: "0px",
                                     opacity: 0
                                 }, 300);
                             },
-                            error: function error(_error) {
+                            error: function (error) {
                                 DOMElement.animate({
                                     opacity: 1
                                 }, 300);
-                                new ModalErrorParse(_error).title('Removing project');
+                                new ModalErrorParse(error).title('Removing project');
                             }
                         });
                     }
                 });
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 this.setState({ contentClassName: "display" });
 
                 var icon = $(ReactDOM.findDOMNode(this)).find('.icon');
@@ -205,14 +199,14 @@
                     }, 500);
                 });
             },
-            openProjectUrl: function openProjectUrl() {
+            openProjectUrl: function () {
                 var url = this.props.url;
                 if (url.indexOf("http://") == -1 && url.indexOf("https://") == -1) {
                     url = "http://" + url;
                 }
                 window.open(url, '_blank');
             },
-            render: function render() {
+            render: function () {
                 var description = "";
                 if (this.props.description) {
                     description = React.createElement(
@@ -246,7 +240,7 @@
                     );
                     deleteContent = React.createElement(
                         "div",
-                        { className: "delete", onClick: this["delete"] },
+                        { className: "delete", onClick: this.delete },
                         React.createElement("i", { className: "fa fa-trash" })
                     );
                 } else {
@@ -321,14 +315,12 @@
         }
 
         var ProjectModal = React.createClass({
-            displayName: "ProjectModal",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     componentDisplayed: false
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 // Close modal on click on the dark background around it
 
@@ -356,7 +348,7 @@
                     window.clearTimeout(item);
                 }, 300);
             },
-            closeModal: function closeModal() {
+            closeModal: function () {
                 var target = this;
                 if (target.isMounted()) {
                     $(ReactDOM.findDOMNode(target)).addClass('slideOutProject');
@@ -371,7 +363,7 @@
                     KeyEventController.unsubscribeComponent("collectInputForProjectAndReturn");
                 }
             },
-            render: function render() {
+            render: function () {
 
                 var tabs = "";
                 if (this.props.id_project) {
@@ -441,9 +433,7 @@
         // Display a modal to create or update the data of a project
         // - (object)permissions: permissions of the user for the current object
         var TabsForProjectModal = React.createClass({
-            displayName: "TabsForProjectModal",
-
-            render: function render() {
+            render: function () {
                 var classNameInfo = this.props.tabsState.info;
                 var classNameTeam = this.props.tabsState.team;
                 var classNameStore = this.props.tabsState.store;

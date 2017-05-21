@@ -699,7 +699,7 @@ var $ = jQuery.noConflict();
 			}, 1000);
 		});
 
-		var waitForFinalEvent = (function () {
+		var waitForFinalEvent = function () {
 			var timers = {};
 			return function (callback, ms, uniqueId) {
 				if (!uniqueId) {
@@ -710,7 +710,7 @@ var $ = jQuery.noConflict();
 				}
 				timers[uniqueId] = setTimeout(callback, ms);
 			};
-		})();
+		}();
 
 		$(window).resize(function () {
 			waitForFinalEvent(function () {

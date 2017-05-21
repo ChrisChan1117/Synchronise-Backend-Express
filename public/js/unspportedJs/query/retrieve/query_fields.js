@@ -1,13 +1,9 @@
-"use strict";
-
 var QueryFields;
 (function () {
     dependenciesLoader(["$", "React", "ReactDOM", "Loader", "PanelFlow", "Typeahead", "Switchery", "QueryResultPreview", "panelFlow" /* Instance of the flow */], function () {
         // Generates the entire block of the page
         QueryFields = React.createClass({
-            displayName: "QueryFields",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     query: {},
                     schema: [],
@@ -24,24 +20,24 @@ var QueryFields;
                 };
             },
             // Select a table as current table
-            selectTable: function selectTable(key) {
+            selectTable: function (key) {
                 this.setState({
                     clicked_table: key
                 });
             },
             // Select a field and add it in the displayed list
-            selectField: function selectField(field_id) {
+            selectField: function (field_id) {
                 Synchronise.Cloud.run("selectFieldForQuery", { id_query: this.state.query.id, field_id: field_id }, {
-                    success: function success(result) {}
+                    success: function (result) {}
                 });
             },
             // Unselect a field and remove it from the displayed list
-            unselectField: function unselectField(field_id) {
+            unselectField: function (field_id) {
                 Synchronise.Cloud.run("unSelectFieldForQuery", { id_query: this.state.query.id, id: field_id }, {
-                    success: function success(result) {}
+                    success: function (result) {}
                 });
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 // Switcher for the fields to display on the schema (only available/all)
@@ -61,13 +57,13 @@ var QueryFields;
                             });
 
                             Synchronise.Cloud.run("getQuery", { id_query: query_id, realtime: false }, {
-                                success: function success(query) {
+                                success: function (query) {
                                     target.setState({
                                         query: query
                                     });
 
                                     Synchronise.Cloud.run("getDataStoreSchema", { db_id: query.db_id, realtime: true }, {
-                                        success: function success(db) {
+                                        success: function (db) {
                                             target.setState({
                                                 schema: db.data
                                             }, target.manageSelectedFields);
@@ -77,7 +73,7 @@ var QueryFields;
                             });
 
                             Synchronise.Cloud.run("getSelectedFieldsForQuery", { id_query: query_id, realtime: true }, {
-                                success: function success(result) {
+                                success: function (result) {
                                     var sel = result.sort(function (a, b) {
                                         if (a.tableName < b.tableName) {
                                             return -1;
@@ -95,10 +91,10 @@ var QueryFields;
                             });
 
                             Synchronise.Cloud.run("getUnselectedFieldsForQuery", { id_query: query_id, realtime: true }, {
-                                success: function success(data) {
+                                success: function (data) {
                                     target.setState({ available_fields: data });
                                 },
-                                always: function always() {
+                                always: function () {
                                     target.setState({ loadingAvailableFields: false });
                                 }
                             });
@@ -106,10 +102,10 @@ var QueryFields;
                     }
                 });
             },
-            fieldSelected: function fieldSelected(value) {
+            fieldSelected: function (value) {
                 this.selectField(value.item.fieldId);
             },
-            updateSchemaDB: function updateSchemaDB() {
+            updateSchemaDB: function () {
                 var target = this;
 
                 if (!target.state.updatingDatabaseShema && typeof target.state.query.db_id != "undefined") {
@@ -121,10 +117,10 @@ var QueryFields;
                     });
                 }
             },
-            goToDatastore: function goToDatastore() {
+            goToDatastore: function () {
                 panelFlow.scrollToBlock("dataSources");
             },
-            render: function render() {
+            render: function () {
                 var TypeaheadText = [];
                 // Only displays the fields that we have not selected already
                 if (this.state.filter_available) {
@@ -285,9 +281,7 @@ var QueryFields;
         // - [object]selectedFields                           : List of fields that have been selected
         // - [function]unselectField(idOfTheFieldToBeRemoved) : Callback to be triggered when the user clicks on the remove button of a field
         var QueryFieldsSelected = React.createClass({
-            displayName: "QueryFieldsSelected",
-
-            render: function render() {
+            render: function () {
                 var target = this;
                 return React.createElement(
                     "div",
@@ -312,21 +306,19 @@ var QueryFields;
         // - [String]table           : Table name
         // - [String]field           : Field name
         var QueryFieldSelectedItem = React.createClass({
-            displayName: "QueryFieldSelectedItem",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     disappear: false
                 };
             },
-            handleClick: function handleClick() {
+            handleClick: function () {
                 this.setState({
                     disappear: true
                 });
 
                 this.props.unselectField();
             },
-            render: function render() {
+            render: function () {
                 var animation = this.state.disappear ? "fadeOutBackground" : "fadeInListDataStorePanel";
 
                 return React.createElement(
@@ -354,9 +346,7 @@ var QueryFields;
         // - [object]selectTable(indexOfTheSelectedTable)     : Callback to trigger whenever a table is clicked
         // - [object]selectField(idOfTheFieldInSynchroniseDB) : Callback to trigger whenever a field is clicked
         var QueryFieldsSchema = React.createClass({
-            displayName: "QueryFieldsSchema",
-
-            render: function render() {
+            render: function () {
                 var target = this;
                 var content = "";
 
@@ -424,12 +414,10 @@ var QueryFields;
         // - [String]table         : the table name
         // - [function]selectTable : Callback to be triggered when the table is clicked/selected
         var QueryFieldsSchemaTable = React.createClass({
-            displayName: "QueryFieldsSchemaTable",
-
-            handleClick: function handleClick() {
+            handleClick: function () {
                 this.props.selectTable();
             },
-            render: function render() {
+            render: function () {
                 var activeClass = "";
 
                 if (this.props.activeTableName == this.props.table) {
@@ -449,15 +437,13 @@ var QueryFields;
         // - [String]field         : the field name
         // - [function]selectField : Callback to be triggered when the field is clicked/selected
         var QueryFieldsSchemaField = React.createClass({
-            displayName: "QueryFieldsSchemaField",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     disappear: false,
                     clickable: true
                 };
             },
-            handleClick: function handleClick() {
+            handleClick: function () {
                 this.setState({
                     disappear: true,
                     clickable: false
@@ -467,7 +453,7 @@ var QueryFields;
                     this.props.selectField();
                 }
             },
-            render: function render() {
+            render: function () {
                 var animation = this.state.disappear ? "fadeOutBackground" : "fadeInListDataStorePanel";
 
                 return React.createElement(

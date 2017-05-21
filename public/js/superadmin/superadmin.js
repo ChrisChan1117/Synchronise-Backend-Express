@@ -1,5 +1,3 @@
-"use strict";
-
 var panelFlow;
 (function () {
     dependenciesLoader(["Synchronise", "urlH", "$", "PanelFlow", "Panel", "Loader", "_"], function () {
@@ -14,10 +12,10 @@ var panelFlow;
 
         var MenuTab = React.createClass({
             displayName: "MenuTab",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return { currentTab: "" };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 $(ReactDOM.findDOMNode(this)).find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -31,7 +29,7 @@ var panelFlow;
                     $(ReactDOM.findDOMNode(this)).find('#allTabs a').first().tab('show');
                 }
             },
-            render: function render() {
+            render: function () {
                 var database = "";
                 if (_.find(Synchronise.User.current().roles, function (row) {
                     return row.name == "superadmin";

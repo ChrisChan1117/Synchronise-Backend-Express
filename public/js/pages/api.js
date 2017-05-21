@@ -1,11 +1,7 @@
-"use strict";
-
 (function () {
     dependenciesLoader(["React", "ReactDOM"], function () {
         var ApiKey = React.createClass({
-            displayName: "ApiKey",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 // Keyboard shortcut for displaying the API Public Key
                 Mousetrap.bind('mod+s', function (e) {
                     e.preventDefault();
@@ -17,7 +13,7 @@
                     password: ""
                 };
             },
-            displayPassword: function displayPassword() {
+            displayPassword: function () {
                 var _this = this;
                 modalMessage.getPublicKey("Will be used to decrypt your Public Key", function (publicKey) {
                     if (publicKey) {
@@ -28,10 +24,10 @@
                     }
                 });
             },
-            selectPassword: function selectPassword(e) {
+            selectPassword: function (e) {
                 e.target.setSelectionRange(0, e.target.value.length);
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "div",
                     { className: "row-fluid" },

@@ -1,32 +1,26 @@
-"use strict";
-
 var Loader;
 var InfiniteLoader;
 
 dependenciesLoader(["React", "ReactDOM"], function () {
     Loader = React.createClass({
-        displayName: "Loader",
-
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             /*var svg = $('#loading').clone();
                 svg.removeClass('hidden');
              var container = $(ReactDOM.findDOMNode(this));
                 container.append(svg); // Insert the SVG into the loader*/
         },
-        render: function render() {
+        render: function () {
             return React.createElement("div", { className: "spinner", style: { textAlign: "center" } });
         }
     });
 
     InfiniteLoader = React.createClass({
-        displayName: "InfiniteLoader",
-
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             $(ReactDOM.findDOMNode(this)).animate({
                 opacity: 1
             }, 300);
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { className: "infiniteLoading" },

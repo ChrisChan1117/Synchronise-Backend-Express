@@ -1,14 +1,10 @@
-"use strict";
-
 var WorkflowInput;
 dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], function () {
     // Props:
     // - (array)inputs: The list of inputs of the current workflow
     // - (function)removeInputWorkflow: Callback to trigger when removing an Input from the workflow
     WorkflowInput = React.createClass({
-        displayName: "WorkflowInput",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 domElements: {
                     inputContainer: null,
@@ -18,7 +14,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
                 fieldValue: ""
             };
         },
-        addButton: function addButton() {
+        addButton: function () {
             var target = this;
             if (target.state.stateAddButton == "active") {
                 target.setState({ stateAddButton: "" });
@@ -27,11 +23,11 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
                 $("#addInput").focus();
             }
         },
-        inputChange: function inputChange(event) {
+        inputChange: function (event) {
             var target = this;
             target.setState({ fieldValue: event.target.value });
         },
-        inputKeyDown: function inputKeyDown(event) {
+        inputKeyDown: function (event) {
             var target = this;
             if (event.key == "Enter") {
                 if (target.state.fieldValue.length) {
@@ -41,7 +37,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
                 }
             }
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({
                 domElements: {
@@ -63,12 +59,12 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
             });
 
             $(document).on({
-                mouseenter: function mouseenter() {
+                mouseenter: function () {
                     window.setTimeout(function () {
                         target.resizeInterface();
                     }, 301);
                 },
-                mouseleave: function mouseleave() {
+                mouseleave: function () {
                     window.setTimeout(function () {
                         target.resizeInterface();
                     }, 301);
@@ -79,7 +75,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
 
             $(ReactDOM.findDOMNode(this)).tooltip({ selector: '[data-toggle=tooltip]' });
         },
-        resizeInterface: function resizeInterface() {
+        resizeInterface: function () {
             var domElements = this.state.domElements;
             if (!domElements.inputContainer || !domElements.maskForOverflow) {
                 domElements.inputContainer = $(ReactDOM.findDOMNode(this)).find('.inputContainer');
@@ -115,8 +111,8 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
                 });
             }
         },
-        typeChangedForInput: function typeChangedForInput() {},
-        render: function render() {
+        typeChangedForInput: function () {},
+        render: function () {
             var target = this;
 
             var tipsText = "Some Components need Inputs in order to work. This block allows you to declare Inputs that will be passed down to the Components at execution time. For example if one of the components needs an email, you can declare it here and associate it to one of the component&#39;s Inputs";

@@ -1,5 +1,3 @@
-'use strict';
-
 var panelFlow;
 var DATABASES = "databases";
 var ADDDATABASE = 'databaseType';
@@ -92,9 +90,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
     ////////// REACT.JS //////////
     // Displays the list of databases owned by the user or shared with him/her
     var DatabaseList = React.createClass({
-        displayName: 'DatabaseList',
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 databases: Array(),
                 firstDataFetchingDone: false,
@@ -103,12 +99,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 changingOrder: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             // Fetch database list from the server
             Synchronise.Cloud.run("getListOfDatabase", { realtime: true }, {
-                success: function success(results) {
+                success: function (results) {
                     if (results.databases.length) {
                         panelFlow.scrollToBlock("databases");
                     } else {
@@ -129,15 +125,15 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                         target.setState({ changingOrder: false });
                     }, 500);
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 }
             });
         },
-        addDatabase: function addDatabase() {
+        addDatabase: function () {
             panelFlow.scrollToBlock("databaseType");
         },
-        orderingSelectorChange: function orderingSelectorChange(component, type, DOMElement) {
+        orderingSelectorChange: function (component, type, DOMElement) {
             var target = this;
 
             target.setState({ changingOrder: true });
@@ -153,13 +149,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
             }
 
             Synchronise.Cloud.run("setSettingsForOrderingDatabase", { key: type, value: DOMElement.target.value }, {
-                success: function success() {},
-                error: function error(err) {
+                success: function () {},
+                error: function (err) {
                     new ModalErrorParse(err);
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var loader;
@@ -276,9 +272,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
     // Displays a database block
     // (the square one with all the differents functions that cna be used to sync and modify a database)
     var DatabaseBlock = React.createClass({
-        displayName: 'DatabaseBlock',
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             var defaultState = {
                 classNameContent: "content",
                 classNameForRefreshSchemaButton: "fa fa-refresh refreshSchema",
@@ -293,7 +287,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
             return defaultState;
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             this.setState({ classNameContent: "content display" });
@@ -310,18 +304,18 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("databaseObject", { id: target.props.id_database, realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({ title: data.title, type: data.subtype, updating: data.updating });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        removeDatabase: function removeDatabase() {
+        removeDatabase: function () {
             if (!this.state.removing && !this.state.updating) {
                 this.setState({ removing: true });
 
@@ -333,30 +327,30 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 }, 300);
 
                 Synchronise.Cloud.run('removeDatabase', { databaseId: target.props.id_database }, {
-                    success: function success() {
+                    success: function () {
                         DOMElement.animate({
                             width: "0px",
                             opacity: 0
                         }, 300);
                     },
-                    error: function error(_error) {
+                    error: function (error) {
                         DOMElement.animate({
                             opacity: 1
                         }, 300);
-                        new ModalErrorParse(_error).title('Removing database');
+                        new ModalErrorParse(error).title('Removing database');
                     },
-                    abort: function abort() {
+                    abort: function () {
                         DOMElement.animate({
                             opacity: 1
                         }, 300);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ removing: false });
                     }
                 });
             }
         },
-        updateSchema: function updateSchema() {
+        updateSchema: function () {
             var target = this;
 
             if (!this.state.updating) {
@@ -402,8 +396,8 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 });
             }
         },
-        updateCredentials: function updateCredentials() {},
-        render: function render() {
+        updateCredentials: function () {},
+        render: function () {
             var classNameForRefreshSchemaButton = this.state.classNameForRefreshSchemaButton;
             var styleForContent = this.state.styleForContent;
             if (this.state.updating) {
@@ -454,12 +448,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
     // Displays a message to say that there is no databases registered at the moment
     var NoDatabaseBlock = React.createClass({
-        displayName: 'NoDatabaseBlock',
-
-        addDatabase: function addDatabase() {
+        addDatabase: function () {
             panelFlow.scrollToBlock(ADDDATABASE);
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 'div',
                 { className: 'row-fluid', align: 'center' },
@@ -477,9 +469,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
     // Displays the different types of databases
     var DatabaseTypes = React.createClass({
-        displayName: 'DatabaseTypes',
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 types: Array({
                     label: "Relational Database",
@@ -554,10 +544,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 })
             };
         },
-        cancel: function cancel() {
+        cancel: function () {
             panelFlow.scrollToBlock(DATABASES);
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 'div',
                 null,
@@ -606,9 +596,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
     // Display a block of type of database (SQL, No-SQL, Virtual ...)
     var DatabaseTypesBlock = React.createClass({
-        displayName: 'DatabaseTypesBlock',
-
-        goToForm: function goToForm() {
+        goToForm: function () {
             ReactDOM.render(React.createElement(DatabaseForm, { masterType: this.props.type,
                 titleTypeDatabase: this.props.type + " database",
                 subtypesDatabases: this.props.subtypes,
@@ -616,10 +604,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 indexDefaultSubtypeDatabase: this.props.indexDefaultSubtype }), document.getElementById("databaseForm"));
             panelFlow.scrollToBlock("databaseForm");
         },
-        savedDatabase: function savedDatabase() {
+        savedDatabase: function () {
             ReactDOM.unmountComponentAtNode(document.getElementById('databaseForm'));
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             var icon = $(ReactDOM.findDOMNode(target)).find('img');
@@ -631,7 +619,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 }, 500);
             });
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 'div',
                 { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12', onClick: this.goToForm },
@@ -655,9 +643,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
     // Displays a form to add or update the information of a database
     var DatabaseForm = React.createClass({
-        displayName: 'DatabaseForm',
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             var target = this;
 
             var states = {
@@ -693,13 +679,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
             return states;
         },
         // The user has selected a database subtype
-        selectedDatabaseSubtype: function selectedDatabaseSubtype(selectedItem) {
+        selectedDatabaseSubtype: function (selectedItem) {
             this.setState({
                 selectedSubtype: selectedItem
             });
         },
         // The user has given a connection string for a database
-        dataForFormPasted: function dataForFormPasted(data) {
+        dataForFormPasted: function (data) {
             // Select subtype
             var selectedSubtype = false;
             // Try to find the given database type in the list
@@ -733,7 +719,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
             this.checkFields();
         },
-        handleInput: function handleInput(item, e) {
+        handleInput: function (item, e) {
             // Save the new value of the field
             var valuesFields = this.state.valuesFields;
             valuesFields[item] = e.target.value;
@@ -741,7 +727,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
             this.setState({ valuesFields: valuesFields });
             this.checkFields();
         },
-        checkFields: function checkFields() {
+        checkFields: function () {
             var target = this;
             var fieldsToCheck = Array('title', 'name', 'url', 'username', 'password');
             var incorrectFields = Array();
@@ -789,14 +775,14 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 incorrectFields: incorrectFields
             });
         },
-        cancel: function cancel() {
+        cancel: function () {
             panelFlow.scrollToBlock("databaseType");
             var timeoutUnmountComponent = window.setTimeout(function () {
                 ReactDOM.unmountComponentAtNode(document.getElementById('databaseForm'));
                 window.clearTimeout(timeoutUnmountComponent);
             }, 500);
         },
-        save: function save() {
+        save: function () {
             var target = this;
             target.checkFields();
 
@@ -830,15 +816,15 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
                         realtime: false
                     }, {
-                        success: function success(message) {
+                        success: function (message) {
                             target.setState({ saving: false });
                             panelFlow.scrollToBlock("databases");
                             target.props.saved();
                             // Notify the parent that we have saved. The parent will apply a new key to the component, therefore it will reset to initialstate of component
                         },
-                        error: function error(_error2) {
+                        error: function (error) {
                             target.setState({ saving: false });
-                            new ModalErrorParse(_error2);
+                            new ModalErrorParse(error);
                         }
                     });
                 }
@@ -847,7 +833,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 $(ReactDOM.findDOMNode(target)).find('.saveButton').effect("highlight");
             }
         },
-        render: function render() {
+        render: function () {
             var labelForSavingButton = "Save";
             if (this.state.saving) {
                 labelForSavingButton = "Saving ...";
@@ -1046,9 +1032,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
     // Displays the list of database subtypes (mysql, postgre ...) available for a specific database type (sql, nosql)
     var DatabaseFormSubTypeSelector = React.createClass({
-        displayName: 'DatabaseFormSubTypeSelector',
-
-        selected: function selected(item) {
+        selected: function (item) {
             var itemNumber = 0;
             _.each(this.props.subtypesDatabases, function (row, index) {
                 if (row.value == item.value) {
@@ -1057,7 +1041,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
             });
             this.props.onSelect(item);
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             return React.createElement(
@@ -1081,9 +1065,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
     // Display an item of database form subtypes selector
     var DatabaseFormSubTypeItem = React.createClass({
-        displayName: 'DatabaseFormSubTypeItem',
-
-        render: function render() {
+        render: function () {
             var isSelectedClass = "";
             if (this.props.isSelected) {
                 isSelectedClass = "active";
@@ -1103,15 +1085,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
     });
 
     var DatabaseFormAutoPopulateField = React.createClass({
-        displayName: 'DatabaseFormAutoPopulateField',
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 inputValue: "",
                 validationState: ""
             };
         },
-        handleInput: function handleInput(input) {
+        handleInput: function (input) {
             var regex = /^(mysql|oracle|postgresql|sqlserver|sqlite|db2|mongo|couchdb|couchbase|redis|memcached.*):\/\/([A-Za-z0-9%_-]+):([A-Za-z0-9%]+)@(((?:https?:\/\/)?[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]*)(?::([0-9]{1,5}))?\/([a-z0-9%_-]+))(?:\?reconnect=(true|false))?$/;
 
             this.setState({
@@ -1145,7 +1125,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 }
             }
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 'div',
                 { className: "form-group " + this.state.validationState },

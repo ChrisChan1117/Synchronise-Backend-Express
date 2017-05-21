@@ -1,14 +1,10 @@
-"use strict";
-
 dependenciesLoader(["React", "ReactDOM", "$", "_"], function () {
     var Header = React.createClass({
-        displayName: "Header",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return { loading: false };
         },
-        componentDidMount: function componentDidMount() {},
-        render: function render() {
+        componentDidMount: function () {},
+        render: function () {
             return React.createElement(
                 "div",
                 null,

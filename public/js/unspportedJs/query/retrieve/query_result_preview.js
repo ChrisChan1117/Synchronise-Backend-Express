@@ -1,16 +1,12 @@
-"use strict";
-
 var QueryResultPreview;
 (function () {
     dependenciesLoader([], function () {
         // Container of the QueryResultPreview block
         QueryResultPreview = React.createClass({
-            displayName: "QueryResultPreview",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return { selected_fields: [] };
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "div",
                     { id: "QueryResultPreview" },
@@ -46,21 +42,19 @@ var QueryResultPreview;
         // Props :
         // - [object]fields : The list of fields that are currently selected
         var QueryResult = React.createClass({
-            displayName: "QueryResult",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
-                    indent: "    ",
-                    opening_curly_bracket: "{",
-                    closing_curly_bracket: "}",
-                    opening_square_bracket: "[",
-                    closing_square_bracket: "]",
-                    double_slash: "//",
+                    indent: "\u00a0\u00a0\u00a0\u00a0",
+                    opening_curly_bracket: "\u007b",
+                    closing_curly_bracket: "\u007d",
+                    opening_square_bracket: "\u005b",
+                    closing_square_bracket: "\u005d",
+                    double_slash: "\u002f\u002f",
                     tables: [],
                     fields: []
                 };
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 var tables = [];

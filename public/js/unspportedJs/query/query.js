@@ -1,37 +1,33 @@
-"use strict";
-
 (function () {
     dependenciesLoader(["$", "Mousetrap", "React", "ReactDOM", "Loader"], function () {
         // Display the list of projects
         var ProjectsList = React.createClass({
-            displayName: "ProjectsList",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     projects: Array(),
                     loading: true
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 Synchronise.Cloud.run("projectList", { realtime: true }, {
-                    success: function success(projects) {
+                    success: function (projects) {
                         target.setState({
                             projects: projects,
                             loading: false
                         });
                     },
-                    error: function error() {
+                    error: function () {
                         target.setState({
                             loading: false
                         });
                     }
                 });
             },
-            createProject: function createProject() {
+            createProject: function () {
                 document.location.href = "/project?backuri=" + encodeURIComponent("/query") + "&backlabel=" + encodeURIComponent("Back to query") + "&displayModalCreate=true";
             },
-            render: function render() {
+            render: function () {
                 var loading = "";
                 if (this.state.loading) {
                     loading = React.createElement(Loader, null);
@@ -118,9 +114,7 @@
 
         // Display a project block on the interface
         var ProjectBlock = React.createClass({
-            displayName: "ProjectBlock",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 var icon = "/images/defaultProjectIcon.png";
                 if (this.props.icon) {
                     icon = this.props.icon;
@@ -131,13 +125,13 @@
                     contentClassName: ""
                 };
             },
-            open: function open() {
+            open: function () {
                 document.location.href = "/query/project?id=" + this.props.id;
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 this.setState({ contentClassName: "display" });
             },
-            render: function render() {
+            render: function () {
                 var description = "";
                 if (this.props.description) {
                     description = React.createElement(

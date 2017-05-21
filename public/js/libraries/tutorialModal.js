@@ -1,5 +1,3 @@
-"use strict";
-
 var TutorialModal;
 dependenciesLoader(["React", "ReactDOM", "$", function () {
     // Displays a guide to new users
@@ -8,15 +6,13 @@ dependenciesLoader(["React", "ReactDOM", "$", function () {
     // - (function)onNextStep: The callback to trigger when the tutorial goes to the next step
     // - (function)onPreviousStep: The callback to trigger when the tutorial goes to the previous step
     TutorialModal = React.createClass({
-        displayName: "TutorialModal",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 currentStep: 1,
                 shouldDisplay: false
             };
         },
-        startTutorial: function startTutorial() {
+        startTutorial: function () {
             var target = this;
             KeyEventController.subscribeComponent("tutorialModal", function (key) {
                 if (key == 27) {
@@ -25,7 +21,7 @@ dependenciesLoader(["React", "ReactDOM", "$", function () {
             });
             target.resizeInterface();
         },
-        resizeInterface: function resizeInterface() {
+        resizeInterface: function () {
             var target = this;
             window.setTimeout(function () {
                 $(ReactDOM.findDOMNode(target)).find("#tutorialBlock").animate({
@@ -33,18 +29,18 @@ dependenciesLoader(["React", "ReactDOM", "$", function () {
                 }, 300, "easeOutBack");
             }, 10);
         },
-        nextStep: function nextStep() {
+        nextStep: function () {
             var target = this;
             target.setState({ currentStep: this.state.currentStep + 1 });
             target.props.onNextStep(this.state.currentStep + 1);
             target.resizeInterface();
         },
-        previousStep: function previousStep() {
+        previousStep: function () {
             var target = this;
             target.setState({ currentStep: this.state.currentStep - 1 });
             target.props.onPreviousStep(this.state.currentStep - 1);
         },
-        hide: function hide() {
+        hide: function () {
             var target = this;
             KeyEventController.unsubscribeComponent("tutorialFirsTime");
             $(ReactDOM.findDOMNode(this)).find("#tutorialBlock").animate({
@@ -57,7 +53,7 @@ dependenciesLoader(["React", "ReactDOM", "$", function () {
                 });
             });
         },
-        render: function render() {
+        render: function () {
             var content = this.props.steps[this.state.currentStep];
 
             var display = "none";

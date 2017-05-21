@@ -1,5 +1,3 @@
-"use strict";
-
 var Typeahead;
 
 dependenciesLoader(["React", "ReactDOM"], function () {
@@ -19,7 +17,7 @@ dependenciesLoader(["React", "ReactDOM"], function () {
     // - [callback]onChange     : The callback to trigger when we type something in the field
     Typeahead = React.createClass({
         displayName: "Typeahead",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 inputHasFocus: false,
                 itemListHasFocus: false,
@@ -30,7 +28,7 @@ dependenciesLoader(["React", "ReactDOM"], function () {
                 currentItem: {}
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             // Verify that the css file is loaded (we have forgotten it many times in the past)
             var cssLoaded = false;
             $('link').each(function () {
@@ -47,13 +45,13 @@ dependenciesLoader(["React", "ReactDOM"], function () {
                 document.getElementsByTagName("head")[0].appendChild(link);
             }
         },
-        onChange: function onChange(fieldName, e) {
+        onChange: function (fieldName, e) {
             if (typeof this.props.onChange != "undefined") {
                 this.props.onChange(e);
             }
             this.checkMatchingElements(e.target.value);
         },
-        checkMatchingElements: function checkMatchingElements(val, inputHasFocus) {
+        checkMatchingElements: function (val, inputHasFocus) {
             var target = this;
             var value = val.toLowerCase();
             var matchingItems = [];
@@ -152,7 +150,7 @@ dependenciesLoader(["React", "ReactDOM"], function () {
                 }
             }
         },
-        inputFocusIn: function inputFocusIn() {
+        inputFocusIn: function () {
             var target = this;
             if (target.isMounted()) {
                 this.setState({
@@ -168,7 +166,7 @@ dependenciesLoader(["React", "ReactDOM"], function () {
                 this.checkMatchingElements(this.state.inputValue, true);
             }
         },
-        inputFocusOut: function inputFocusOut() {
+        inputFocusOut: function () {
             var target = this;
             setTimeout(function () {
                 if (target.isMounted()) {
@@ -182,7 +180,7 @@ dependenciesLoader(["React", "ReactDOM"], function () {
             $(ReactDOM.findDOMNode(target.refs.typeaheadInput)).addClass('slideOutTypeahead');
             KeyEventController.unsubscribeComponent("typeahead");
         },
-        resetInput: function resetInput() {
+        resetInput: function () {
             var target = this;
             if (target.isMounted()) {
                 this.setState({
@@ -190,7 +188,7 @@ dependenciesLoader(["React", "ReactDOM"], function () {
                 });
             }
         },
-        onkeyup: function onkeyup(key) {
+        onkeyup: function (key) {
             var target = this;
 
             if (target.isMounted()) {
@@ -265,7 +263,7 @@ dependenciesLoader(["React", "ReactDOM"], function () {
                 }
             }
         },
-        itemSelected: function itemSelected(item) {
+        itemSelected: function (item) {
             var target = this;
             if (target.isMounted()) {
                 this.setState({
@@ -277,10 +275,10 @@ dependenciesLoader(["React", "ReactDOM"], function () {
             this.props.onSelected(item);
             this.resetInput();
         },
-        componentWillReceiveProps: function componentWillReceiveProps() {
+        componentWillReceiveProps: function () {
             this.checkMatchingElements(this.state.inputValue);
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var styleTypeahead = { position: 'absolute',

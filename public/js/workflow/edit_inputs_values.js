@@ -1,5 +1,3 @@
-"use strict";
-
 var WorkflowInputValues;
 dependenciesLoader(["React", "ReactDOM", "$", "_"], function () {
     // Props
@@ -8,13 +6,11 @@ dependenciesLoader(["React", "ReactDOM", "$", "_"], function () {
     // - (object)inputsStatus:  The status of each inputs (error, success, pending...). This is used to display a red line underneath if the value given is incorrect for example
     // - (object)inputsValues: The actual values of the inputs given by the user.
     WorkflowInputValues = React.createClass({
-        displayName: "WorkflowInputValues",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {};
         },
-        componentDidMount: function componentDidMount() {},
-        render: function render() {
+        componentDidMount: function () {},
+        render: function () {
             var target = this;
             var noContent = "";
             var content = "";

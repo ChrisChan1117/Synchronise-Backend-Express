@@ -1,5 +1,3 @@
-"use strict";
-
 var ExportTab;
 dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader", "Export"], function () {
     // Displays the export block of a workflow
@@ -8,13 +6,11 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader", "Export"], function
     // - (boolean)loading
     // - (object)inputs
     ExportTab = React.createClass({
-        displayName: "ExportTab",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {};
         },
-        componentDidMount: function componentDidMount() {},
-        render: function render() {
+        componentDidMount: function () {},
+        render: function () {
             var content = React.createElement(Loader, null);
             if (!this.props.loading) {
                 content = React.createElement(

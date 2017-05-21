@@ -1,5 +1,3 @@
-"use strict";
-
 var Export;
 
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function () {
@@ -28,13 +26,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
     // Displays the tab to export a component into an app
     Export = React.createClass({
         displayName: "Export",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 public_key: "",
                 loading_key: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var needToCreatePublicKey = false;
             var target = this;
             target.setState({ loading_key: true });
@@ -45,15 +43,15 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
 
             if (needToCreatePublicKey) {
                 Synchronise.Cloud.run("createPublicKey", { "type": "javascript" }, {
-                    success: function success(key) {
+                    success: function (key) {
                         target.setState({ public_key: key.status });
                         Synchronise.User.fetchCurrent(); // Refresh local data
                         Synchronise.init(key.status);
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loading_key: false });
                     }
                 });
@@ -63,10 +61,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                 Synchronise.init(pk);
             }
         },
-        selectUniqueIdentifier: function selectUniqueIdentifier() {
+        selectUniqueIdentifier: function () {
             $(ReactDOM.findDOMNode(this)).find('.queryUniqueIdentifier').selectText();
         },
-        render: function render() {
+        render: function () {
             var public_key_javascript = "Loading...";
             var public_key_nodejs = "Loading...";
             var public_key_rest = "Loading...";
@@ -102,7 +100,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                                 null,
                                 "Component unique identifier :"
                             ),
-                            "  ",
+                            "\xA0\xA0",
                             React.createElement(
                                 "span",
                                 { className: "code" },
@@ -206,16 +204,16 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
     // - (string)component_id: The component id
     var ExportJavascript = React.createClass({
         displayName: "ExportJavascript",
-        selectImport: function selectImport() {
+        selectImport: function () {
             $(ReactDOM.findDOMNode(this)).find('.import').selectText();
         },
-        selectInit: function selectInit() {
+        selectInit: function () {
             $(ReactDOM.findDOMNode(this)).find('.init').selectText();
         },
-        selectExecute: function selectExecute() {
+        selectExecute: function () {
             $(ReactDOM.findDOMNode(this)).find('.execute').selectText();
         },
-        render: function render() {
+        render: function () {
             var paramsFormatted = "";
             for (var i = 0; i < this.props.inputs.length; i++) {
                 var row = this.props.inputs[i];
@@ -375,14 +373,14 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ", ",
-                            "{",
+                            `{`,
                             React.createElement("br", null),
-                            "    ",
+                            "\xA0\xA0\xA0\xA0",
                             paramsFormatted,
-                            "}, {"
+                            `}, {`
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "keyword" },
@@ -392,7 +390,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ": ",
-                            "function",
+                            `function`,
                             "("
                         ),
                         React.createElement(
@@ -404,10 +402,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ")",
-                            "{"
+                            `{`
                         ),
                         React.createElement("br", null),
-                        "        ",
+                        "\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
@@ -420,14 +418,14 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             ");"
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
                             "},"
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "keyword" },
@@ -437,7 +435,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ": ",
-                            "function",
+                            `function`,
                             "("
                         ),
                         React.createElement(
@@ -449,10 +447,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ")",
-                            "{"
+                            `{`
                         ),
                         React.createElement("br", null),
-                        "        ",
+                        "\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
@@ -465,14 +463,14 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             ");"
                         ),
                         React.createElement("br", null),
-                        "  ",
+                        "\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
-                            "  },"
+                            "\xA0\xA0},"
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "keyword" },
@@ -482,23 +480,23 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ": ",
-                            "function",
+                            `function`,
                             "("
                         ),
                         React.createElement(
                             "code",
                             { className: "plain" },
                             ")",
-                            "{"
+                            `{`
                         ),
-                        "        ",
+                        "\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0",
                         React.createElement("code", { className: "plain" }),
                         React.createElement("br", null),
-                        "  ",
+                        "\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
-                            "  }"
+                            "\xA0\xA0}"
                         ),
                         React.createElement("br", null),
                         React.createElement(
@@ -514,16 +512,16 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
 
     var ExportNodeJS = React.createClass({
         displayName: "ExportNodeJS",
-        selectImport: function selectImport() {
+        selectImport: function () {
             $(ReactDOM.findDOMNode(this)).find('.import').selectText();
         },
-        selectInit: function selectInit() {
+        selectInit: function () {
             $(ReactDOM.findDOMNode(this)).find('.init').selectText();
         },
-        selectExecute: function selectExecute() {
+        selectExecute: function () {
             $(ReactDOM.findDOMNode(this)).find('.execute').selectText();
         },
-        render: function render() {
+        render: function () {
             var paramsFormatted = "";
             for (var i = 0; i < this.props.inputs.length; i++) {
                 var row = this.props.inputs[i];
@@ -663,14 +661,14 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ", ",
-                            "{",
+                            `{`,
                             React.createElement("br", null),
-                            "    ",
+                            "\xA0\xA0\xA0\xA0",
                             paramsFormatted,
-                            "}, {"
+                            `}, {`
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "keyword" },
@@ -680,7 +678,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ": ",
-                            "function",
+                            `function`,
                             "("
                         ),
                         React.createElement(
@@ -692,24 +690,24 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ")",
-                            "{"
+                            `{`
                         ),
                         React.createElement("br", null),
-                        "        ",
+                        "\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
                             "console.log(data);"
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
                             "},"
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "keyword" },
@@ -719,7 +717,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ": ",
-                            "function",
+                            `function`,
                             "("
                         ),
                         React.createElement(
@@ -731,24 +729,24 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ")",
-                            "{"
+                            `{`
                         ),
                         React.createElement("br", null),
-                        "        ",
+                        "\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
                             "console.log(err);"
                         ),
                         React.createElement("br", null),
-                        "  ",
+                        "\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
-                            "  },"
+                            "\xA0\xA0},"
                         ),
                         React.createElement("br", null),
-                        "    ",
+                        "\xA0\xA0\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "keyword" },
@@ -758,23 +756,23 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                             "code",
                             { className: "plain" },
                             ": ",
-                            "function",
+                            `function`,
                             "("
                         ),
                         React.createElement(
                             "code",
                             { className: "plain" },
                             ")",
-                            "{"
+                            `{`
                         ),
-                        "        ",
+                        "\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0",
                         React.createElement("code", { className: "plain" }),
                         React.createElement("br", null),
-                        "  ",
+                        "\xA0\xA0",
                         React.createElement(
                             "code",
                             { className: "plain" },
-                            "  }"
+                            "\xA0\xA0}"
                         ),
                         React.createElement("br", null),
                         React.createElement(
@@ -790,10 +788,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
 
     var ExportREST = React.createClass({
         displayName: "ExportREST",
-        selectExecute: function selectExecute() {
+        selectExecute: function () {
             $(ReactDOM.findDOMNode(this)).find('.execute').selectText();
         },
-        render: function render() {
+        render: function () {
             var paramsFormatted = "";
             for (var i = 0; i < this.props.inputs.length; i++) {
                 var row = this.props.inputs[i];
@@ -887,7 +885,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                                 "code",
                                 { className: "string" },
                                 "'",
-                                "{",
+                                `{`,
                                 "\"id\":\"",
                                 this.props.component_id,
                                 "\", ",
@@ -900,7 +898,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                                 "code",
                                 { className: "keyword" },
                                 "https",
-                                "://",
+                                `://`,
                                 "api.synchronise.io/component/run"
                             )
                         )

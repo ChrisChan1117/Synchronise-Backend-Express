@@ -1,10 +1,8 @@
-"use strict";
-
 dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "_"], function () {
     // This creates and populates a fake database for development purposes
     var RecordsPopulate = React.createClass({
         displayName: "RecordsPopulate",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 loadingWL: false,
@@ -20,149 +18,149 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 planToSet: ""
             };
         },
-        emailFieldChange: function emailFieldChange(name, e) {
+        emailFieldChange: function (name, e) {
             if (!this.state.loading) {
                 var data = {};
                 data[name] = e.target.value;
                 this.setState(data);
             }
         },
-        populate: function populate() {
+        populate: function () {
             var target = this;
 
             if (!target.state.loading) {
                 target.setState({ loading: true });
 
                 Synchronise.Cloud.run("superadminPopulateDatabase", { email: target.state.emailField }, {
-                    success: function success() {
+                    success: function () {
                         target.setState({ emailField: "" });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    progress: function progress(_progress, message) {
-                        console.log("Progress : " + JSON.stringify(_progress) + " - Message : " + JSON.stringify(message));
+                    progress: function (progress, message) {
+                        console.log("Progress : " + JSON.stringify(progress) + " - Message : " + JSON.stringify(message));
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loading: false });
                     }
                 });
             }
         },
-        populateWL: function populateWL() {
+        populateWL: function () {
             var target = this;
 
             if (!target.state.loadingWL) {
                 target.setState({ loadingWL: true });
 
                 Synchronise.Cloud.run("superadminPopulateWhiteList", { email: target.state.emailFieldWL }, {
-                    success: function success() {
+                    success: function () {
                         target.setState({ emailFieldWL: "" });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    progress: function progress(_progress2, message) {
-                        console.log("Progress : " + JSON.stringify(_progress2) + " - Message : " + JSON.stringify(message));
+                    progress: function (progress, message) {
+                        console.log("Progress : " + JSON.stringify(progress) + " - Message : " + JSON.stringify(message));
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loadingWL: false });
                     }
                 });
             }
         },
-        findPermissionsForUser: function findPermissionsForUser() {
+        findPermissionsForUser: function () {
             if (!this.state.searchingForPermissions) {
                 var target = this;
                 target.setState({ searchingForPermissions: true });
 
                 Synchronise.Cloud.run("userObject", { user_id: target.state.emailForPermission }, {
-                    success: function success(user) {
+                    success: function (user) {
                         target.setState({ permissionsForUser: user.roles });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ searchingForPermissions: false });
                     }
                 });
             }
         },
         // Save the email field for permission finder
-        emailForPermissionChanged: function emailForPermissionChanged(event) {
+        emailForPermissionChanged: function (event) {
             var target = this;
             target.setState({ emailForPermission: event.target.value });
         },
-        removePermissionForUser: function removePermissionForUser(permissionObject) {
+        removePermissionForUser: function (permissionObject) {
             if (!this.state.searchingForPermissions) {
                 var target = this;
                 target.setState({ searchingForPermissions: true });
 
                 Synchronise.Cloud.run("superadminRemovePermissionForUser", { id_role: permissionObject.id, id_user: target.state.emailForPermission }, {
-                    success: function success() {
+                    success: function () {
                         target.findPermissionsForUser();
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ searchingForPermissions: true });
                     }
                 });
             }
         },
-        addPermissionForUser: function addPermissionForUser() {
+        addPermissionForUser: function () {
             if (!this.state.savingPermission) {
                 var target = this;
                 target.setState({ savingPermission: true });
 
                 if (target.state.emailForPermission.length && target.state.permissionToAdd.length) {
                     Synchronise.Cloud.run("superadminAddPermissionForUser", { role_name: target.state.permissionToAdd, id_user: target.state.emailForPermission }, {
-                        success: function success() {
+                        success: function () {
                             target.findPermissionsForUser();
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             new ModalErrorParse(err);
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ savingPermission: false });
                         }
                     });
                 }
             }
         },
-        permissionToAddChange: function permissionToAddChange(event) {
+        permissionToAddChange: function (event) {
             var target = this;
             target.setState({ permissionToAdd: event.target.value });
         },
-        emailForPlanChanged: function emailForPlanChanged(event) {
+        emailForPlanChanged: function (event) {
             var target = this;
             target.setState({ emailForPlan: event.target.value });
         },
-        changePlanForUser: function changePlanForUser() {
+        changePlanForUser: function () {
             var target = this;
             if (!target.state.changingPlanForUser) {
                 target.setState({ changingPlanForUser: true });
 
                 Synchronise.Cloud.run("superadminChangePlanForUser", { email_user: target.state.emailForPlan, plan: target.state.planToSet }, {
-                    success: function success() {
+                    success: function () {
                         target.setState({ emailForPlan: "", planToSet: "" });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ changingPlanForUser: false });
                     }
                 });
             }
         },
-        planToSetChanged: function planToSetChanged(event) {
+        planToSetChanged: function (event) {
             var target = this;
             target.setState({ planToSet: event.target.value });
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var populateButtonLabel = "Populate";

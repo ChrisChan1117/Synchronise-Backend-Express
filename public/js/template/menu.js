@@ -1,23 +1,19 @@
-"use strict";
-
 (function () {
     dependenciesLoader(["React", "ReactDOM", "Synchronise", "Skype"], function () {
         ///// TOP MENU /////
         var NavBarRight = React.createClass({
-            displayName: "NavBarRight",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     loaded: false
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 Synchronise.User.fetchCurrent(function (user) {
                     target.setState({ loaded: true });
                 });
             },
-            render: function render() {
+            render: function () {
                 var content = "";
 
                 if (this.state.loaded) {
@@ -37,9 +33,7 @@
         });
 
         var NavBarRightOffline = React.createClass({
-            displayName: "NavBarRightOffline",
-
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "ul",
                     { className: "nav navbar-nav navbar-right" },
@@ -62,12 +56,10 @@
         });
 
         var NavBarRightConnected = React.createClass({
-            displayName: "NavBarRightConnected",
-
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 $('[data-toggle=tooltip]').tooltip();
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "ul",
                     { className: "nav navbar-nav navbar-right" },
@@ -132,16 +124,14 @@
         });
 
         var MenuUserLabel = React.createClass({
-            displayName: "MenuUserLabel",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 if (Synchronise.User.current().isAdmin()) {
                     return { username: Synchronise.User.current().name + " (Admin)" };
                 } else {
                     return { username: Synchronise.User.current().name };
                 }
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "a",
                     { href: "#", className: "dropdown-toggle", "data-toggle": "dropdown" },
@@ -157,15 +147,13 @@
 
         // CONNECTION LOST MESSAGE
         var ConnectionLostBanner = React.createClass({
-            displayName: "ConnectionLostBanner",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     disconnected: true,
                     style: { marginTop: "-25px" }
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 Synchronise.Connection.Lost(function (reason) {
@@ -179,7 +167,7 @@
                     });
                 });
             },
-            render: function render() {
+            render: function () {
                 var content = React.createElement("div", null);
                 if (this.state.disconnected) {
                     content = React.createElement(
@@ -205,9 +193,7 @@
 
         ///// SIDE MENU /////
         var Backbutton = React.createClass({
-            displayName: "Backbutton",
-
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "li",
                     { className: "back_button" },
@@ -223,9 +209,7 @@
         });
 
         var SuperAdminBlock = React.createClass({
-            displayName: "SuperAdminBlock",
-
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "li",
                     { className: "<%= navbarButtonsState.superadmin %>" },
@@ -240,9 +224,7 @@
         });
 
         var SideMenu = React.createClass({
-            displayName: "SideMenu",
-
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 Skype.ui({
@@ -258,7 +240,7 @@
                     target.resizeMenu();
                 });
             },
-            resizeMenu: function resizeMenu() {
+            resizeMenu: function () {
                 var target = this;
 
                 var windowHeight = $(window).height();
@@ -269,7 +251,7 @@
 
                 $(ReactDOM.findDOMNode(this)).find('.side-nav').css('maxHeight', maxHeight + 'px');
             },
-            render: function render() {
+            render: function () {
                 var backButton = "";
                 if (urlH.getParam('backuri')) {
                     backButton = React.createElement(Backbutton, { url: decodeURIComponent(urlH.getParam('backuri')), label: decodeURIComponent(urlH.getParam('backlabel')) });

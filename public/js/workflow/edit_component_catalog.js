@@ -1,5 +1,3 @@
-"use strict";
-
 var ComponentCatalog;
 
 dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
@@ -11,7 +9,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     // - (boolean)forking: Whether or not the Workflow is currently forking a component to be added
     ComponentCatalog = React.createClass({
         displayName: "ComponentCatalog",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: true,
                 projects: [],
@@ -20,7 +18,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 searchTerm: ""
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true, domElement: $(ReactDOM.findDOMNode(target)) });
 
@@ -33,13 +31,13 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
             });
 
             Synchronise.Cloud.run("projectsListWithComponentsForWorkflow", { cacheFirst: true }, {
-                success: function success(data) {
+                success: function (data) {
                     var data = { projectsOriginal: data };
                     target.setState(data);
                     target.resizeInterface();
                     target.filterResultsForSearch();
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
@@ -50,10 +48,10 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
 
             //$('body').tooltip({ selector: '[data-toggle=tooltip]' });
         },
-        componentWillReceiveProps: function componentWillReceiveProps() {
+        componentWillReceiveProps: function () {
             this.resizeInterface();
         },
-        filterResultsForSearch: function filterResultsForSearch(searchTerm) {
+        filterResultsForSearch: function (searchTerm) {
             var target = this;
             var matchingProjects = [];
             var search;
@@ -75,7 +73,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
 
             target.setState({ projects: matchingProjects });
         },
-        resizeInterface: function resizeInterface() {
+        resizeInterface: function () {
             var element = this.state.domElement;
             if (!element) {
                 element = $(ReactDOM.findDOMNode(this));
@@ -114,12 +112,12 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
             forkingMask.width(widthForkMask + 20);
             forkingMask.height(heightForkMask + 20);
         },
-        searchFieldChanged: function searchFieldChanged(event) {
+        searchFieldChanged: function (event) {
             var target = this;
             target.setState({ searchTerm: event.target.value });
             target.filterResultsForSearch(event.target.value);
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var content = "";
 
@@ -228,7 +226,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     // - (function)clickOnComponent: The callback to call when the component is added on the workflow
     var ComponentCatalogProject = React.createClass({
         displayName: "ComponentCatalogProject",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: true,
                 listOfComponentsOpened: false,
@@ -240,22 +238,22 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 classForProject: "displayed"
             };
         },
-        toggleListOfComponents: function toggleListOfComponents() {
+        toggleListOfComponents: function () {
             var target = this;
             if (target.isMounted()) {
                 this.setState({ listOfComponentsOpened: !this.state.listOfComponentsOpened });
             }
         },
-        componentWillAppear: function componentWillAppear(callback) {
+        componentWillAppear: function (callback) {
             var target = this;
             $(ReactDOM.findDOMNode(this)).addClass('displayed');
             window.setTimeout(callback, 300);
         },
-        componentWillLeave: function componentWillLeave(callback) {
+        componentWillLeave: function (callback) {
             $(ReactDOM.findDOMNode(this)).removeClass("displayed");
             window.setTimeout(callback, 300);
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             $(ReactDOM.findDOMNode(target)).find('.logo').load(function () {
@@ -267,7 +265,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 target.setState({ loading: true });
 
                 Synchronise.Cloud.run("getProject", { id_project: this.props.id_project, cacheFirst: true }, {
-                    success: function success(data) {
+                    success: function (data) {
                         var params = {
                             name: data.name,
                             bg_color: data.bg_color,
@@ -284,7 +282,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                             target.setState(params);
                         }
                     },
-                    always: function always() {
+                    always: function () {
                         if (target.isMounted()) {
                             target.setState({ loading: false });
                         }
@@ -303,7 +301,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 }
             }
         },
-        render: function render() {
+        render: function () {
             var loader = "";
             if (this.state.loading) {
                 loader = React.createElement(Loader, null);
@@ -343,33 +341,33 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     // - (string)bg_color : The background color of the project, will be used as the color of the border
     var ComponentCatalogProjectContent = React.createClass({
         displayName: "ComponentCatalogProjectContent",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 components: []
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             if (target.isMounted()) {
                 target.setState({ loading: true });
             }
 
             Synchronise.Cloud.run("getComponentsForProjectForWorkflow", { id: this.props.id_project, realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     if (data) {
                         if (target.isMounted()) {
                             target.setState({ components: data });
                         }
                     }
                 },
-                always: function always() {
+                always: function () {
                     if (target.isMounted()) {
                         target.setState({ loading: false });
                     }
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var classForListOfComponents = "";
             var data = "";
@@ -398,10 +396,10 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     // - (function)clickOnComponent: The callback to call when the component is added on the workflow
     var ComponentCatalogProjectComponent = React.createClass({
         displayName: "ComponentCatalogProjectComponent",
-        addToWorkflow: function addToWorkflow() {
+        addToWorkflow: function () {
             this.props.clickOnComponent(this.props.data.id);
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { className: "component" },

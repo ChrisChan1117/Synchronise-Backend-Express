@@ -1,9 +1,7 @@
-'use strict';
-
 (function webpackUniversalModuleDefinition(root, factory) {
 	if (typeof exports === 'object' && typeof module === 'object') module.exports = factory(require("react"));else if (typeof define === 'function' && define.amd) define(["react"], factory);else if (typeof exports === 'object') exports["ObjectInspector"] = factory(require("react"));else root["ObjectInspector"] = factory(root["React"]);
-})(undefined, function (__WEBPACK_EXTERNAL_MODULE_1__) {
-	return (/******/(function (modules) {
+})(this, function (__WEBPACK_EXTERNAL_MODULE_1__) {
+	return (/******/function (modules) {
 			// webpackBootstrap
 			/******/ // The module cache
 			/******/var installedModules = {};
@@ -46,11 +44,11 @@
 			/******/ // Load entry module and return exports
 			/******/return __webpack_require__(0);
 			/******/
-		})(
+		}(
 		/************************************************************************/
 		/******/[
 		/* 0 */
-		function (module, exports, __webpack_require__) {
+		/***/function (module, exports, __webpack_require__) {
 
 			'use strict';
 
@@ -68,7 +66,7 @@
 				}return target;
 			};
 
-			var _createClass = (function () {
+			var _createClass = function () {
 				function defineProperties(target, props) {
 					for (var i = 0; i < props.length; i++) {
 						var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -76,7 +74,7 @@
 				}return function (Constructor, protoProps, staticProps) {
 					if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 				};
-			})();
+			}();
 
 			var _get = function get(_x, _x2, _x3) {
 				var _again = true;_function: while (_again) {
@@ -165,7 +163,7 @@
 				}
 			};
 
-			var ObjectInspector = (function (_Component) {
+			var ObjectInspector = function (_Component) {
 				_inherits(ObjectInspector, _Component);
 
 				_createClass(ObjectInspector, null, [{
@@ -312,13 +310,13 @@
 							propertyNodesContainer = _react2['default'].createElement('div', { style: styles.propertyNodesContainer }, propertyNodes);
 						}
 
-						return _react2['default'].createElement('div', { style: styles.base }, _react2['default'].createElement('span', { style: styles.property, onClick: this.handleClick.bind(this) }, _react2['default'].createElement('span', { style: _extends({}, styles.expandControl, styles.unselectable) }, expandGlyph), (function () {
+						return _react2['default'].createElement('div', { style: styles.base }, _react2['default'].createElement('span', { style: styles.property, onClick: this.handleClick.bind(this) }, _react2['default'].createElement('span', { style: _extends({}, styles.expandControl, styles.unselectable) }, expandGlyph), function () {
 							if (typeof name !== 'undefined') {
 								return _react2['default'].createElement('span', null, _react2['default'].createElement('span', { style: _objectStyles2['default'].name }, name), _react2['default'].createElement('span', null, ': '), _react2['default'].createElement(_ObjectDescription2['default'], { object: data }));
 							} else {
 								return _react2['default'].createElement(_ObjectPreview2['default'], { object: data });
 							}
-						})()), propertyNodesContainer);
+						}()), propertyNodesContainer);
 					}
 				}], [{
 					key: 'isExpandable',
@@ -328,7 +326,7 @@
 				}]);
 
 				return ObjectInspector;
-			})(_react.Component);
+			}(_react.Component);
 
 			exports['default'] = ObjectInspector;
 			module.exports = exports['default'];
@@ -337,14 +335,14 @@
 			/***/
 		},
 		/* 1 */
-		function (module, exports) {
+		/***/function (module, exports) {
 
 			module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 
 			/***/
 		},
 		/* 2 */
-		function (module, exports, __webpack_require__) {
+		/***/function (module, exports, __webpack_require__) {
 
 			'use strict';
 
@@ -352,7 +350,7 @@
 				value: true
 			});
 
-			var _createClass = (function () {
+			var _createClass = function () {
 				function defineProperties(target, props) {
 					for (var i = 0; i < props.length; i++) {
 						var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -360,7 +358,7 @@
 				}return function (Constructor, protoProps, staticProps) {
 					if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 				};
-			})();
+			}();
 
 			var _get = function get(_x, _x2, _x3) {
 				var _again = true;_function: while (_again) {
@@ -412,7 +410,7 @@
     * A short description of the object
     */
 
-			var ObjectDescription = (function (_Component) {
+			var ObjectDescription = function (_Component) {
 				_inherits(ObjectDescription, _Component);
 
 				function ObjectDescription() {
@@ -456,7 +454,7 @@
 				}]);
 
 				return ObjectDescription;
-			})(_react.Component);
+			}(_react.Component);
 
 			exports['default'] = ObjectDescription;
 			module.exports = exports['default'];
@@ -464,7 +462,7 @@
 			/***/
 		},
 		/* 3 */
-		function (module, exports) {
+		/***/function (module, exports) {
 
 			'use strict';
 
@@ -510,7 +508,7 @@
 			/***/
 		},
 		/* 4 */
-		function (module, exports, __webpack_require__) {
+		/***/function (module, exports, __webpack_require__) {
 
 			'use strict';
 
@@ -518,7 +516,7 @@
 				value: true
 			});
 
-			var _createClass = (function () {
+			var _createClass = function () {
 				function defineProperties(target, props) {
 					for (var i = 0; i < props.length; i++) {
 						var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
@@ -526,7 +524,7 @@
 				}return function (Constructor, protoProps, staticProps) {
 					if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
 				};
-			})();
+			}();
 
 			var _get = function get(_x, _x2, _x3) {
 				var _again = true;_function: while (_again) {
@@ -598,7 +596,7 @@
     * A preview of the object on root level node
     */
 
-			var ObjectPreview = (function (_Component) {
+			var ObjectPreview = function (_Component) {
 				_inherits(ObjectPreview, _Component);
 
 				function ObjectPreview() {
@@ -648,7 +646,7 @@
 				}]);
 
 				return ObjectPreview;
-			})(_react.Component);
+			}(_react.Component);
 
 			exports['default'] = ObjectPreview;
 			module.exports = exports['default'];
@@ -660,4 +658,3 @@
 });
 ;
 //# sourceMappingURL=react-object-inspector.map
-/***/ /***/ /***/ /***/ /***/

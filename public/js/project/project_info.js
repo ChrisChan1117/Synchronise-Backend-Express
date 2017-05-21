@@ -1,12 +1,8 @@
-"use strict";
-
 var ProjectModalInfo;
 
 dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     ProjectModalInfo = React.createClass({
-        displayName: "ProjectModalInfo",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 iconUrl: "/images/defaultProjectIcon.png",
                 defaultProjectIcon: "/images/defaultProjectIcon.png",
@@ -41,12 +37,12 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 }
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             // Load data for project from server
             if (this.props.id_project) {
                 Synchronise.Cloud.run("getProject", { id_project: this.props.id_project, realtime: true }, {
-                    success: function success(project) {
+                    success: function (project) {
                         if (target.isMounted()) {
                             target.setState({
                                 name: project.name,
@@ -70,7 +66,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                             });
                         }
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         target.setState({
                             loading: false
                         });
@@ -85,10 +81,10 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 });
             }
         },
-        displayFilePickerForIcon: function displayFilePickerForIcon() {
+        displayFilePickerForIcon: function () {
             $(ReactDOM.findDOMNode(this)).find('.iconGroup input[type=file]').trigger('click');
         },
-        iconFileSelected: function iconFileSelected(e) {
+        iconFileSelected: function (e) {
             var target = this;
             var input = $(e.target);
             var files = input.prop("files");
@@ -114,7 +110,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 reader.readAsDataURL(files[0]);
             }
         },
-        handleChangeInputs: function handleChangeInputs(field, e) {
+        handleChangeInputs: function (field, e) {
             var nextState = {};
             nextState[field] = e.target.value;
 
@@ -145,9 +141,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
 
             this.setState(nextState);
         },
-        validate: function validate() {
-            var _this = this;
-
+        validate: function () {
             var target = this;
 
             var canSave = true;
@@ -159,58 +153,53 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
             });
 
             if (canSave) {
-                var data;
+                this.setState({
+                    saving: true
+                });
 
-                (function () {
-                    var execute = function execute() {
-                        Synchronise.Cloud.run("createOrUpdateProject", data, {
-                            success: function success() {
+                var data = {};
+                if (this.props.id_project) {
+                    data.id_project = this.props.id_project;
+                }
+
+                data.name = this.state["name"];
+                data.url = this.state["url"];
+                data.description = this.state["description"];
+
+                if (this.state.iconFile) {
+                    Synchronise.File.upload(this.state.iconFile, "synchroniseio-projects-icons", {
+                        success: function (urls) {
+                            data.icon = urls[0].url;
+                            target.setState({ iconUrl: urls[0].url });
+                            execute();
+                        }
+                    });
+                } else {
+                    data.icon = target.state.iconUrl;
+                    execute();
+                }
+
+                function execute() {
+                    Synchronise.Cloud.run("createOrUpdateProject", data, {
+                        success: function () {
+                            target.setState({
+                                saving: false
+                            });
+                            target.props.closeModal();
+                            window.Intercom('update');
+                        },
+                        error: function () {
+                            new ModalErrorParse(err, function () {
                                 target.setState({
                                     saving: false
                                 });
-                                target.props.closeModal();
-                                window.Intercom('update');
-                            },
-                            error: function error() {
-                                new ModalErrorParse(err, function () {
-                                    target.setState({
-                                        saving: false
-                                    });
-                                });
-                            }
-                        });
-                    };
-
-                    _this.setState({
-                        saving: true
+                            });
+                        }
                     });
-
-                    data = {};
-
-                    if (_this.props.id_project) {
-                        data.id_project = _this.props.id_project;
-                    }
-
-                    data.name = _this.state["name"];
-                    data.url = _this.state["url"];
-                    data.description = _this.state["description"];
-
-                    if (_this.state.iconFile) {
-                        Synchronise.File.upload(_this.state.iconFile, "synchroniseio-projects-icons", {
-                            success: function success(urls) {
-                                data.icon = urls[0].url;
-                                target.setState({ iconUrl: urls[0].url });
-                                execute();
-                            }
-                        });
-                    } else {
-                        data.icon = target.state.iconUrl;
-                        execute();
-                    }
-                })();
+                }
             }
         },
-        render: function render() {
+        render: function () {
             var labelForValidateButton;
             var validateButtonDisable = "";
             if (this.state.saving) {

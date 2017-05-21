@@ -1,12 +1,8 @@
-"use strict";
-
 var ProjectModalStore;
 
 dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
     ProjectModalStore = React.createClass({
-        displayName: "ProjectModalStore",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 isSubmitting: false,
@@ -21,13 +17,13 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 community: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             if (this.props.id_project) {
                 Synchronise.Cloud.run("getProject", { id_project: this.props.id_project, realtime: true }, {
-                    success: function success(project) {
+                    success: function (project) {
                         if (target.isMounted()) {
                             var colorProperties = ["bg_color", "txt_color"];
                             var colorPickers = [];
@@ -56,12 +52,12 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                             });
                         }
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err, function () {
                             target.closeModal();
                         });
                     },
-                    always: function always() {
+                    always: function () {
                         if (target.isMounted()) {
                             target.setState({ loading: false, isSubmitting: false, isPublishing: false });
                             $('[data-toggle="tooltip"]').tooltip('destroy');
@@ -71,26 +67,26 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                 });
             }
         },
-        componentWillUnmount: function componentWillUnmount() {
+        componentWillUnmount: function () {
             _.each(this.state.colorPickers, function (picker) {
                 picker.colorpicker("destroy");
             });
         },
-        submitProjectToTheStore: function submitProjectToTheStore(value) {
+        submitProjectToTheStore: function (value) {
             var target = this;
             if (!this.state.isSubmitting) {
                 target.setState({ isSubmitting: true });
                 Synchronise.Cloud.run("createOrUpdateProject", { id_project: this.props.id_project, published: value }, {});
             }
         },
-        setPublished: function setPublished(value) {
+        setPublished: function (value) {
             var target = this;
             if (!this.state.isPublishing) {
                 target.setState({ isPublishing: true });
                 Synchronise.Cloud.run("createOrUpdateProject", { id_project: this.props.id_project, community: value }, {});
             }
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var content = "";
 
@@ -240,7 +236,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                                 null,
                                 "Background color"
                             ),
-                            " ",
+                            "\xA0",
                             React.createElement("input", { type: "text",
                                 className: "bg_color",
                                 defaultValue: this.state.bg_color })
@@ -253,7 +249,7 @@ dependenciesLoader(["React", "ReactDOM", "_", "Loader"], function () {
                                 null,
                                 "Text color"
                             ),
-                            " ",
+                            "\xA0",
                             React.createElement("input", { type: "text",
                                 className: "txt_color",
                                 defaultValue: this.state.txt_color })

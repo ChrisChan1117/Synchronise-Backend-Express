@@ -1,5 +1,3 @@
-"use strict";
-
 var Component;
 dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function () {
     // Defines a component displayed on the workflow
@@ -17,9 +15,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
     //    outputs: {}
     // }
     Component = React.createClass({
-        displayName: "Component",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 helpActivated: false,
@@ -32,7 +28,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                 }
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             if (target.isMounted()) {
                 target.setState({ loading: true });
@@ -41,7 +37,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
             var timestamp = new Date().getTime();
 
             Synchronise.Cloud.run("loadComponent", { id: target.props.data.id_component, style: true, code: false, realtime: { ignore: ["style", "code"] } }, {
-                success: function success(data) {
+                success: function (data) {
                     var params = data;
                     params.classForComponent = "displayed";
 
@@ -64,10 +60,10 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                         $(ReactDOM.findDOMNode(target)).css({ top: $(ReactDOM.findDOMNode(target)).offset().top });
                     }
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     if (target.isMounted()) {
                         target.setState({ loading: false });
                         target.props.refreshFlow();
@@ -77,7 +73,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                 }
             });
         },
-        activateDeactivateHelp: function activateDeactivateHelp() {
+        activateDeactivateHelp: function () {
             var target = this;
             Synchronise.LocalStorage.get("helpIsActivatedForWorkflow", function (status) {
                 if (target.isMounted()) {
@@ -95,7 +91,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                 }
             }, false, true, true);
         },
-        addRequiredInputsToWorkflowIfComponentIsFirst: function addRequiredInputsToWorkflowIfComponentIsFirst() {
+        addRequiredInputsToWorkflowIfComponentIsFirst: function () {
             var target = this;
             // The component is the first of the flow
             if (target.props.index == 0) {
@@ -130,7 +126,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                 }
             }
         },
-        remove: function remove() {
+        remove: function () {
             var target = this;
             $(ReactDOM.findDOMNode(target)).find('.component').animate({
                 minHeight: "0px",
@@ -143,7 +139,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                 target.props.removeFromWorkflow(target.props.index);
             }, 500);
         },
-        render: function render() {
+        render: function () {
             var content = "";
             var settings = "";
 
@@ -305,13 +301,13 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
     // - (array)availableInputs : An array of all the available inputs for the current component in the list of the workflow
     var ComponentInput = React.createClass({
         displayName: "ComponentInput",
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             window.setTimeout(function () {
                 target.props.refreshFlow();
             }, 300);
         },
-        inputSelected: function inputSelected(item) {
+        inputSelected: function (item) {
             var target = this;
             this.props.inputSelected({
                 from: {
@@ -326,10 +322,10 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                 }
             });
         },
-        removeAssociatedInput: function removeAssociatedInput(data) {
+        removeAssociatedInput: function (data) {
             this.props.removeAssociatedInput(data);
         },
-        renderInputWithData: function renderInputWithData(row) {
+        renderInputWithData: function (row) {
             var target = this;
 
             var contentColLeft = "";
@@ -470,7 +466,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
                 )
             );
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             // This is if the block of a component would be too big because of the amount of inputs
@@ -526,13 +522,13 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "Typeahead"], function (
     // - (function)refreshFlow : Callback to trigger when we are done drawing in order to refresh the drawing of the flow
     var ComponentOutput = React.createClass({
         displayName: "ComponentOutput",
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             window.setTimeout(function () {
                 target.props.refreshFlow();
             }, 300);
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             return React.createElement(

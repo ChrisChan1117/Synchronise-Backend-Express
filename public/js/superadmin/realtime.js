@@ -1,9 +1,7 @@
-"use strict";
-
 dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "_"], function () {
     var Realtime = React.createClass({
         displayName: "Realtime",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 subscriptions: [],
                 loading: false,
@@ -15,31 +13,31 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 subForNew: ""
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("listOfRealtimeSubscriptions", { realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({ subscriptions: _.sortBy(data, function (row) {
                             return row.room;
                         }) });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        fieldChange: function fieldChange(fieldName, event) {
+        fieldChange: function (fieldName, event) {
             var data = {};
             data[fieldName] = event.target.value;
 
             this.setState(data);
         },
-        addNewField: function addNewField(fieldName, optionalValue) {
+        addNewField: function (fieldName, optionalValue) {
             var field = { name: fieldName };
             if (optionalValue) {
                 field.value = optionalValue;
@@ -60,7 +58,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
 
             this.setState({ fieldsForNew: currentFields });
         },
-        submitNewSubscription: function submitNewSubscription() {
+        submitNewSubscription: function () {
             var target = this;
 
             if (!target.state.saving && target.state.roomForNew && target.state.fieldsForNew) {
@@ -71,44 +69,44 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                     "name": target.state.subForNew,
                     "parameters": target.state.fieldsForNew
                 }, {
-                    success: function success() {
+                    success: function () {
                         target.setState({
                             roomForNew: "",
                             subForNew: "",
                             fieldsForNew: []
                         });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ saving: false });
                     }
                 });
             }
         },
-        exportToJSON: function exportToJSON() {
+        exportToJSON: function () {
             var target = this;
             if (!this.state.isExportingToJSON) {
                 target.setState({ isExportingToJSON: true });
                 Synchronise.Cloud.run("listOfRealtimeSubscriptions", {}, {
-                    success: function success(json) {
+                    success: function (json) {
                         var modal = new Modal();
                         modal.title("Export to JSON");
                         modal.content('<textarea class="form-control">' + JSON.stringify({ data: json }) + '</textarea>');
                         modal.footer("", true);
                         modal.show();
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ isExportingToJSON: false });
                     }
                 });
             }
         },
-        importFromJSON: function importFromJSON() {
+        importFromJSON: function () {
             var target = this;
             if (!this.state.isImportingFromJSON) {
                 target.setState({ isImportingFromJSON: true });
@@ -128,7 +126,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                                         "name": sub.name,
                                         "parameters": sub.parameters
                                     }, {
-                                        always: function always() {
+                                        always: function () {
                                             resolve1();
                                         }
                                     });
@@ -147,7 +145,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 });
             }
         },
-        render: function render() {
+        render: function () {
             var contentExistingSubscriptions = React.createElement(Loader, null);
             var labelExportToJSONButton = "Export to JSON";
             if (this.state.isExportingToJSON) {
@@ -341,24 +339,24 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
 
     var RealtimeNewFieldItem = React.createClass({
         displayName: "RealtimeNewFieldItem",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 fieldName: "",
                 optionalValue: ""
             };
         },
-        fieldChange: function fieldChange(fieldName, event) {
+        fieldChange: function (fieldName, event) {
             var data = {};
             data[fieldName] = event.target.value;
 
             this.setState(data);
         },
-        submit: function submit() {
+        submit: function () {
             if (this.state.fieldName.length) {
                 this.props.submit(this.state.fieldName, this.state.optionalValue);
             }
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { style: { fontFamily: '"Courier New", Courier, monospace' } },
@@ -400,7 +398,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // - parameters : The parameters of the current subscription
     var RealtimeItem = React.createClass({
         displayName: "RealtimeItem",
-        render: function render() {
+        render: function () {
             var target = this;
 
             var bgcolorForRoom = "transparent";

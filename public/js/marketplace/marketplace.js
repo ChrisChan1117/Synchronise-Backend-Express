@@ -1,5 +1,3 @@
-"use strict";
-
 dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     function headerSlideshow() {
         var blocks = $("#headerSlideshow .blocks .block");
@@ -48,31 +46,31 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // Displays the carousel
     var HeaderCarousel = React.createClass({
         displayName: "HeaderCarousel",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 blocks: []
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("marketPlaceHeaderCarousel", { cacheFirst: true }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({
                         blocks: data.blocks
                     });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { id: "headerSlideshow" },
@@ -103,7 +101,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // - (string)type: the type of the item to display (project, collection...)
     var HeaderSlideshowBlock = React.createClass({
         displayName: "HeaderSlideshowBlock",
-        render: function render() {
+        render: function () {
             var item = "";
             switch (this.props.type) {
                 case "project":
@@ -122,9 +120,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // Displays an item of the carousel of type project
     // - (string)id: the id of the project
     var HeaderSlideshowBlockProject = React.createClass({
-        displayName: "HeaderSlideshowBlockProject",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 backgroundColor: "",
@@ -134,12 +130,12 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
                 failed: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("getProject", { id_project: this.props.id, cacheFirst: true }, {
-                success: function success(data) {
+                success: function (data) {
                     if (data) {
                         target.setState({
                             backgroundColor: data.bg_color,
@@ -153,15 +149,15 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
                         });
                     }
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var content = "";
             if (this.state.loading) {
                 content = React.createElement(
@@ -200,13 +196,13 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // Displays the MarketPlace
     var Marketplace = React.createClass({
         displayName: "Marketplace",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {};
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             Synchronise.LocalStorage.set("visitedMarketplace", true);
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 null,

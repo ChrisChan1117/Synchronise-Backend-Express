@@ -1,5 +1,3 @@
-'use strict';
-
 dependenciesLoader(["$"], function () {
     initialize();
 });

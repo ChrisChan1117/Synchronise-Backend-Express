@@ -1,5 +1,3 @@
-"use strict";
-
 var displayGetFreeRequestsModal;
 (function () {
     dependenciesLoader(["React", "ReactDOM", "Synchronise", "$", "urlH", "md5"], function () {
@@ -34,7 +32,7 @@ var displayGetFreeRequestsModal;
         // Displays a modal to login or signup the user
         var LoginSignupModal = React.createClass({
             displayName: "LoginSignupModal",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     email: "",
                     password: "",
@@ -51,7 +49,7 @@ var displayGetFreeRequestsModal;
                     isSigning: false
                 };
             },
-            onInputChange: function onInputChange(fieldName, event) {
+            onInputChange: function (fieldName, event) {
                 var data = {};
                 data[fieldName] = event.target.value;
 
@@ -74,7 +72,7 @@ var displayGetFreeRequestsModal;
 
                 this.setState(data);
             },
-            onKeyPress: function onKeyPress(e) {
+            onKeyPress: function (e) {
                 var key = e.which || e.keyCode;
 
                 var canSubmit = false;
@@ -86,7 +84,7 @@ var displayGetFreeRequestsModal;
                     this.submitForm(e);
                 }
             },
-            signup: function signup() {
+            signup: function () {
                 var target = this;
                 if (this.state.actionToDo == "signup" && this.state.emailValid && this.state.passwordValid && this.state.nameValid && !this.state.isSigning) {
                     target.setState({ isSigning: true, actionToDo: "login" });
@@ -96,21 +94,21 @@ var displayGetFreeRequestsModal;
                         password: this.state.password,
                         name: this.state.name
                     }, {
-                        success: function success(result) {
+                        success: function (result) {
                             mixpanel.track("signedUpManual");
                             target.login();
                             fbq('track', 'CompleteRegistration');
                         },
-                        error: function error(_error) {
-                            target.setState({ errorMessage: _error.message });
+                        error: function (error) {
+                            target.setState({ errorMessage: error.message });
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ isSigning: false });
                         }
                     });
                 }
             },
-            login: function login() {
+            login: function () {
                 var target = this;
 
                 if (!target.state.isLoging && this.state.actionToDo == "login" && this.state.emailValid && this.state.passwordValid) {
@@ -118,7 +116,7 @@ var displayGetFreeRequestsModal;
                     this.setState({ isLoging: true });
 
                     Synchronise.User.logIn(target.state.email, target.state.password, {
-                        success: function success(data) {
+                        success: function (data) {
                             mixpanel.track("loggedInManual");
                             // Animate the connection
                             $('html, body').animate({
@@ -133,14 +131,14 @@ var displayGetFreeRequestsModal;
                                 window.location.href = '/dashboard';
                             }
                         },
-                        error: function error(_error2) {
+                        error: function (error) {
                             target.props.modal.shake();
                             target.setState({ isLoging: false });
                         }
                     });
                 }
             },
-            submitForm: function submitForm(event) {
+            submitForm: function (event) {
                 var target = this;
 
                 event.preventDefault();
@@ -149,7 +147,7 @@ var displayGetFreeRequestsModal;
                     this.setState({ isCheckingForm: true, errorMessage: "" });
 
                     Synchronise.Cloud.run('shouldLoginOrSignup', { email: this.state.email }, {
-                        success: function success(result) {
+                        success: function (result) {
                             target.setState({ actionToDo: result.status });
 
                             if (result.status == 'login') {
@@ -162,16 +160,16 @@ var displayGetFreeRequestsModal;
                                 target.setState({ errorMessage: "An error occured. Please try again!" });
                             }
                         },
-                        error: function error(_error3) {
-                            target.setState({ errorMessage: _error3.error });
+                        error: function (error) {
+                            target.setState({ errorMessage: error.error });
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ isCheckingForm: false });
                         }
                     });
                 }
             },
-            forgottenPassword: function forgottenPassword() {
+            forgottenPassword: function () {
                 var target = this;
 
                 if (!target.state.recoveringPassword) {
@@ -181,20 +179,20 @@ var displayGetFreeRequestsModal;
                     } else {
                         target.setState({ recoveringPassword: true });
                         Synchronise.Cloud.run("recoverPassword", { email: target.state.email }, {
-                            success: function success() {
+                            success: function () {
                                 target.setState({ successMessage: "An email with further instructions has been sent to you" });
                             },
-                            error: function error(err) {
+                            error: function (err) {
                                 target.setState({ errorMessage: err });
                             },
-                            always: function always() {
+                            always: function () {
                                 target.setState({ recoveringPassword: false });
                             }
                         });
                     }
                 }
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 var classButton = "fa-plane";
@@ -341,59 +339,46 @@ var displayGetFreeRequestsModal;
                                 "Login/Signup"
                             )
                         )
-                    ),
-                    React.createElement("hr", null),
-                    React.createElement(
-                        "div",
-                        { className: "row-fluid" },
-                        React.createElement(
-                            "div",
-                            { className: "col-xs-12 col-sm-6", style: { marginBottom: "5px" } },
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-block btn-social btn-github", href: "/auth/github", style: { textAlign: "center" } },
-                                "Github signin"
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-block btn-social btn-bitbucket", href: "/auth/bitbucket", style: { textAlign: "center" } },
-                                "Bitbucket signin"
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "ol-xs-12 col-sm-6" },
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-block btn-social btn-facebook", href: "/auth/facebook", style: { textAlign: "center" } },
-                                "Facebook signin"
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-block btn-social btn-google", href: "/auth/google", style: { background: "#DD4B3A", color: "white", textAlign: "center" } },
-                                "Google signin"
-                            )
-                        )
                     )
                 );
+                /*
+                <hr/>
+                <div className="row-fluid">
+                    <div className="col-xs-12 col-sm-6" style={{marginBottom: "5px"}}>
+                        <a className="btn btn-block btn-social btn-github" href="/auth/github" style={{textAlign: "center"}}>
+                            Github signin
+                        </a>
+                        <a className="btn btn-block btn-social btn-bitbucket" href="/auth/bitbucket" style={{textAlign: "center"}}>
+                            Bitbucket signin
+                        </a>
+                    </div>
+                     <div className="ol-xs-12 col-sm-6">
+                        <a className="btn btn-block btn-social btn-facebook" href="/auth/facebook" style={{textAlign: "center"}}>
+                            Facebook signin
+                        </a>
+                         <a className="btn btn-block btn-social btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", textAlign: "center"}}>
+                            Google signin
+                        </a>
+                    </div>
+                </div>*/
             }
         });
 
         // Displays the buttons on the right of the topbar
         var NavBarRight = React.createClass({
             displayName: "NavBarRight",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     loaded: false
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 Synchronise.User.fetchCurrent(function (user) {
                     target.setState({ loaded: true });
                 });
             },
-            render: function render() {
+            render: function () {
                 var content = "";
 
                 if (this.state.loaded) {
@@ -415,13 +400,13 @@ var displayGetFreeRequestsModal;
         // Displays the login/signup button
         var NavBarRightOffline = React.createClass({
             displayName: "NavBarRightOffline",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     modalDisplayed: false,
                     modal: ""
                 };
             },
-            toggleModal: function toggleModal(event) {
+            toggleModal: function (event) {
                 if (event) {
                     event.preventDefault();
                 }
@@ -435,10 +420,10 @@ var displayGetFreeRequestsModal;
 
                 this.setState({ modalDisplayed: !this.state.modalDisplayed });
             },
-            modalClosed: function modalClosed() {
+            modalClosed: function () {
                 this.setState({ modalDisplayed: false });
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 Mousetrap.bind('mod+l', function (e) {
@@ -476,13 +461,13 @@ var displayGetFreeRequestsModal;
                     target.toggleModal();
                 });
             },
-            isMacintosh: function isMacintosh() {
+            isMacintosh: function () {
                 return navigator.platform.indexOf('Mac') > -1;
             },
-            isWindows: function isWindows() {
+            isWindows: function () {
                 return navigator.platform.indexOf('Win') > -1;
             },
-            render: function render() {
+            render: function () {
                 var shortcut = "";
 
                 if (this.isMacintosh()) {
@@ -503,48 +488,34 @@ var displayGetFreeRequestsModal;
 
                 var content = "";
                 if (document.location.pathname != "/" && document.location.pathname != "") {
+                    /*
+                    <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px"}}>
+                            <span className="fa fa-github"></span>
+                        </a>
+                    </li>
+                     <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px"}}>
+                            <span className="fa fa-bitbucket"></span>
+                        </a>
+                    </li>
+                     <li className="hidden-xs" style={{marginRight: "5px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px"}}>
+                            <span className="fa fa-google"></span>
+                        </a>
+                    </li>
+                     <li className="hidden-xs" style={{marginRight: "15px", marginTop: "15px", paddingBottom: "0px"}}>
+                        <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px"}}>
+                            <span className="fa fa-facebook"></span>
+                        </a>
+                    </li>
+                    */
                     content = React.createElement(
                         "div",
                         null,
                         React.createElement(
                             "ul",
                             { className: "nav navbar-nav navbar-right" },
-                            React.createElement(
-                                "li",
-                                { className: "hidden-xs", style: { marginRight: "5px", marginTop: "15px", paddingBottom: "0px" } },
-                                React.createElement(
-                                    "a",
-                                    { className: "btn btn-social-icon btn-github", href: "/auth/github", style: { paddingBottom: "0px" } },
-                                    React.createElement("span", { className: "fa fa-github" })
-                                )
-                            ),
-                            React.createElement(
-                                "li",
-                                { className: "hidden-xs", style: { marginRight: "5px", marginTop: "15px", paddingBottom: "0px" } },
-                                React.createElement(
-                                    "a",
-                                    { className: "btn btn-social-icon btn-bitbucket", href: "/auth/bitbucket", style: { paddingBottom: "0px" } },
-                                    React.createElement("span", { className: "fa fa-bitbucket" })
-                                )
-                            ),
-                            React.createElement(
-                                "li",
-                                { className: "hidden-xs", style: { marginRight: "5px", marginTop: "15px", paddingBottom: "0px" } },
-                                React.createElement(
-                                    "a",
-                                    { className: "btn btn-social-icon btn-google", href: "/auth/google", style: { background: "#DD4B3A", color: "white", paddingBottom: "0px" } },
-                                    React.createElement("span", { className: "fa fa-google" })
-                                )
-                            ),
-                            React.createElement(
-                                "li",
-                                { className: "hidden-xs", style: { marginRight: "15px", marginTop: "15px", paddingBottom: "0px" } },
-                                React.createElement(
-                                    "a",
-                                    { className: "btn btn-social-icon btn-facebook", href: "/auth/facebook", style: { paddingBottom: "0px" } },
-                                    React.createElement("span", { className: "fa fa-facebook" })
-                                )
-                            ),
                             React.createElement(
                                 "li",
                                 { className: "hidden-xs", style: { borderLeft: "1px solid white" } },
@@ -650,26 +621,6 @@ var displayGetFreeRequestsModal;
                                     "L"
                                 ),
                                 "ogin/Signup"
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-github", href: "/auth/github", style: { paddingBottom: "0px", marginRight: "5px", color: "white" } },
-                                React.createElement("span", { className: "fa fa-github" })
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-bitbucket", href: "/auth/bitbucket", style: { paddingBottom: "0px", marginRight: "5px", color: "white" } },
-                                React.createElement("span", { className: "fa fa-bitbucket" })
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-google", href: "/auth/google", style: { background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px" } },
-                                React.createElement("span", { className: "fa fa-google" })
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-facebook", href: "/auth/facebook", style: { paddingBottom: "0px", color: "white" } },
-                                React.createElement("span", { className: "fa fa-facebook" })
                             )
                         ),
                         React.createElement(
@@ -685,29 +636,36 @@ var displayGetFreeRequestsModal;
                                     "L"
                                 ),
                                 "ogin/Signup"
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-github", href: "/auth/github", style: { paddingBottom: "0px", marginRight: "5px", color: "white" } },
-                                React.createElement("span", { className: "fa fa-github" })
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-bitbucket", href: "/auth/bitbucket", style: { paddingBottom: "0px", marginRight: "5px", color: "white" } },
-                                React.createElement("span", { className: "fa fa-bitbucket" })
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-google", href: "/auth/google", style: { background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px" } },
-                                React.createElement("span", { className: "fa fa-google" })
-                            ),
-                            React.createElement(
-                                "a",
-                                { className: "btn btn-social-icon btn-facebook", href: "/auth/facebook", style: { paddingBottom: "0px", color: "white" } },
-                                React.createElement("span", { className: "fa fa-facebook" })
                             )
                         )
                     );
+
+                    /*
+                    <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-github"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-bitbucket"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px"}}>
+                        <span className="fa fa-google"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px", color: "white"}}>
+                        <span className="fa fa-facebook"></span>
+                    </a>
+                     <a className="btn btn-social-icon btn-github" href="/auth/github" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-github"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-bitbucket" href="/auth/bitbucket" style={{paddingBottom: "0px", marginRight: "5px", color: "white"}}>
+                        <span className="fa fa-bitbucket"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-google" href="/auth/google" style={{background: "#DD4B3A", color: "white", paddingBottom: "0px", marginRight: "5px"}}>
+                        <span className="fa fa-google"></span>
+                    </a>
+                    <a className="btn btn-social-icon btn-facebook" href="/auth/facebook" style={{paddingBottom: "0px", color: "white"}}>
+                        <span className="fa fa-facebook"></span>
+                    </a>
+                    */
                 }
 
                 return content;
@@ -717,7 +675,7 @@ var displayGetFreeRequestsModal;
         // Displays the list of actions the user can do when connected
         var NavBarRightConnected = React.createClass({
             displayName: "NavBarRightConnected",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     unreadNotifications: {
                         "account": 0,
@@ -727,17 +685,17 @@ var displayGetFreeRequestsModal;
                     shortcuts: []
                 };
             },
-            logout: function logout() {
+            logout: function () {
                 Synchronise.User.logOut();
                 modalMessage.show('See you soon');
                 window.location.href = "/logout";
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 $('[data-toggle=tooltip]').tooltip();
 
                 Synchronise.Cloud.run("unreadNotification", { realtime: true, cacheFirst: true }, {
-                    success: function success(data) {
+                    success: function (data) {
                         var account = _.reduce(data, function (prev, row) {
                             if (row.type == "account") {
                                 return prev + row.quantity;
@@ -776,7 +734,7 @@ var displayGetFreeRequestsModal;
                     target.setState({ shortcuts: shortcuts });
                 }, [], true);
             },
-            addShortcut: function addShortcut() {
+            addShortcut: function () {
                 var target = this;
                 var modal = new ModalAskInput("What name do you want to give to your shortcut?", function (name) {
                     if (name) {
@@ -793,7 +751,7 @@ var displayGetFreeRequestsModal;
                 });
                 modal.title("Add shortcut");
             },
-            render: function render() {
+            render: function () {
                 var notificationsBilling = React.createElement("span", null);
                 if (this.state.unreadNotifications.billing) {
                     notificationsBilling = React.createElement(
@@ -886,7 +844,7 @@ var displayGetFreeRequestsModal;
         // Displays the name of the user and other information depending on his/her permissions
         var MenuUserLabel = React.createClass({
             displayName: "MenuUserLabel",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 var username = "";
                 if (Synchronise.User.current()) {
                     if (Synchronise.User.current().isAdmin()) {
@@ -901,17 +859,17 @@ var displayGetFreeRequestsModal;
                     notifications: []
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 Synchronise.Cloud.run("unreadNotification", { realtime: true, cacheFirst: true }, {
-                    success: function success(data) {
+                    success: function (data) {
                         target.setState({
                             notifications: data
                         });
                     }
                 });
             },
-            render: function render() {
+            render: function () {
                 var notifications = React.createElement("span", null);
 
                 if (this.state.notifications.length) {
@@ -950,7 +908,7 @@ var displayGetFreeRequestsModal;
 
         var SubscriptionPlan = React.createClass({
             displayName: "SubscriptionPlan",
-            render: function render() {
+            render: function () {
                 var plan = React.createElement(
                     "div",
                     { style: { display: "inline-block" } },
@@ -988,19 +946,19 @@ var displayGetFreeRequestsModal;
 
         var FreeTierProgress = React.createClass({
             displayName: "FreeTierProgress",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     loadingReferralModal: false
                 };
             },
-            getFreeRequests: function getFreeRequests() {
+            getFreeRequests: function () {
                 var target = this;
                 target.setState({ loadingReferralModal: true });
                 displayGetFreeRequests(function () {
                     target.setState({ loadingReferralModal: false });
                 });
             },
-            render: function render() {
+            render: function () {
                 var plan = Synchronise.User.current().subscription;
                 var content = React.createElement("span", null);
                 var progress = "";
@@ -1080,13 +1038,13 @@ var displayGetFreeRequestsModal;
         // Displays a banner when the connection to the server (socket) is lost
         var ConnectionLostBanner = React.createClass({
             displayName: "ConnectionLostBanner",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     disconnected: true,
                     style: { marginTop: "-25px" }
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 Synchronise.Connection.Lost(function (reason) {
@@ -1100,7 +1058,7 @@ var displayGetFreeRequestsModal;
                     });
                 });
             },
-            render: function render() {
+            render: function () {
                 var content = React.createElement("div", null);
                 if (this.state.disconnected) {
                     content = React.createElement(
@@ -1127,7 +1085,7 @@ var displayGetFreeRequestsModal;
         // Displays the branding of Synchronise
         var HeaderBranding = React.createClass({
             displayName: "HeaderBranding",
-            render: function render() {
+            render: function () {
                 var brand = "";
                 if (!this.props.collapsed) {
                     brand = React.createElement(
@@ -1190,10 +1148,10 @@ var displayGetFreeRequestsModal;
         // Links of the TopMenu
         var TopMenu = React.createClass({
             displayName: "TopMenu",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return { shortcuts: [] };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 Synchronise.LocalStorage.get("shortcutsMenu", function (shortcuts) {
@@ -1204,7 +1162,7 @@ var displayGetFreeRequestsModal;
                     target.resizeInterface();
                 });
             },
-            resizeInterface: function resizeInterface() {
+            resizeInterface: function () {
                 /*var calculation = $(window).width()-$(".navbar-header").width()-$(".navbar-right").width();
                 $(ReactDOM.findDOMNode(this)).find('.navbar-nav').css({
                     maxWidth: calculation+"px",
@@ -1215,7 +1173,7 @@ var displayGetFreeRequestsModal;
                     white
                 });*/
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 var shortcuts = "";
@@ -1361,12 +1319,12 @@ var displayGetFreeRequestsModal;
 
         var Shortcuts = React.createClass({
             displayName: "Shortcuts",
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 $("#sde-navbar-collapse .shortcut").draggable({
                     revert: true,
-                    drag: function drag(event, object) {
+                    drag: function (event, object) {
                         var element = $(event.target);
                         if (object.position.top > $('#sde-navbar-collapse').height()) {
                             element.addClass("willRemove");
@@ -1374,7 +1332,7 @@ var displayGetFreeRequestsModal;
                             element.removeClass("willRemove");
                         }
                     },
-                    stop: function stop(event, object) {
+                    stop: function (event, object) {
                         var element = $(event.target);
 
                         if (object.position.top > $('#sde-navbar-collapse').height()) {
@@ -1392,7 +1350,7 @@ var displayGetFreeRequestsModal;
                     }
                 });
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 return React.createElement(
@@ -1418,7 +1376,7 @@ var displayGetFreeRequestsModal;
         ///// SIDE MENU /////
         var Backbutton = React.createClass({
             displayName: "Backbutton",
-            render: function render() {
+            render: function () {
                 var content = "";
                 if (this.props.collapsed) {
                     content = React.createElement(
@@ -1449,7 +1407,7 @@ var displayGetFreeRequestsModal;
 
         var SuperAdminBlock = React.createClass({
             displayName: "SuperAdminBlock",
-            render: function render() {
+            render: function () {
                 var content = "";
                 if (this.props.collapsed) {
                     content = React.createElement(
@@ -1479,12 +1437,12 @@ var displayGetFreeRequestsModal;
 
         var SideMenu = React.createClass({
             displayName: "SideMenu",
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     collapsed: false
                 };
             },
-            componentDidUpdate: function componentDidUpdate() {
+            componentDidUpdate: function () {
                 $(ReactDOM.findDOMNode(this)).find('.collapseMenu i').attr("class", "fa fa-caret-square-o-left fa-2");
                 this.resizeMenu();
 
@@ -1497,7 +1455,7 @@ var displayGetFreeRequestsModal;
                     });
                 }*/
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 target.resizeMenu();
@@ -1508,7 +1466,7 @@ var displayGetFreeRequestsModal;
 
                 var user = Synchronise.User.current();
             },
-            resizeMenu: function resizeMenu() {
+            resizeMenu: function () {
                 var target = this;
                 var maxHeight = 0;
 
@@ -1530,7 +1488,7 @@ var displayGetFreeRequestsModal;
 
                 $(ReactDOM.findDOMNode(target)).find('.side-nav').css('maxHeight', maxHeight + 'px');
             },
-            collapseMenu: function collapseMenu() {
+            collapseMenu: function () {
                 var target = this;
                 var newValue = !target.props.collapsed;
 
@@ -1538,7 +1496,7 @@ var displayGetFreeRequestsModal;
 
                 $(ReactDOM.findDOMNode(target)).find('.collapseMenu i').attr("class", "fa fa-refresh fa-2 fa-spin");
             },
-            render: function render() {
+            render: function () {
                 var backButton = "";
                 if (urlH.getParam('backuri')) {
                     backButton = React.createElement(Backbutton, { url: decodeURIComponent(urlH.getParam('backuri')),

@@ -1,5 +1,3 @@
-"use strict";
-
 var Code;
 
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMirror", "urlH", "InputType"], function () {
@@ -19,15 +17,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
         // - (function)removeInput: Callback to trigger when an input is removed
         // - (function)changeValueIs_optional: Callback to trigger when an input goes from optional to none optional
         var Inputs = React.createClass({
-            displayName: "Inputs",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     stateAddButton: "",
                     fieldValue: ""
                 };
             },
-            addButton: function addButton() {
+            addButton: function () {
                 var target = this;
                 if (target.state.stateAddButton == "active") {
                     target.setState({ stateAddButton: "" });
@@ -36,11 +32,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     $("#addInput").focus();
                 }
             },
-            inputChange: function inputChange(event) {
+            inputChange: function (event) {
                 var target = this;
                 target.setState({ fieldValue: event.target.value });
             },
-            inputKeyDown: function inputKeyDown(event) {
+            inputKeyDown: function (event) {
                 var target = this;
                 if (event.key == "Enter") {
                     if (target.state.fieldValue.length) {
@@ -51,7 +47,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     }
                 }
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 var inputsExplanation = "";
@@ -154,15 +150,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
         // - (function)typeChangedForOutput: Callback to trigger when an output's type changes
         // - (function)removeOutput: Callback to trigger when an output is removed
         var Outputs = React.createClass({
-            displayName: "Outputs",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     stateAddButton: "",
                     fieldValue: ""
                 };
             },
-            addButton: function addButton() {
+            addButton: function () {
                 var target = this;
                 if (target.state.stateAddButton == "active") {
                     target.setState({ stateAddButton: "" });
@@ -171,11 +165,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     $("#addOutput").focus();
                 }
             },
-            inputChange: function inputChange(event) {
+            inputChange: function (event) {
                 var target = this;
                 target.setState({ fieldValue: event.target.value });
             },
-            inputKeyDown: function inputKeyDown(event) {
+            inputKeyDown: function (event) {
                 var target = this;
                 if (event.key == "Enter") {
                     if (target.state.fieldValue.length) {
@@ -186,7 +180,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     }
                 }
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 var outputExplanation = "";
@@ -292,9 +286,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
         // - (function)removeOutput: Callback to trigger when an output is removed
         // - (function)addOutput: Callback to trigger when an output is added
         Code = React.createClass({
-            displayName: "Code",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     saving: false,
                     intervalNameTyping: false,
@@ -307,14 +299,14 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     lastHint: new Date() // Last time someone typed something on the keyboard
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
                 // DEFINE THE CODE EDITOR
                 // Displays errors in the code
                 function parseErrors(r, e) {
                     for (var a = 0; a < r.length; a++) {
                         var i = r[a];if (i) {
-                            var c, n;if ((c = [], i.evidence)) {
+                            var c, n;if (c = [], i.evidence) {
                                 var o = c[i.line];if (!o) {
                                     var t = i.evidence;o = [], Array.prototype.forEach.call(t, function (r, e) {
                                         "	" === r && o.push(e + 1);
@@ -503,12 +495,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 }, 1);
 
                 var query = Synchronise.Cloud.run("loadComponent", { id: urlH.getParam("id"), realtime: true }, {
-                    success: function success(data) {
+                    success: function (data) {
                         if (!target.state.saving && target.isMounted()) {
                             target.setState({ name: data.name });
                         }
                     },
-                    always: function always() {
+                    always: function () {
                         if (target.isMounted()) {
                             target.setState({ loading: false });
                         }
@@ -521,23 +513,23 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     target.setState({ needToSave: false, saving: true });
 
                     Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { code: target.state.code } }, {
-                        success: function success() {
+                        success: function () {
                             target.setState({ error: false });
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ saving: false });
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             target.setState({ error: err.err });
                         }
                     });
                 }
             },
             // Select all the text on focus on the identifier
-            onFocusIdentifier: function onFocusIdentifier(event) {
+            onFocusIdentifier: function (event) {
                 $(event.target).select();
             },
-            codeChanged: function codeChanged(event) {
+            codeChanged: function (event) {
                 var answered = false;
                 var target = this;
                 target.setState({
@@ -547,8 +539,8 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 });
 
                 Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { code: event.getValue() } }, {
-                    success: function success() {},
-                    always: function always() {
+                    success: function () {},
+                    always: function () {
                         target.setState({ saving: false });
                         answered = true;
                     }
@@ -560,10 +552,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     }
                 }, 5000);
             },
-            inputAdded: function inputAdded(fieldName) {
+            inputAdded: function (fieldName) {
                 target.props.addInput(fieldName);
             },
-            render: function render() {
+            render: function () {
                 var savingStatus = "";
                 var inputs = "";
                 var outputs = "";

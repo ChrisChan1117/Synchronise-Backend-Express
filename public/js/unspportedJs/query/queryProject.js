@@ -1,5 +1,3 @@
-"use strict";
-
 (function () {
     dependenciesLoader(["$", "React", "ReactDOM", "Loader", "TimeAgo", "_"], function () {
         // DISPLAY ITEMS FOR THE DIFFERENT TYPES OF QUERY WE CAN CREATE
@@ -50,9 +48,7 @@
         // ----------------------------------------------------------------------------------------------- //
         // Displays the list of queries
         var QueryList = React.createClass({
-            displayName: "QueryList",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     queries: [],
                     loading: false,
@@ -63,30 +59,30 @@
                     orderableFields: ["modified_at", "created_at", "name", "total_execution"]
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 target.setState({ loading: true });
 
                 Synchronise.Cloud.run("getQueriesForProject", { realtime: true, id_project: window.projectId }, {
-                    success: function success(data) {
+                    success: function (data) {
                         target.setState({
                             queries: data.queries,
                             ordering: data.ordering
                         });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loading: false });
                     }
                 });
             },
-            goToProjects: function goToProjects() {
+            goToProjects: function () {
                 document.location.href = '/query';
             },
-            changeOrdering: function changeOrdering(field) {
+            changeOrdering: function (field) {
                 var target = this;
                 var ordering = this.state.ordering;
 
@@ -104,7 +100,7 @@
                 target.setState({ loading: true });
                 Synchronise.Cloud.run("changeOrderingForQueriesInProject", { id_project: window.projectId, ordering: ordering });
             },
-            render: function render() {
+            render: function () {
                 var target = this;
                 var Loading = "";
                 if (this.state.loading) {
@@ -333,19 +329,17 @@
         });
 
         var QueryListItem = React.createClass({
-            displayName: "QueryListItem",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     style: {
                         opacity: 1
                     }
                 };
             },
-            goToQuery: function goToQuery() {
+            goToQuery: function () {
                 document.location.href = "/query/" + this.props.type + "?id=" + window.projectId + "&query=" + this.props.id + "&block=dataSources";
             },
-            deleteQuery: function deleteQuery() {
+            deleteQuery: function () {
                 this.setState({
                     style: {
                         opacity: 0.5
@@ -353,7 +347,7 @@
                 });
 
                 Synchronise.Cloud.run("deleteQuery", { id_query: this.props.id }, {
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
 
                         this.setState({
@@ -364,7 +358,7 @@
                     }
                 });
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "tr",
                     { style: this.state.style, "data-id": this.props.id, "data-type": this.props.type, "data-identifier": this.props.uniqueID, className: "query" },

@@ -1,5 +1,3 @@
-"use strict";
-
 var Components;
 dependenciesLoader(["Component", "React", "ReactDOM", "$", "_"], function () {
     // Props:
@@ -13,9 +11,7 @@ dependenciesLoader(["Component", "React", "ReactDOM", "$", "_"], function () {
     // - (function)inputSelectedForComponent: Callback to trigger when an input is selected for the input of a component
     // - (function)inputRemovedForComponent: Callback to trigger when the value of an input of a component is removed
     Components = React.createClass({
-        displayName: "Components",
-
-        render: function render() {
+        render: function () {
             var target = this;
 
             var availableInputs = [];

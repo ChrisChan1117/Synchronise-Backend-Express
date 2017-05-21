@@ -1,13 +1,9 @@
-"use strict";
-
 var Setting;
 
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function () {
     // Displays the tab set the setting of a component
     Setting = React.createClass({
-        displayName: "Setting",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 public_key: "",
                 loading_key: false,
@@ -21,12 +17,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                 tagFieldValue: ""
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             // This part cannot be realtime updated because it causes collisions with the user typing in the input for the name
             Synchronise.Cloud.run("loadComponent", { id: urlH.getParam("id") }, {
-                success: function success(data) {
+                success: function (data) {
                     if (target.isMounted()) {
                         target.setState({ name: data.component.name, description: data.component.description });
                     }
@@ -36,7 +32,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
 
             // This part needs to be realtime updated
             Synchronise.Cloud.run("loadComponent", { id: urlH.getParam("id"), realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     if (target.isMounted()) {
                         target.setState({
                             published: data.component.published,
@@ -49,44 +45,44 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                 }
             });
         },
-        nameChanged: function nameChanged(event) {
+        nameChanged: function (event) {
             var target = this;
             target.setState({ name: event.target.value });
             document.title = event.target.value;
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { name: event.target.value } }, {
-                success: function success() {
+                success: function () {
                     target.setState({ error: false });
                 }
             });
         },
-        descriptionChanged: function descriptionChanged(event) {
+        descriptionChanged: function (event) {
             var target = this;
             target.setState({ description: event.target.value });
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { description: event.target.value } }, {
-                success: function success() {
+                success: function () {
                     target.setState({ error: false });
                 }
             });
         },
-        publishComponent: function publishComponent() {
+        publishComponent: function () {
             var target = this;
             target.setState({ publishing: true });
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { published: true } }, {});
         },
-        cancelSubmission: function cancelSubmission() {
+        cancelSubmission: function () {
             var target = this;
             target.setState({ cancellingSubmission: true });
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { published: false } }, {
-                always: function always() {
+                always: function () {
                     target.setState({ cancellingSubmission: false });
                 }
             });
         },
-        addTagsButton: function addTagsButton(event) {
+        addTagsButton: function (event) {
             var target = this;
             if (target.state.stateButtonAddTags == "active") {
                 target.setState({ stateButtonAddTags: "" });
@@ -95,7 +91,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                 $("#addTags").focus();
             }
         },
-        tagFieldKeyDown: function tagFieldKeyDown(event) {
+        tagFieldKeyDown: function (event) {
             var target = this;
             if (event.key == "Enter") {
                 if (target.state.tagFieldValue.length) {
@@ -106,11 +102,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH"], function (
                 }
             }
         },
-        tagFieldOnChange: function tagFieldOnChange(event) {
+        tagFieldOnChange: function (event) {
             var target = this;
             target.setState({ tagFieldValue: event.target.value });
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var compName = React.createElement(Loader, null);

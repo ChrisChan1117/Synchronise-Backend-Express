@@ -1,17 +1,13 @@
-"use strict";
-
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMirror", "urlH", "LeftBar", "RightBar"], function () {
     // Displays the entire page of components
     var Component = React.createClass({
-        displayName: "Component",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 component: false,
                 loading: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             var time = new Date().getTime();
             var session = Synchronise.User.current().id + time;
@@ -20,7 +16,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             target.setState({ loading: true });
 
             var query = Synchronise.Cloud.run("loadComponent", { id: urlH.getParam("id"), sessionQuery: session, realtime: { ignore: ["session"] } }, {
-                success: function success(data) {
+                success: function (data) {
                     var canContinue = false;
                     if (firstRequest) {
                         canContinue = true;
@@ -35,12 +31,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                         target.setState({ component: data.component });
                     }
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        addInput: function addInput(fieldName) {
+        addInput: function (fieldName) {
             var component = this.state.component;
 
             if (component) {
@@ -56,12 +52,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     this.setState({ component: component });
 
                     Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { inputs: component.inputs } }, {
-                        success: function success() {}
+                        success: function () {}
                     });
                 }
             }
         },
-        typeChangedForInput: function typeChangedForInput(newType, field) {
+        typeChangedForInput: function (newType, field) {
             var component = this.state.component;
 
             if (component) {
@@ -74,11 +70,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 this.setState({ component: component });
 
                 Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { inputs: component.inputs } }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        removeInput: function removeInput(field) {
+        removeInput: function (field) {
             var component = this.state.component;
 
             _.each(component.inputs, function (row, index) {
@@ -92,10 +88,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             this.setState({ component: component });
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { inputs: component.inputs } }, {
-                success: function success() {}
+                success: function () {}
             });
         },
-        addOutput: function addOutput(fieldName) {
+        addOutput: function (fieldName) {
             var component = this.state.component;
 
             if (component) {
@@ -111,12 +107,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     this.setState({ component: component });
 
                     Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { outputs: component.outputs } }, {
-                        success: function success() {}
+                        success: function () {}
                     });
                 }
             }
         },
-        typeChangedForOutput: function typeChangedForOutput(newType, field) {
+        typeChangedForOutput: function (newType, field) {
             var component = this.state.component;
 
             if (component) {
@@ -129,11 +125,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 this.setState({ component: component });
 
                 Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { outputs: component.outputs } }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        removeOutput: function removeOutput(field) {
+        removeOutput: function (field) {
             var component = this.state.component;
 
             var indexToRemove = -1;
@@ -149,10 +145,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             this.setState({ component: component });
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { outputs: component.outputs } }, {
-                success: function success() {}
+                success: function () {}
             });
         },
-        changeValueIs_optional: function changeValueIs_optional(field, event) {
+        changeValueIs_optional: function (field, event) {
             var component = this.state.component;
 
             if (component) {
@@ -165,11 +161,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                 this.setState({ component: component });
 
                 Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { inputs: component.inputs } }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        addTag: function addTag(tag) {
+        addTag: function (tag) {
             var component = this.state.component;
 
             if (component) {
@@ -180,12 +176,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
                     this.setState({ component: component });
 
                     Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { tags: component.tags } }, {
-                        success: function success() {}
+                        success: function () {}
                     });
                 }
             }
         },
-        removeTag: function removeTag(tag) {
+        removeTag: function (tag) {
             console.log("in there");
             console.log(tag);
             var component = this.state.component;
@@ -203,10 +199,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             this.setState({ component: component });
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { tags: component.tags } }, {
-                success: function success() {}
+                success: function () {}
             });
         },
-        render: function render() {
+        render: function () {
             var contentForLeftBar = "";
             var contentForRightBar = "";
 
@@ -254,7 +250,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "CodeMir
             var commentBox = "";
             if (this.state.component.published == true) {
                 // Loads disqus
-                var disqus_config = function disqus_config() {
+                var disqus_config = function () {
                     this.page.url = document.location.hostname + "/component/edit?id=" + urlH.getParam('id');
                     this.page.identifier = "component" + urlH.getParam('id');
                 };

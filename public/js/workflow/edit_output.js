@@ -1,17 +1,15 @@
-"use strict";
-
 var WorkflowOutput;
 dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], function () {
     // Displays the list of output delivered by the Workflow
     WorkflowOutput = React.createClass({
         displayName: "WorkflowOutput",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 stateAddButton: "",
                 fieldValue: ""
             };
         },
-        addButton: function addButton() {
+        addButton: function () {
             var target = this;
             if (target.state.stateAddButton == "active") {
                 target.setState({ stateAddButton: "" });
@@ -20,7 +18,7 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
                 $("#addOutput").focus();
             }
         },
-        outputKeyDown: function outputKeyDown(event) {
+        outputKeyDown: function (event) {
             var target = this;
             if (event.key == "Enter") {
                 if (target.state.fieldValue.length) {
@@ -30,14 +28,14 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
                 }
             }
         },
-        outputChange: function outputChange(event) {
+        outputChange: function (event) {
             var target = this;
             target.setState({ fieldValue: event.target.value });
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             $(ReactDOM.findDOMNode(this)).tooltip({ selector: '[data-toggle=tooltip]' });
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var outputs = "";
@@ -181,11 +179,11 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
     // - (array)inputsAvailable: An array of inputs available to associate to the output
     var WorkflowOutputItem = React.createClass({
         displayName: "WorkflowOutputItem",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {};
         },
-        componentDidMount: function componentDidMount() {},
-        render: function render() {
+        componentDidMount: function () {},
+        render: function () {
             var target = this;
 
             var contentColLeft = React.createElement(
@@ -232,11 +230,11 @@ dependenciesLoader(["ReactDOM", "React", "_", "Loader", "$", "InputType"], funct
     // - (function)typeChangedForOutput: Callback triggered when the output type changes
     var WorkflowOutputItemInputSelected = React.createClass({
         displayName: "WorkflowOutputItemInputSelected",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {};
         },
-        componentDidMount: function componentDidMount() {},
-        render: function render() {
+        componentDidMount: function () {},
+        render: function () {
             var target = this;
 
             return React.createElement(

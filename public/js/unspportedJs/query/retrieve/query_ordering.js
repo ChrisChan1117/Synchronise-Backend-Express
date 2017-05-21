@@ -1,12 +1,8 @@
-"use strict";
-
 var QueryOrdering;
 (function () {
     dependenciesLoader(["$", "Mousetrap", "React", "ReactDOM", "Loader", "Synchronise", "Typeahead", "QueryResultPreview", "panelFlow" /* Instance of the flow */], function () {
         QueryOrdering = React.createClass({
-            displayName: "QueryOrdering",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     loadingRules: false,
                     loadingListFieldsAvailable: false,
@@ -16,7 +12,7 @@ var QueryOrdering;
                     listFieldsAvailable: Array()
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 var target = this;
 
                 $("#blocks").on('panelWillAppear', function (e, block) {
@@ -32,48 +28,48 @@ var QueryOrdering;
                 });
 
                 Synchronise.Cloud.run("orderingRules", { id_query: urlH.getParam("query"), realtime: true }, {
-                    success: function success(result) {
+                    success: function (result) {
                         target.setState({ orderings: result });
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loadingRules: false });
                     }
                 });
 
                 Synchronise.Cloud.run("fieldsAvailableForOrderingInQuery", { id_query: urlH.getParam("query"), realtime: true }, {
-                    success: function success(fields) {
+                    success: function (fields) {
                         fields.forEach(function (item, i, fields) {
                             fields[i].text = item.tableName + " > " + item.fieldName;
                         });
                         target.setState({ listFieldsAvailable: fields });
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loadingListFieldsAvailable: false });
                     }
                 });
             },
-            fieldSelected: function fieldSelected(itemSelected) {
+            fieldSelected: function (itemSelected) {
                 var target = this;
                 if (!this.state.saving) {
                     target.setState({ saving: true });
 
                     Synchronise.Cloud.run("createOrderingRule", { id_query: this.state.query_id, id_field: itemSelected.item.displayedFieldId }, {
-                        always: function always() {
+                        always: function () {
                             target.setState({ saving: false });
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             new ModalErrorParse(err);
                         }
                     });
                 }
             },
-            goToFieldsSelection: function goToFieldsSelection() {
+            goToFieldsSelection: function () {
                 panelFlow.scrollToBlock("fields");
             },
-            render: function render() {
+            render: function () {
                 var target = this;
 
                 // No fields selected to be displayed on the query
@@ -228,12 +224,10 @@ var QueryOrdering;
         });
 
         var QueryOrderingAvailableField = React.createClass({
-            displayName: "QueryOrderingAvailableField",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return { adding: false };
             },
-            selected: function selected(e) {
+            selected: function (e) {
                 if (!this.state.adding && !this.props.saving) {
                     this.setState({ adding: true });
                     this.props.itemClicked({ item: this.props.data });
@@ -244,7 +238,7 @@ var QueryOrdering;
                     $(ReactDOM.findDOMNode(this)).effect("highlight");
                 }
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "div",
                     { className: "orderingAvailableField", onClick: this.selected },
@@ -278,26 +272,24 @@ var QueryOrdering;
         // - fieldName : the name of the field concerned by the ordering
         // - ordering : the actual ordering (asc|desc)
         var OrderingRule = React.createClass({
-            displayName: "OrderingRule",
-
-            getInitialState: function getInitialState() {
+            getInitialState: function () {
                 return {
                     ordering: null,
                     removing: false
                 };
             },
-            componentDidMount: function componentDidMount() {
+            componentDidMount: function () {
                 this.setState({
                     ordering: this.props.ordering
                 });
             },
-            changeAscDesc: function changeAscDesc(ev) {
+            changeAscDesc: function (ev) {
                 console.log(ev.target.value);
                 this.setState({
                     ordering: ev.target.value
                 });
             },
-            remove: function remove() {
+            remove: function () {
                 var target = this;
 
                 if (!target.state.removing) {
@@ -308,16 +300,16 @@ var QueryOrdering;
                     });
 
                     Synchronise.Cloud.run("removeOrderingRule", { id_rule: this.props.id, id_query: this.props.id_query }, {
-                        error: function error(err) {
+                        error: function (err) {
                             new ModalErrorParse(err);
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ removing: false });
                         }
                     });
                 }
             },
-            render: function render() {
+            render: function () {
                 return React.createElement(
                     "div",
                     { className: "col-lg-12 col-md-12 col-sm-12 col-xs-12 orderingRow sortable",

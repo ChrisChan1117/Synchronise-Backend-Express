@@ -1,19 +1,15 @@
-"use strict";
-
 var LeftBar;
 
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH", "Code", "Export", "Setting"], function () {
     // Displays the left bar (Component name, identifier, inputs, code, outputs)
     LeftBar = React.createClass({
-        displayName: "LeftBar",
-
-        nameChanged: function nameChanged(event) {
+        nameChanged: function (event) {
             var target = this;
             target.setState({ name: event.target.value });
 
             Synchronise.Cloud.run("updateComponent", { id: urlH.getParam("id"), data: { name: event.target.value } }, {});
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var alreadyRefreshed = false;
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -25,7 +21,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "urlH", "Code", "Ex
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var exportNotInTabPanel = "";
             var tabpanelContent = "";
 

@@ -1,15 +1,11 @@
-"use strict";
-
 dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function () {
     var Connect = React.createClass({
-        displayName: "Connect",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 public_key: ""
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             Synchronise.LocalStorage.set("visitedConnect", true);
 
             var needToCreatePublicKey = false;
@@ -22,15 +18,15 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
 
             if (needToCreatePublicKey) {
                 Synchronise.Cloud.run("createPublicKey", { "type": "javascript" }, {
-                    success: function success(key) {
+                    success: function (key) {
                         target.setState({ public_key: key.status });
                         Synchronise.User.fetchCurrent(); // Refresh local data
                         Synchronise.init(key.status);
                     },
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ loading_key: false });
                     }
                 });
@@ -40,7 +36,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
                 Synchronise.init(pk);
             }
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { className: "card" },
@@ -129,13 +125,13 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
     // - (string)public_key: The public key of the developer for javascript
     var ExportJavascript = React.createClass({
         displayName: "ExportJavascript",
-        selectImport: function selectImport() {
+        selectImport: function () {
             $(ReactDOM.findDOMNode(this)).find('.import').selectText();
         },
-        selectInit: function selectInit() {
+        selectInit: function () {
             $(ReactDOM.findDOMNode(this)).find('.init').selectText();
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "ol",
                 null,
@@ -236,13 +232,13 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
     // - (string)public_key: The public key of the developer for nodejs
     var ExportNodeJS = React.createClass({
         displayName: "ExportNodeJS",
-        selectImport: function selectImport() {
+        selectImport: function () {
             $(ReactDOM.findDOMNode(this)).find('.import').selectText();
         },
-        selectInit: function selectInit() {
+        selectInit: function () {
             $(ReactDOM.findDOMNode(this)).find('.init').selectText();
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "ol",
                 null,
@@ -323,13 +319,13 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
     // - (string)public_key: The public key of the developer for rest
     var ExportREST = React.createClass({
         displayName: "ExportREST",
-        selectImport: function selectImport() {
+        selectImport: function () {
             $(ReactDOM.findDOMNode(this)).find('.import').selectText();
         },
-        selectInit: function selectInit() {
+        selectInit: function () {
             $(ReactDOM.findDOMNode(this)).find('.init').selectText();
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 null,
@@ -411,7 +407,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
                                     "code",
                                     { className: "string" },
                                     "'",
-                                    "{",
+                                    `{`,
                                     "\"id\":ID_COMPONENT, ... ANY OTHER PARAMETERS TO SEND}'"
                                 ),
                                 " \\ ",
@@ -420,7 +416,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
                                     "code",
                                     { className: "keyword" },
                                     "https",
-                                    "://",
+                                    `://`,
                                     "api.synchronise.io/component/run"
                                 )
                             )
@@ -485,7 +481,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
                                     "code",
                                     { className: "string" },
                                     "'",
-                                    "{",
+                                    `{`,
                                     "\"id\":ID_WORKFLOW, ... ANY OTHER PARAMETERS TO SEND}'"
                                 ),
                                 " \\ ",
@@ -494,7 +490,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader", "Synchronise"], function
                                     "code",
                                     { className: "keyword" },
                                     "https",
-                                    "://",
+                                    `://`,
                                     "api.synchronise.io/workflow/run"
                                 )
                             )

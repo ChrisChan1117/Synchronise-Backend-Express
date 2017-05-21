@@ -1,5 +1,3 @@
-"use strict";
-
 var ProjectsList;
 var ProjectItem;
 
@@ -16,18 +14,18 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function () {
     // - (function)shouldDisplayProject : Callback to determine if a project should be displayed or not. The callback receives a project object and should simply return true or false
     ProjectsList = React.createClass({
         displayName: "ProjectsList",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 projects: Array(),
                 loading: true,
                 openedBlock: ""
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             Synchronise.Cloud.run("projectList", { realtime: true, cacheFirst: true }, {
-                success: function success(projects) {
+                success: function (projects) {
                     if (target.isMounted()) {
                         target.setState({
                             projects: projects,
@@ -39,20 +37,20 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function () {
                         target.open(urlH.getParam("projectOpened"));
                     }
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     if (target.isMounted()) {
                         target.setState({ loading: false });
                     }
                 }
             });
         },
-        createProject: function createProject() {
+        createProject: function () {
             document.location.href = "/project?backuri=" + encodeURIComponent("/query") + "&backlabel=" + encodeURIComponent("Back to query") + "&displayModalCreate=true";
         },
-        open: function open(id) {
+        open: function (id) {
             var target = this;
             target.setState({ openedBlock: id });
 
@@ -71,29 +69,29 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function () {
                 }
             });
         },
-        close: function close() {
+        close: function () {
             var target = this;
             target.setState({ openedBlock: "" });
             KeyEventController.unsubscribeComponent("projectOpened");
 
             urlH.insertParam("projectOpened", "");
         },
-        onCreateItem: function onCreateItem(data) {
+        onCreateItem: function (data) {
             if (this.props.shouldCreate || typeof this.props.shouldCreate == "undefined") {
                 this.props.targetOnCreate(data);
             }
         },
-        onClickItem: function onClickItem(data) {
+        onClickItem: function (data) {
             if (this.props.shouldClick || typeof this.props.shouldClick == "undefined") {
                 this.props.targetOnClick(data);
             }
         },
-        onRemoveItem: function onRemoveItem(data) {
+        onRemoveItem: function (data) {
             if (this.props.shouldRemove || typeof this.props.shouldRemove == "undefined") {
                 this.props.targetOnRemove(data);
             }
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var loading = "";
@@ -164,7 +162,7 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function () {
     // - (boolean)shouldClick     : Wether or not to trigger the callback when when we click on an item of project
     var ProjectBlock = React.createClass({
         displayName: "ProjectBlock",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             var icon = "/images/defaultProjectIcon.png";
             if (this.props.icon) {
                 icon = this.props.icon;
@@ -175,31 +173,21 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function () {
                 contentClassName: ""
             };
         },
-        open: function open() {
+        open: function () {
             var target = this;
             this.props.wantsToOpen(this.props.id);
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             this.setState({ contentClassName: "display" });
 
             $(ReactDOM.findDOMNode(this)).find('.icon').load(function () {
                 $(this).animate({ opacity: 1 });
             });
         },
-        createComponent: (function (_createComponent) {
-            function createComponent() {
-                return _createComponent.apply(this, arguments);
-            }
-
-            createComponent.toString = function () {
-                return _createComponent.toString();
-            };
-
-            return createComponent;
-        })(function () {
+        createComponent: function () {
             createComponent(this.props.id);
-        }),
-        render: function render() {
+        },
+        render: function () {
             var target = this;
 
             var description = "";
@@ -317,12 +305,12 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function () {
                                     if (row.approved) {
                                         statusPublication = 2; // Published
                                     } else {
-                                            if (!row.rejected) {
-                                                statusPublication = 1; // Pending
-                                            } else {
-                                                    statusPublication = 3; // Rejected
-                                                }
+                                        if (!row.rejected) {
+                                            statusPublication = 1; // Pending
+                                        } else {
+                                            statusPublication = 3; // Rejected
                                         }
+                                    }
                                 }
 
                                 return React.createElement(ProjectItem, { id: row.id,
@@ -427,18 +415,18 @@ dependenciesLoader(["React", "ReactDOM", "$", "Loader"], function () {
     // - (boolean)shouldClick     : Wether or not to trigger the callback when when we click on an item of project
     ProjectItem = React.createClass({
         displayName: "ProjectItem",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return { removing: false };
         },
-        selectAllIdentifier: function selectAllIdentifier() {
+        selectAllIdentifier: function () {
             $(ReactDOM.findDOMNode(this)).find('input').select();
         },
-        targetOnClick: function targetOnClick(data, event) {
+        targetOnClick: function (data, event) {
             if (this.props.shouldClick || typeof this.props.shouldClick == "undefined") {
                 this.props.targetOnClick(data, event);
             }
         },
-        render: function render() {
+        render: function () {
             var style = {};
             if (this.state.removing) {
                 style.opacity = 0.3;

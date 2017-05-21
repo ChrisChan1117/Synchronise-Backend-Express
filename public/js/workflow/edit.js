@@ -1,5 +1,3 @@
-"use strict";
-
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "ComponentCatalog", "Component", "Components", "urlH", "WorkflowInput", "WorkflowOutput", "SettingsTab", "Export", "ExportTab"], function () {
     Array.prototype.move = function (old_index, new_index) {
         if (new_index >= this.length) {
@@ -13,9 +11,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
     };
 
     var Workflow = React.createClass({
-        displayName: "Workflow",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 components: [], // Contain the ordered list of components in the workflow (not their data)
                 componentsData: {}, // Contain the data of each component
@@ -39,12 +35,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 inputsValues: {}
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("getWorkflow", { id: urlH.getParam("id"), realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     document.title = data.name;
 
                     var componentsData = target.state.componentsData;
@@ -58,7 +54,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                             promises.push(new Promise(function (resolve, reject) {
                                 var answered = false;
                                 Synchronise.Cloud.run("loadComponent", { id: currComponent.id_component, style: true, realtime: { ignore: ["style", "code"] }, code: false }, {
-                                    success: function success(comp) {
+                                    success: function (comp) {
                                         if (!answered) {
                                             if (comp.component) {
                                                 componentsData[comp.component.id] = _.extend(comp.component, { logo: comp.style.icon });
@@ -82,7 +78,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                                             answered = true;
                                         }
                                     },
-                                    error: function error() {
+                                    error: function () {
                                         reject();
                                     }
                                 });
@@ -108,10 +104,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                         target.resizeInterface();
                     });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ forking: false });
                 }
             });
@@ -153,12 +149,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 }
             }, false, true, true);
         },
-        changeName: function changeName(event) {
+        changeName: function (event) {
             var target = this;
             target.setState({ name: event.target.value });
             Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { name: event.target.value } }, {});
         },
-        initSortable: function initSortable() {
+        initSortable: function () {
             var target = this;
 
             var sortableStartPosition;
@@ -170,7 +166,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 axis: 'y',
                 placeholder: "ui-state-highlight",
                 handle: ".header",
-                helper: function helper(e, f) {
+                helper: function (e, f) {
                     var helper = $("<div class='cloneWhileSorting'></div>");
                     helper.css({
                         'width': $(f).css('width'),
@@ -204,18 +200,18 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
 
                     return helper;
                 },
-                start: function start(event, ui) {
+                start: function (event, ui) {
                     $(ui.item).show();
                     sortableStartPosition = ui.item.index();
                     target.resizeInterface();
                 },
-                update: function update(e, ui) {
+                update: function (e, ui) {
                     var oldPos = ui.item.sortable.index;
                     var newPos = ui.item.sortable.dropindex;
                     console.log(ui);
                     console.log("Old " + oldPos + " newPos " + newPos);
                 },
-                stop: function stop(event, ui) {
+                stop: function (event, ui) {
                     var components = target.state.components.slice();
 
                     _.each(components, function (row) {
@@ -239,7 +235,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                     target.setState({ components: components, saving: true, lastUpdateSent: timestampRequest });
 
                     Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { components: components }, timestampRequest: timestamp.getTime() }, {
-                        always: function always() {
+                        always: function () {
                             target.setState({ saving: false });
                         }
                     });
@@ -249,7 +245,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
             });
             sortable.disableSelection();
         },
-        resizeInterface: function resizeInterface() {
+        resizeInterface: function () {
             var target = this;
             $('#timeline').css({ height: $(".flow").height() });
 
@@ -278,13 +274,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 });
             }
         },
-        highlightCatalog: function highlightCatalog() {
+        highlightCatalog: function () {
             $('.componentCatalog').effect("highlight", 1000);
         },
         // Makes all the calculation to select the right component
         // if the user is the owner we just return the component
         // if the user is not the owner we fork the component or get ID of the already cloned version
-        getRequiredIdForComponent: function getRequiredIdForComponent(id_component, callback) {
+        getRequiredIdForComponent: function (id_component, callback) {
             var target = this;
 
             this.getComponentFromCacheOrDatabase(id_component, function (component) {
@@ -301,26 +297,26 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                     target.setState({ forking: true });
 
                     Synchronise.Cloud.run("cloneComponent", { id: component.id }, {
-                        success: function success(data) {
+                        success: function (data) {
                             callback(data.id);
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             new ModalErrorParse(err);
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ forking: false });
                         }
                     });
                 }
             });
         },
-        getComponentFromCacheOrDatabase: function getComponentFromCacheOrDatabase(id_component, callback) {
+        getComponentFromCacheOrDatabase: function (id_component, callback) {
             // The component is not in the cache yet
             var componentsData = this.state.componentsData;
 
             if (!componentsData.hasOwnProperty(id_component)) {
                 Synchronise.Cloud.run("loadComponent", { id: id_component, style: true, code: false }, {
-                    success: function success(comp) {
+                    success: function (comp) {
                         componentsData[comp.component.id] = _.extend(comp.component, { logo: comp.style.icon });
                         callback(componentsData[comp.component.id]);
                     }
@@ -329,7 +325,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 callback(componentsData[id_component]);
             }
         },
-        addComponent: function addComponent(id_component) {
+        addComponent: function (id_component) {
             var forked = false; // whether or not the component has been forked and is ready
             var target = this;
             target.setState({ saving: true, forking: true });
@@ -353,7 +349,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 }
 
                 // Scroll to the new added component once it has been mounted on the screen
-                var interval = window.setInterval((function (index) {
+                var interval = window.setInterval(function (index) {
                     var childs = $(".flow").find('.component');
                     if (childs.length >= index) {
                         var child = $(childs[index - 1]);
@@ -366,16 +362,16 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                             window.clearInterval(interval);
                         }
                     }
-                }).bind(null, components_modified.length), 50);
+                }.bind(null, components_modified.length), 50);
 
                 var timestamp = new Date();
 
                 target.setState({ lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { components: components_modified }, timestampRequest: timestamp.getTime() }, {
-                    error: function error(err) {
+                    error: function (err) {
                         new ModalErrorParse(err);
                     },
-                    always: function always() {
+                    always: function () {
                         target.setState({ saving: false });
                     }
                 });
@@ -383,7 +379,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 target.resizeInterface();
             });
         },
-        removeComponent: function removeComponent(index) {
+        removeComponent: function (index) {
             var target = this;
             var components_modified = this.state.components.slice(0);
             var componentToBeRemoved = components_modified[index];
@@ -424,10 +420,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
             this.setState({ components: components_modified, saving: true, outputs: copyOutputs, lastUpdateSent: timestamp.getTime() });
 
             Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { components: components_modified, outputs: copyOutputs }, timestampRequest: timestamp.getTime() }, {
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ saving: false });
                     target.resizeInterface();
                 }
@@ -435,7 +431,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
 
             target.resizeInterface();
         },
-        inputSelectedForComponent: function inputSelectedForComponent(value) {
+        inputSelectedForComponent: function (value) {
             var target = this;
 
             var comps = target.state.components;
@@ -445,22 +441,22 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
             target.setState({ components: comps, saving: true, lastUpdateSent: timestamp.getTime() });
 
             Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { components: comps }, timestampRequest: timestamp.getTime() }, {
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ saving: false });
                     target.resizeInterface();
                 }
             });
 
             Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { components: comps }, timestampRequest: timestamp.getTime() }, {
-                always: function always() {
+                always: function () {
                     target.setState({ saving: false });
                 }
             });
         },
-        inputRemovedForComponent: function inputRemovedForComponent(value) {
+        inputRemovedForComponent: function (value) {
             var target = this;
 
             var components = target.state.components;
@@ -471,7 +467,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
             target.setState({ components: components, saving: true, lastUpdateSent: timestamp.getTime() });
 
             Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { components: components }, timestampRequest: timestamp.getTime() }, {
-                always: function always() {
+                always: function () {
                     target.setState({ saving: false });
                 }
             });
@@ -479,7 +475,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
             target.resizeInterface();
         },
         // Add an input at the top of the workflow
-        addInputWorkflow: function addInputWorkflow(name, type) {
+        addInputWorkflow: function (name, type) {
             var inputs = this.state.inputs;
             var index = -1;
 
@@ -497,11 +493,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 this.resizeInterface();
 
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { inputs: inputs }, timestampRequest: timestamp.getTime() }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        removeInputWorkflow: function removeInputWorkflow(name) {
+        removeInputWorkflow: function (name) {
             var target = this;
             var inputs = target.state.inputs;
             var index = -1;
@@ -546,13 +542,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 inputs.splice(index, 1);
                 target.setState({ inputs: inputs, components: components_modified, outputs: copyOutputs, lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), timestampRequest: timestamp.getTime(), data: { inputs: inputs, components: components_modified, outputs: copyOutputs } }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
 
             target.resizeInterface();
         },
-        typeChangedForField: function typeChangedForField(field, newType) {
+        typeChangedForField: function (field, newType) {
             var inputs = this.state.inputs;
 
             if (inputs) {
@@ -566,11 +562,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 var timestamp = new Date();
                 this.setState({ inputs: inputs, lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { inputs: inputs }, timestampRequest: timestamp.getTime() }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        addOutputWorkflow: function addOutputWorkflow(name) {
+        addOutputWorkflow: function (name) {
             var target = this;
             var outputs = this.state.outputs;
             var index = -1;
@@ -587,13 +583,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 outputs.push({ name: name, type: ["text", "text"] });
                 this.setState({ outputs: outputs, lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { outputs: outputs }, timestampRequest: timestamp.getTime() }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
 
             target.resizeInterface();
         },
-        removeOutputWorkflow: function removeOutputWorkflow(name) {
+        removeOutputWorkflow: function (name) {
             var target = this;
             var outputs = this.state.outputs;
             var index = -1;
@@ -610,13 +606,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 outputs.splice(index, 1);
                 this.setState({ outputs: outputs, lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { outputs: outputs }, timestampRequest: timestamp.getTime() }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
 
             target.resizeInterface();
         },
-        typeChangedForOutput: function typeChangedForOutput(field, newType) {
+        typeChangedForOutput: function (field, newType) {
             var outputs = this.state.outputs;
 
             if (outputs) {
@@ -630,11 +626,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 var timestamp = new Date();
                 this.setState({ outputs: outputs, lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { outputs: outputs }, timestampRequest: timestamp.getTime() }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        inputSelectedForOutput: function inputSelectedForOutput(field, value) {
+        inputSelectedForOutput: function (field, value) {
             var outputs = this.state.outputs;
 
             if (outputs) {
@@ -648,11 +644,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 var timestamp = new Date();
                 this.setState({ outputs: outputs, lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { outputs: outputs }, timestampRequest: timestamp.getTime() }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
         },
-        removeAssociatedOutput: function removeAssociatedOutput(field) {
+        removeAssociatedOutput: function (field) {
             var target = this;
             var outputs = this.state.outputs;
 
@@ -667,13 +663,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 var timestamp = new Date();
                 this.setState({ outputs: outputs, lastUpdateSent: timestamp.getTime() });
                 Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { outputs: outputs }, timestampRequest: timestamp.getTime() }, {
-                    success: function success() {}
+                    success: function () {}
                 });
             }
 
             target.resizeInterface();
         },
-        getPublicKey: function getPublicKey(callback) {
+        getPublicKey: function (callback) {
             var needToCreateJS = false;
             if (!Synchronise.User.current().public_key) {
                 needToCreateJS = true;
@@ -681,7 +677,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
 
             if (needToCreateJS) {
                 Synchronise.Cloud.run("createPublicKey", { "type": "javascript" }, {
-                    success: function success(key) {
+                    success: function (key) {
                         Synchronise.User.fetchCurrent(function () {
                             // Refresh local data
                             callback(Synchronise.User.current().public_key);
@@ -692,7 +688,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 callback(Synchronise.User.current().public_key);
             }
         },
-        runWorkflow: function runWorkflow() {
+        runWorkflow: function () {
             var target = this;
 
             if (!target.state.components.length) {
@@ -717,7 +713,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                     target.showExecutionPanel("half");
 
                     Synchronise.Cloud.run("executeWorkflow", _.extend({ id_workflow: urlH.getParam("id") }, target.state.inputsValues), {
-                        success: function success(data_success) {
+                        success: function (data_success) {
                             // Displays the full result
                             target.showExecutionPanel("full", function (data) {
                                 target.setState({ execution_status: 2, success: data_success });
@@ -729,17 +725,17 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                                 }, 10);
                             });
                         },
-                        progress: function progress(_progress, data) {
+                        progress: function (progress, data) {
                             if (data.type == "component") {
                                 var step;
-                                target.setState({ executionCurrentProgress: _progress.percentage });
+                                target.setState({ executionCurrentProgress: progress.percentage });
 
                                 if (data.status == "success") {
-                                    step = _progress.currentStep; // go to the next component
+                                    step = progress.currentStep; // go to the next component
                                 } else {
-                                        step = _progress.currentStep - 1; // stay on the same component
-                                    }
-                                var child = $("#listOfComponentsInFlow .compAt" + _progress.currentStep);
+                                    step = progress.currentStep - 1; // stay on the same component
+                                }
+                                var child = $("#listOfComponentsInFlow .compAt" + progress.currentStep);
                                 if (child) {
                                     if (child.offset()) {
                                         var scroll = child.offset().top - $("#workflow #inputContainer").height() - $("#workflow #inputContainer").offset().top + $(window).scrollTop();
@@ -751,7 +747,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                                 }
                             }
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             target.showExecutionPanel("full", function () {
                                 target.setState({ execution_status: 3, error: err });
                                 var intervalForJson = window.setInterval(function () {
@@ -762,7 +758,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                                 }, 10);
                             });
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ end_execution: new Date() });
                             window.setTimeout(function () {
                                 target.setState({ executionCurrentProgress: 0 });
@@ -772,7 +768,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 });
             }
         },
-        showExecutionPanel: function showExecutionPanel(half_or_full, callback) {
+        showExecutionPanel: function (half_or_full, callback) {
             var target = this;
 
             KeyEventController.unsubscribeComponent("exportPanelFromExecution");
@@ -798,14 +794,14 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 });
             }
         },
-        hideExecutionPanel: function hideExecutionPanel() {
+        hideExecutionPanel: function () {
             KeyEventController.unsubscribeComponent("exportPanelFromExecution");
             $('#executionPanel').animate({ bottom: "-150px", height: "150px" }, 500, "easeInBack");
             $('#shadowForExecutionPanel').animate({ opacity: 0 }, 300, function () {
                 $('#shadowForExecutionPanel').css({ display: "none" }, 300);
             });
         },
-        actionToFixError: function actionToFixError() {
+        actionToFixError: function () {
             var target = this;
 
             if (target.state.error.type == "component") {
@@ -838,7 +834,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
 
             target.hideExecutionPanel();
         },
-        toggleHelp: function toggleHelp(value) {
+        toggleHelp: function (value) {
             Synchronise.LocalStorage.set("helpIsActivatedForWorkflow", value, true);
 
             var target = this;
@@ -854,7 +850,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 });
             }
         },
-        runInputValueChanged: function runInputValueChanged(name, event) {
+        runInputValueChanged: function (name, event) {
             var target = this;
             var clone = this.state.inputsValues;
             clone[name] = event.target.value;
@@ -863,7 +859,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
                 inputsValues: clone
             });
         },
-        nameInputChanged: function nameInputChanged(fromName, toName) {
+        nameInputChanged: function (fromName, toName) {
             var target = this;
 
             // Change the name
@@ -895,10 +891,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader", "TimeAgo", "Compone
 
             target.setState({ inputs: copyInputs, components: copyComponents, lastUpdateSent: timestamp.getTime() });
             Synchronise.Cloud.run("updateWorkflow", { id: urlH.getParam("id"), data: { inputs: copyInputs /*, components: copyComponents*/ }, timestampRequest: timestamp.getTime() }, {
-                success: function success() {}
+                success: function () {}
             });
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var messageIfNoComponents = "";

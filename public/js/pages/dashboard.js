@@ -1,10 +1,6 @@
-"use strict";
-
 dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
     var Dashboard = React.createClass({
-        displayName: "Dashboard",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 tasks: [{
                     name: "signup",
@@ -112,12 +108,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 templateForProject: {}
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             // CHECK STATUS PROJECT
             Synchronise.Cloud.run("countProject", { realtime: true, cacheFirst: true }, {
-                success: function success(count) {
+                success: function (count) {
                     if (count > 0) {
                         target.setStatusForTask(1, "project");
                     } else {
@@ -128,11 +124,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
             // CHECK STATUS COMPONENT
             Synchronise.Cloud.run("countComponent", { realtime: true, cacheFirst: true }, {
-                success: function success(count) {
+                success: function (count) {
                     if (count.count > 0) {
                         target.setStatusForTask(1, "component");
                         Synchronise.Cloud.run("lastComponentsForUser", { cacheFirst: true, realtime: true }, {
-                            success: function success(comps) {
+                            success: function (comps) {
                                 target.setState({ lastComponents: comps, loadingComponents: true });
 
                                 var amountProjectsLoaded = 0;
@@ -164,7 +160,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
             // CHECK STATUS WORKFLOW
             Synchronise.Cloud.run("countWorkflow", { realtime: true, cacheFirst: true }, {
-                success: function success(count) {
+                success: function (count) {
                     if (count.count > 0) {
                         target.setStatusForTask(1, "workflow");
                     } else {
@@ -175,7 +171,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
             // CHECK STATUS PROJECT
             Synchronise.Cloud.run("countReferrals", { realtime: true, cacheFirst: true }, {
-                success: function success(count) {
+                success: function (count) {
                     if (count > 0) {
                         target.setStatusForTask(1, "friend");
                     } else {
@@ -203,7 +199,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
             }, false, true);
 
             Synchronise.Cloud.run("getCardsListForUser", { realtime: true, cacheFirst: true }, {
-                success: function success(cards) {
+                success: function (cards) {
                     if (cards.length) {
                         target.setStatusForTask(1, "payment");
                     } else {
@@ -216,11 +212,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 target.moveHand();
             }, 1500);
         },
-        loadDataForProject: function loadDataForProject(id_project, callback) {
+        loadDataForProject: function (id_project, callback) {
             var target = this;
             if (!target.state.templateForProject.hasOwnProperty('row.id_project')) {
                 Synchronise.Cloud.run("getProject", { cacheFirst: true, realtime: true, id_project: id_project }, {
-                    success: function success(project) {
+                    success: function (project) {
                         var templateForProject = target.state.templateForProject;
                         templateForProject[project.id] = {};
                         templateForProject[project.id].icon = project.icon;
@@ -229,13 +225,13 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
                         target.setState({ templateForProject: templateForProject });
                     },
-                    always: function always() {
+                    always: function () {
                         callback();
                     }
                 });
             }
         },
-        moveHand: function moveHand() {
+        moveHand: function () {
             var target = this;
 
             var newPosition = "";
@@ -253,7 +249,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 target.moveHand();
             });
         },
-        setStatusForTask: function setStatusForTask(status, task) {
+        setStatusForTask: function (status, task) {
             var target = this;
             var tasks = target.state.tasks.slice(0);
             var handPositionFound = false;
@@ -277,7 +273,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 target.setState({ tasks: tasks });
             }
         },
-        render: function render() {
+        render: function () {
             var target = this;
             var lastProjects = React.createElement(Loader, null);
 
@@ -384,13 +380,11 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
     });
 
     var HelpBlock = React.createClass({
-        displayName: "HelpBlock",
-
-        startChat: function startChat() {
+        startChat: function () {
             Intercom('showNewMessage');
         },
-        componentDidMount: function componentDidMount() {
-            var disqus_config = function disqus_config() {
+        componentDidMount: function () {
+            var disqus_config = function () {
                 this.page.url = '/dashboard';
                 this.page.identifier = 'dashboard';
                 this.page.title = 'Home';
@@ -405,7 +399,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 (d.head || d.body).appendChild(s);
             })();
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "div",
                 { className: "row" },
@@ -447,19 +441,17 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
     });
 
     var MarketPlaceBlock = React.createClass({
-        displayName: "MarketPlaceBlock",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 items: [],
                 loading: true,
                 intervalSlideshow: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             Synchronise.Cloud.run("marketPlaceHeaderCarousel", { cacheFirst: true }, {
-                success: function success(data) {
+                success: function (data) {
                     target.setState({
                         items: _.filter(data.blocks, function (row) {
                             return row.type == "project";
@@ -467,12 +459,12 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                     });
                     target.slideshow();
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        slideshow: function slideshow() {
+        slideshow: function () {
             var dom = $(ReactDOM.findDOMNode(this));
             dom.find('.blocks').css({
                 minWidth: $(window).width(),
@@ -506,10 +498,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
             target.setState({ intervalSlideshow: intervalSlideshow });
         },
-        componentWillUnmount: function componentWillUnmount() {
+        componentWillUnmount: function () {
             window.clearInterval(this.state.intervalSlideshow);
         },
-        render: function render() {
+        render: function () {
             var content = React.createElement(Loader, null);
             if (!this.state.loading) {
                 content = React.createElement(
@@ -548,9 +540,7 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
 
     // ID of the project
     var MarketPlaceBlockItem = React.createClass({
-        displayName: "MarketPlaceBlockItem",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 backgroundColor: "",
@@ -560,10 +550,10 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                 failed: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             Synchronise.Cloud.run("getProject", { id_project: this.props.id, cacheFirst: true }, {
-                success: function success(data) {
+                success: function (data) {
                     if (data) {
                         target.setState({
                             backgroundColor: data.bg_color,
@@ -577,15 +567,15 @@ dependenciesLoader(["$", "React", "ReactDOM", "_", "Loader"], function () {
                         });
                     }
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse(err);
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var content = "";
             if (this.state.loading) {
                 content = React.createElement(

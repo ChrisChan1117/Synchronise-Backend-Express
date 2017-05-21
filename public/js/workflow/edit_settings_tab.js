@@ -1,5 +1,3 @@
-"use strict";
-
 var SettingsTab;
 dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // Props
@@ -8,13 +6,11 @@ dependenciesLoader(["React", "ReactDOM", "$", "_", "Loader"], function () {
     // - (boolean)loading: Whether or not the workflow is still loading
     // - (function)changeName: Callback to trigger when the name of the Workflow changes
     SettingsTab = React.createClass({
-        displayName: "SettingsTab",
-
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {};
         },
-        componentDidMount: function componentDidMount() {},
-        render: function render() {
+        componentDidMount: function () {},
+        render: function () {
             var content = React.createElement(Loader, null);
             if (!this.props.loading) {
                 content = React.createElement(

@@ -1,19 +1,17 @@
-"use strict";
-
 dependenciesLoader(["React", "ReactDOM", "$"], function () {
     // Debounce resize
-    !(function (n, r) {
-        var t = function t(n, r, _t) {
+    !function (n, r) {
+        var t = function (n, r, t) {
             var e;return function () {
                 function i() {
-                    _t || n.apply(u, a), e = null;
+                    t || n.apply(u, a), e = null;
                 }var u = this,
-                    a = arguments;e ? clearTimeout(e) : _t && n.apply(u, a), e = setTimeout(i, r || 100);
+                    a = arguments;e ? clearTimeout(e) : t && n.apply(u, a), e = setTimeout(i, r || 100);
             };
         };jQuery.fn[r] = function (n) {
             return n ? this.bind("resize", t(n)) : this.trigger(r);
         };
-    })(jQuery, "smartresize");
+    }(jQuery, "smartresize");
 
     var widthWindow = $(window).width();
 

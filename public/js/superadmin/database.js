@@ -1,14 +1,12 @@
-"use strict";
-
 dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "_"], function () {
     // This represents all functions related to database management
     var DatabaseBlock = React.createClass({
         displayName: "DatabaseBlock",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {};
         },
-        wypeDatabase: function wypeDatabase() {},
-        render: function render() {
+        wypeDatabase: function () {},
+        render: function () {
             return React.createElement(
                 "div",
                 { className: "card" },
@@ -51,7 +49,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // This represents the list of models
     var DatabaseBlockListModels = React.createClass({
         displayName: "DatabaseBlockListModels",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 models: Array(),
                 loading: false,
@@ -59,30 +57,30 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 collectionListOpened: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
 
             $(ReactDOM.findDOMNode(this)).on("click", "#collapseCollectionsListButton", function () {
                 if (!target.state.loading && !target.state.loaded) {
                     target.setState({ loading: true });
                     Synchronise.Cloud.run("superadminModelList", {}, {
-                        success: function success(data) {
+                        success: function (data) {
                             target.setState({ models: data });
                         },
-                        error: function error(err) {
+                        error: function (err) {
                             console.log(err);
                         },
-                        always: function always() {
+                        always: function () {
                             target.setState({ loading: false, loaded: true });
                         }
                     });
                 }
             });
         },
-        toggleCollectionList: function toggleCollectionList() {
+        toggleCollectionList: function () {
             this.setState({ collectionListOpened: !this.state.collectionListOpened });
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             // Handle the collapseCollectionsListToggleWithESC
@@ -195,30 +193,30 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // This represents a row of one Model type with action buttons
     var DatabaseBlockListModelsListItem = React.createClass({
         displayName: "DatabaseBlockListModelsListItem",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 records: "Counting ...",
                 wyping: false
             };
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             this.loadAmountOfRecords();
         },
-        loadAmountOfRecords: function loadAmountOfRecords() {
+        loadAmountOfRecords: function () {
             var target = this;
 
             target.setState({ records: "Counting ..." });
 
             Synchronise.Cloud.run("superadminModelCount", { model: this.props.name }, {
-                success: function success(result) {
+                success: function (result) {
                     target.setState({ records: result });
                 },
-                error: function error() {
+                error: function () {
                     target.setState({ records: "An error occured while counting" });
                 }
             });
         },
-        wype: function wype() {
+        wype: function () {
             var target = this;
 
             if (!target.state.wyping) {
@@ -226,20 +224,20 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                     if (confirm) {
                         target.setState({ wyping: true });
                         Synchronise.Cloud.run("superadminFlushModel", { model: target.props.name }, {
-                            success: function success() {
+                            success: function () {
                                 target.setState({ wyping: false });
                                 target.loadAmountOfRecords();
                             },
-                            error: function error(_error) {
+                            error: function (error) {
                                 target.setState({ wyping: false });
-                                new ModalErrorParse(_error);
+                                new ModalErrorParse(error);
                             }
                         });
                     }
                 });
             }
         },
-        display: function display() {
+        display: function () {
             var target = this;
             ReactDOM.render(React.createElement(DatabaseBlockModelContent, { name: this.props.name }), document.getElementById("databaseModelContent"));
             panelFlow.scrollToBlock("databaseModelContentPanel");
@@ -257,7 +255,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 }
             });
         },
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "tr",
                 { className: "model" },
@@ -296,34 +294,34 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // Displays the data of a Model
     var DatabaseBlockModelContent = React.createClass({
         displayName: "DatabaseBlockModelContent",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return {
                 loading: false,
                 records: Array()
             };
         },
-        removeRow: function removeRow(id, callback) {
+        removeRow: function (id, callback) {
             Synchronise.Cloud.run("superadminRemoveRowFromModel", {
                 model: this.props.name,
                 id: id
             }, {
-                always: function always() {
+                always: function () {
                     callback();
                 }
             });
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             var target = this;
             target.setState({ loading: true });
 
             Synchronise.Cloud.run("superadminContentOfModel", { model: this.props.name, realtime: true }, {
-                success: function success(data) {
+                success: function (data) {
                     if (!data.length) {
                         panelFlow.scrollToBlock("databaseBlockPanel");
                     }
                     target.setState({ records: data });
                 },
-                error: function error(err) {
+                error: function (err) {
                     new ModalErrorParse("An error occured while trying to display the content of this model", function () {
                         panelFlow.scrollToBlock("databaseBlockPanel");
                         KeyEventController.unsubscribeComponent("databaseModelContentPanel");
@@ -332,12 +330,12 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                         }, 500);
                     });
                 },
-                always: function always() {
+                always: function () {
                     target.setState({ loading: false });
                 }
             });
         },
-        render: function render() {
+        render: function () {
             var content = "";
             if (this.state.loading) {
                 content = React.createElement(Loader, null);
@@ -366,10 +364,10 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // This represents the structure of the table that it display to show the content of a model
     var DatabaseBlockModelContentTable = React.createClass({
         displayName: "DatabaseBlockModelContentTable",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return { isRemoving: false };
         },
-        removeRow: function removeRow(id, event) {
+        removeRow: function (id, event) {
             var target = this;
 
             if (!target.state.isRemoving) {
@@ -379,7 +377,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
                 });
             }
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             return React.createElement(
@@ -403,7 +401,7 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // This represents the header of the table
     var DatabaseBlockModelContentTableHeader = React.createClass({
         displayName: "DatabaseBlockModelContentTableHeader",
-        render: function render() {
+        render: function () {
             return React.createElement(
                 "tr",
                 null,
@@ -421,16 +419,16 @@ dependenciesLoader(["Synchronise", "urlH", "$", "React", "ReactDOM", "Loader", "
     // This represents one row of a the content of the Model
     var DatabaseBlockModelContentTableRow = React.createClass({
         displayName: "DatabaseBlockModelContentTableRow",
-        getInitialState: function getInitialState() {
+        getInitialState: function () {
             return { isRemoving: false };
         },
-        removeRow: function removeRow(event) {
+        removeRow: function (event) {
             if (!this.state.isRemoving) {
                 this.props.removeRow(this.props.record.id, event);
                 this.setState({ isRemoving: true });
             }
         },
-        render: function render() {
+        render: function () {
             var target = this;
 
             var style = {

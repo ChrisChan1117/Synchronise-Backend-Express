@@ -1,18 +1,16 @@
-'use strict';
-
 var TimeAgo;
 
 dependenciesLoader(["React"], function () {
     TimeAgo = React.createClass({
         displayName: 'Time-Ago',
         timeoutId: 0,
-        getDefaultProps: function getDefaultProps() {
+        getDefaultProps: function () {
             return {
                 live: true,
                 component: 'span',
                 minPeriod: 0,
                 maxPeriod: Infinity,
-                formatter: function formatter(value, unit, suffix) {
+                formatter: function (value, unit, suffix) {
                     if (value !== 1) {
                         unit += 's';
                     }
@@ -28,12 +26,12 @@ dependenciesLoader(["React"], function () {
             formatter: React.PropTypes.func.isRequired,
             date: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number, React.PropTypes.instanceOf(Date)]).isRequired
         },
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function () {
             if (this.props.live) {
                 this.tick(true);
             }
         },
-        componentDidUpdate: function componentDidUpdate(lastProps) {
+        componentDidUpdate: function (lastProps) {
             if (this.props.live !== lastProps.live || this.props.date !== lastProps.date) {
                 if (!this.props.live && this.timeoutId) {
                     clearTimeout(this.timeoutId);
@@ -42,13 +40,13 @@ dependenciesLoader(["React"], function () {
                 this.tick();
             }
         },
-        componentWillUnmount: function componentWillUnmount() {
+        componentWillUnmount: function () {
             if (this.timeoutId) {
                 clearTimeout(this.timeoutId);
                 this.timeoutId = undefined;
             }
         },
-        tick: function tick(refresh) {
+        tick: function (refresh) {
             if (!this.isMounted() || !this.props.live) {
                 return;
             }
@@ -79,7 +77,7 @@ dependenciesLoader(["React"], function () {
                 this.forceUpdate();
             }
         },
-        render: function render() {
+        render: function () {
             var then = new Date(this.props.date).valueOf();
             var now = Date.now();
             var seconds = Math.round(Math.abs(now - then) / 1000);
