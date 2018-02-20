@@ -138,7 +138,7 @@ exports.parse = function(req, res, expectedParameters, callback, socketiomanager
             status = 100;
 
             message = JSON.stringify({
-                log: message.toString()
+                log: message
             });
 
             this.res.emit(this.channel, {

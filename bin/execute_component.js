@@ -158,7 +158,7 @@ if(missingParameters.length){
                 // Verify that we have all of the expected Outputs and that their type is correct
                 var missingParameters = [];
                 var incorrectTypeParameters = [];
-
+                
                 for (var i = 0; i < component_outputs.length; i++) {
                     var output = component_outputs[i];
                     if(!Output.hasOwnProperty(output.name)){
@@ -199,7 +199,7 @@ if(missingParameters.length){
                     errorString = "Incorrect type Outputs";
 
                     for (var i = 0; i < incorrectTypeParameters.length; i++) {
-                        var incorrectTypeParameters = [i];
+                        var row = incorrectTypeParameters[i];
                         if(i !== 0){
                             errorString += ", ";
                         }
@@ -288,8 +288,6 @@ if(missingParameters.length){
                     var row = arguments[i];
                     if(typeof(row) == "object"){
                         row = JSON.stringify(row);
-                    }else{
-                        row = row.toString();
                     }
 
                     logObject.log += row + "\n";
@@ -310,12 +308,10 @@ if(missingParameters.length){
         var console  = sandbox.console;
         var Input    = parameters;
         var Output   = Output;
-
         var keysDeps = Object.keys(dependencies);
         for (var i = 0; i < keysDeps.length; i++) {
             global[keysDeps[i]] = dependencies[keysDeps[i]];
         }
-        
         eval(component);
     }
 

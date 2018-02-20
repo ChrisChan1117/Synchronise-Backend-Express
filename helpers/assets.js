@@ -160,7 +160,7 @@ exports.googleCredentials = function(){
 // These are the credentials to connect to the databases
 // PRODUCTION DATABASE
 if(process.env.PRODUCTION){
-	var rcEvents = {
+	rcEvents = {
 		host       : process.env.REDIS_EVENTS_HOST,
 		port       : process.env.REDIS_EVENTS_PORT,
 		pass       : process.env.REDIS_EVENTS_PASS,
@@ -168,7 +168,7 @@ if(process.env.PRODUCTION){
 		secret     : process.env.REDIS_EVENTS_SECRET
 	};
 
-	var rcSession = {
+	rcSession = {
 		host       : process.env.REDIS_SESSION_HOST,
 		port       : process.env.REDIS_SESSION_PORT,
 		pass       : process.env.REDIS_SESSION_PASS,
@@ -176,7 +176,7 @@ if(process.env.PRODUCTION){
 		secret     : process.env.REDIS_SESSION_SECRET
 	};
 
-	var rcData = {
+	rcData = {
 		host       : process.env.REDIS_DATA_DATA,
 		port       : process.env.REDIS_DATA_PORT,
 		pass       : process.env.REDIS_DATA_PASS,
@@ -185,28 +185,28 @@ if(process.env.PRODUCTION){
 	};
 }else{
 	// DEVELOPMENT DATABASE
-	var rcEvents = {
-		host       : process.env.REDIS_EVENTS_HOST_DEV || "redis-11812.c12.us-east-1-4.ec2.cloud.redislabs.com",
-		port       : process.env.REDIS_EVENTS_PORT_DEV || "11812",
-		pass       : process.env.REDIS_EVENTS_PASS_DEV,
+	rcEvents = {
+		host       : process.env.REDIS_EVENTS_HOST_DEV || "localhost",
+		port       : process.env.REDIS_EVENTS_PORT_DEV || "6379",
+		pass       : process.env.REDIS_EVENTS_PASS_DEV || "",
 		disableTTL : true,
-		secret     : process.env.REDIS_EVENTS_SECRET_DEV
+		secret     : process.env.REDIS_EVENTS_SECRET_DEV || ""
 	};
 
-	var rcSession = {
-		host       : process.env.REDIS_SESSION_HOST_DEV || "redis-11812.c12.us-east-1-4.ec2.cloud.redislabs.com",
-		port       : process.env.REDIS_SESSION_PORT_DEV || "11812",
-		pass       : process.env.REDIS_SESSION_PASS_DEV,
+	rcSession = {
+		host       : process.env.REDIS_SESSION_HOST_DEV || "localhost",
+		port       : process.env.REDIS_SESSION_PORT_DEV || "6379",
+		pass       : process.env.REDIS_SESSION_PASS_DEV || "",
 		disableTTL : true,
-		secret     : process.env.REDIS_SESSION_SECRET_DEV
+		secret     : process.env.REDIS_SESSION_SECRET_DEV || ""
 	};
 
-	var rcData = {
-		host       : process.env.REDIS_DATA_DATA_DEV || "redis-11812.c12.us-east-1-4.ec2.cloud.redislabs.com",
-		port       : process.env.REDIS_DATA_PORT_DEV || "11812",
-		pass       : process.env.REDIS_DATA_PASS_DEV,
+	rcData = {
+		host       : process.env.REDIS_DATA_DATA_DEV || "localhost",
+		port       : process.env.REDIS_DATA_PORT_DEV || "6379",
+		pass       : process.env.REDIS_DATA_PASS_DEV || "",
 		disableTTL : true,
-		secret     : process.env.REDIS_DATA_SECRET_DEV
+		secret     : process.env.REDIS_DATA_SECRET_DEV || ""
 	};
 }
 
@@ -235,14 +235,16 @@ if(process.env.NODE && ~process.env.NODE.indexOf("heroku")){
 	redisSessionStore      = redisCreateClient(redisSessionStoreCredentials.port, redisSessionStoreCredentials.hostname, {no_ready_check: true});
 	redisSessionStore.auth(redisSessionStoreCredentials.auth.split(":")[1]);
 }else{
-	publishRedisAdapter    = redisCreateClient(rcEvents.port, rcEvents.host, { return_buffers: false });
-	if(rcEvents.pass){publishRedisAdapter.auth(rcEvents.pass);}
-	subscriberRedisAdapter = redisCreateClient(rcEvents.port, rcEvents.host, { detect_buffers: false, return_buffers: false });
-	if(rcEvents.pass){subscriberRedisAdapter.auth(rcEvents.pass);}
-	redisDataStore         = redisCreateClient(rcData.port, rcData.host, { detect_buffers: true });
-	if(rcData.pass){redisDataStore.auth(rcData.pass);}
-	redisSessionStore      = redisCreateClient(rcSession.port, rcSession.host);
-	if(rcSession.pass){redisSessionStore.auth(rcSession.pass);}
+	var redisDataStoreCredentials         = "redis://:"+rcData.pass+"@"+rcData.host+":"+rcData.port+"/0";
+
+	publishRedisAdapter    = redisCreateClient({ url: "redis://"+rcEvents.host+":"+rcEvents.port+"/0", return_buffers: false });
+	publishRedisAdapter.auth(rcEvents.pass);
+	subscriberRedisAdapter = redisCreateClient({ url: "redis://"+rcEvents.host+":"+rcEvents.port+"/0", detect_buffers: false, return_buffers: false });
+	subscriberRedisAdapter.auth(rcEvents.pass);
+	redisDataStore         = redisCreateClient({url: "redis://"+rcData.host+":"+rcData.port+"/0", detect_buffers: true });
+	redisDataStore.auth(rcData.pass);
+	redisSessionStore      = redisCreateClient({url: "redis://"+rcSession.host+":"+rcSession.port+"/0"});
+	redisSessionStore.auth(rcSession.pass);
 }
 
 publishRedisAdapter.on("error", function(error){

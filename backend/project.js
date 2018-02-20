@@ -86,7 +86,7 @@ exports.addUpdateProject = function(request, response){
         if(!projectId){
             d.Project.createProject(params).then(function(project){
                 assets.intercomTrackEvent("createdProject", user.id);
-                response.success(project, 200, {}, [user.id]);
+                response.success(project, 200, {id_project: project.id}, [user.id]);
             }, function(err){
                 response.error('An error occured while saving the project, please try again.');
             });

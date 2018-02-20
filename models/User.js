@@ -174,7 +174,7 @@ module.exports = function (db, cb) {
                                     resolveThis();
                                 }else{ // The user does not have a subscription, we set the default one which is earth
                                     ormLoader.model(["UserSubscription"]).then(function(d){
-                                        d.UserSubscription.createOrActivateSubscriptionForUser("earth", user).then(function(subscription){
+                                        d.UserSubscription.createOrActivateSubscriptionForUser("mars", user).then(function(subscription){
                                             userObject.subscription       = subscription.subscription;
                                             userObject.subscriptionEnds   = subscription.ends;
                                             userObject.subscriptionActive = subscription.status;

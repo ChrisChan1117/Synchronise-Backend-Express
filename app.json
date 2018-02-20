@@ -18,7 +18,7 @@
         },
         "SYNCHRONISEAPIKEY":{
             "description": "This is the default API KEY for SYNCHRONISE (we use synchronise to run synchronise, its kind of an inception). This key must be the API key of the first registered user (which also happens to be the admin).",
-            "value": "",
+            "value": "apikey",
             "required": false
         },
         "MAILGUN_KEY":{

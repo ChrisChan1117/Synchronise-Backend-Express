@@ -9,6 +9,7 @@ var database     = undefined;
 var models       = {}; // Loads the Models in memory for faster access
 
 orm.addAdapter('redis', orm_redis.adapter);
+
 var opts = {
     protocol : "redis",
     host     : assets.redisDataStoreCredentials.host,
@@ -16,14 +17,15 @@ var opts = {
     password : assets.redisDataStoreCredentials.secret,
     pass     : assets.redisDataStoreCredentials.secret,
     secret   : assets.redisDataStoreCredentials.secret,
+    db       : "0",
     query    : {
-        pool     : true,
+        pool     : false,
         debug    : false,
         strdates : false
     }
 };
 
-orm.connect(opts, function(err, db){
+orm.connect("redis://:"+assets.redisDataStoreCredentials.secret+"@"+assets.redisDataStoreCredentials.host+":"+assets.redisDataStoreCredentials.port, function(err, db){
     if(!err){
         db.use(orm_redis.plugin);
 
