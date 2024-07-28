@@ -23,7 +23,7 @@ Here are the 3 features available so far:
 ## Install and Run on your own server
 ### Fork it or Clone it
 ```shell
-git clone https://github.com/synchroniseiorepo/server
+git clone https://github.com/ChrisChan1117/server
 ```
 
 ### Install the databases
