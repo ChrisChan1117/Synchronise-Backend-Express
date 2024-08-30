@@ -8,7 +8,7 @@
 * [Contribute](#contribute)
 
 ## Introduction
-Synchronise is an integration backend as a service created by [Thibaut Rey](https://www.twitter.com/thibautrey). It helps you connect web services to your app, without having to configure everything yourself or even maintain a server. It simplifies the integration process by standardising any APIs, and turning them into objects called "Components".
+Synchronise is an integration backend as a service. It helps you connect web services to your app, without having to configure everything yourself or even maintain a server. It simplifies the integration process by standardising any APIs, and turning them into objects called "Components".
 Components can be combined together in a "Workflow" to create more complex actions. Steps after steps you can create very powerful Workflows that will save you time and money.
 
 Imagine a "Workflow" that "registers a user on your database", "send an email with mailgun" and "create a customer account on stripe", all that without having to write a single line of code.
